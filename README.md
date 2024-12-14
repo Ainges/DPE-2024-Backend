@@ -1,3 +1,10 @@
+<a href="https://gitmoji.dev">
+  <img
+    src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square"
+    alt="Gitmoji"
+  />
+</a>
+
 # DPE-2024 Backend
 
 Dieses Projekt ist Teil des DPE-2024-Projektes und basiert auf zwei Repositories: `DPE-2024-Backend` und `DPE-2024-Models`.
