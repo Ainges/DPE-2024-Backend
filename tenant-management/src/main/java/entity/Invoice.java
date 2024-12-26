@@ -6,19 +6,14 @@
 
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int invoiceId;
+    private long invoiceId;
 
     private Date invoiceDate;
     private float invoiceAmount;
@@ -32,11 +27,11 @@ public class Invoice {
     private HousingObject housingObject;
 
     // Getters and Setters
-    public int getInvoiceId() {
+    public long getInvoiceId() {
         return invoiceId;
     }
 
-    public void setInvoiceId(int invoiceId) {
+    public void setInvoiceId(long invoiceId) {
         this.invoiceId = invoiceId;
     }
 

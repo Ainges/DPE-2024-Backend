@@ -5,18 +5,13 @@
  */
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 
 @Entity
 public class Apartment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int apartmentId;
+    private long apartmentId;
 
     @ManyToOne
     @JoinColumn(name = "housingObjectId")
@@ -29,7 +24,7 @@ public class Apartment {
     private float additionalCostPrepayment;
 
     // Getters and Setters
-    public int getApartmentId() {
+    public long getApartmentId() {
         return apartmentId;
     }
 

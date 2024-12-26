@@ -6,17 +6,14 @@
 
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class HousingObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int housingObjectId;
+    private long housingObjectId;
 
     private String name;
     private String street;
@@ -38,7 +35,7 @@ public class HousingObject {
         this.numberOfApartments = numberOfApartments;
     }
 
-    public int getHousingObjectId() {
+    public long getHousingObjectId() {
         return housingObjectId;
     }
 
