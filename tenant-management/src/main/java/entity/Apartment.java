@@ -23,6 +23,19 @@ public class Apartment {
     private float heatingCostPrepayment;
     private float additionalCostPrepayment;
 
+    // Default constructor
+    public Apartment() {
+    }
+
+    public Apartment(HousingObject housingObject, float areaInM2, int numberOfRooms, float coldRent, float heatingCostPrepayment, float additionalCostPrepayment) {
+        this.housingObject = housingObject;
+        this.areaInM2 = areaInM2;
+        this.numberOfRooms = numberOfRooms;
+        this.coldRent = coldRent;
+        this.heatingCostPrepayment = heatingCostPrepayment;
+        this.additionalCostPrepayment = additionalCostPrepayment;
+    }
+
     // Getters and Setters
     public long getApartmentId() {
         return apartmentId;

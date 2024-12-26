@@ -22,11 +22,11 @@ public class HousingObject {
     private String zipCode;
     private int numberOfApartments;
 
+    // Default constructor
     public HousingObject() {
     }
 
-    public HousingObject(int housingObjectId, String name, String street, String city, String state, String zipCode, int numberOfApartments) {
-        this.housingObjectId = housingObjectId;
+    public HousingObject(String name, String street, String city, String state, String zipCode, int numberOfApartments) {
         this.name = name;
         this.street = street;
         this.city = city;

@@ -7,6 +7,7 @@
 package entity;
 
 import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -28,6 +29,31 @@ public class AnnualStatement {
 
     @ManyToMany(mappedBy = "annualStatements")
     private Set<InvoiceCategory> invoiceCategories;
+
+    // Default constructor
+    public AnnualStatement() {
+    }
+
+    // Constructor without invoice categories
+    public AnnualStatement(RentalAgreement rentalAgreement, Date periodStart, Date periodEnd, float totalCost, float totalPrepayments, float difference) {
+        this.rentalAgreement = rentalAgreement;
+        this.periodStart = periodStart;
+        this.periodEnd = periodEnd;
+        this.totalCost = totalCost;
+        this.totalPrepayments = totalPrepayments;
+        this.difference = difference;
+    }
+
+    // Constructor with invoice categories
+    public AnnualStatement(RentalAgreement rentalAgreement, Date periodStart, Date periodEnd, float totalCost, float totalPrepayments, float difference, Set<InvoiceCategory> invoiceCategories) {
+        this.rentalAgreement = rentalAgreement;
+        this.periodStart = periodStart;
+        this.periodEnd = periodEnd;
+        this.totalCost = totalCost;
+        this.totalPrepayments = totalPrepayments;
+        this.difference = difference;
+        this.invoiceCategories = invoiceCategories;
+    }
 
     // Getters and Setters
     public long getAnnualStatementId() {

@@ -6,6 +6,7 @@
 package entity;
 
 import jakarta.persistence.*;
+
 import java.util.Set;
 
 @Entity
@@ -27,6 +28,29 @@ public class Tenant {
             inverseJoinColumns = @JoinColumn(name = "rentalAgreementId")
     )
     private Set<RentalAgreement> rentalAgreements;
+
+    // Default constructor
+    public Tenant() {
+    }
+
+    // Constructor without rental agreements
+    public Tenant(String firstName, String lastName, String email, String phoneNumber, boolean active) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.active = active;
+    }
+
+    // Constructor with rental agreements
+    public Tenant(String firstName, String lastName, String email, String phoneNumber, boolean active, Set<RentalAgreement> rentalAgreements) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.active = active;
+        this.rentalAgreements = rentalAgreements;
+    }
 
     // Getters and Setters
     public long getTenantId() {

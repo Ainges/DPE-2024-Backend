@@ -6,6 +6,7 @@
 package entity;
 
 import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -24,6 +25,25 @@ public class RentalAgreement {
 
     private Date startDate;
     private Date endDate;
+
+    // Default constructor
+    public RentalAgreement() {
+    }
+
+    // Constructor without tenants
+    public RentalAgreement(Apartment apartment, Date startDate, Date endDate) {
+        this.apartment = apartment;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    // Constructor with tenants
+    public RentalAgreement(Set<Tenant> tenants, Apartment apartment, Date startDate, Date endDate) {
+        this.tenants = tenants;
+        this.apartment = apartment;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     // Getters and Setters
     public long getRentalAgreementId() {

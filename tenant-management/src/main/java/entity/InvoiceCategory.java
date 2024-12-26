@@ -7,6 +7,7 @@
 package entity;
 
 import jakarta.persistence.*;
+
 import java.util.Set;
 
 @Entity
@@ -26,6 +27,25 @@ public class InvoiceCategory {
             inverseJoinColumns = @JoinColumn(name = "annualStatementId")
     )
     private Set<AnnualStatement> annualStatements;
+
+    // Default constructor
+    public InvoiceCategory() {
+    }
+
+    // Constructor without annual statements
+    public InvoiceCategory(String name, String unit, String distributionKey) {
+        this.name = name;
+        this.unit = unit;
+        this.distributionKey = distributionKey;
+    }
+
+    // Constructor with annual statements
+    public InvoiceCategory(String name, String unit, String distributionKey, Set<AnnualStatement> annualStatements) {
+        this.name = name;
+        this.unit = unit;
+        this.distributionKey = distributionKey;
+        this.annualStatements = annualStatements;
+    }
 
     // Getters and Setters
     public long getInvoiceCategoryId() {

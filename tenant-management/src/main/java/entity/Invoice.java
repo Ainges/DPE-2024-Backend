@@ -7,6 +7,7 @@
 package entity;
 
 import jakarta.persistence.*;
+
 import java.util.Date;
 
 @Entity
@@ -25,6 +26,18 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "housingObjectId")
     private HousingObject housingObject;
+    
+    // Default constructor
+    public Invoice() {
+    }
+
+    // Parameterized constructor
+    public Invoice(Date invoiceDate, float invoiceAmount, InvoiceCategory invoiceCategory, HousingObject housingObject) {
+        this.invoiceDate = invoiceDate;
+        this.invoiceAmount = invoiceAmount;
+        this.invoiceCategory = invoiceCategory;
+        this.housingObject = housingObject;
+    }
 
     // Getters and Setters
     public long getInvoiceId() {
