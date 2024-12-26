@@ -3,10 +3,10 @@
  * Primary author GitHub Copilot
  * Secondary author Moritz Baur
  */
-
 package endpoint;
 
 import entity.AnnualStatement;
+import entity.InvoiceCategory;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -14,8 +14,10 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import repository.AnnualStatementRepository;
+import repository.InvoiceCategoryRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @ApplicationScoped
 @Path("/annual-statements")
@@ -25,6 +27,9 @@ public class AnnualStatementEndpoint {
 
     @Inject
     AnnualStatementRepository annualStatementRepository;
+
+    @Inject
+    InvoiceCategoryRepository invoiceCategoryRepository;
 
     @GET
     public List<AnnualStatement> getAllAnnualStatements() {
@@ -40,6 +45,13 @@ public class AnnualStatementEndpoint {
     @POST
     @Transactional
     public Response createAnnualStatement(AnnualStatement annualStatement) {
+        Set<InvoiceCategory> categories = annualStatement.getInvoiceCategories();
+        for (InvoiceCategory category : categories) {
+            InvoiceCategory existingCategory = invoiceCategoryRepository.findById(category.getInvoiceCategoryId());
+            if (existingCategory != null) {
+                category = existingCategory;
+            }
+        }
         annualStatementRepository.persist(annualStatement);
         return Response.status(Response.Status.CREATED).entity(annualStatement).build();
     }
@@ -58,6 +70,16 @@ public class AnnualStatementEndpoint {
         existingAnnualStatement.setTotalCost(annualStatement.getTotalCost());
         existingAnnualStatement.setTotalPrepayments(annualStatement.getTotalPrepayments());
         existingAnnualStatement.setDifference(annualStatement.getDifference());
+
+        Set<InvoiceCategory> categories = annualStatement.getInvoiceCategories();
+        for (InvoiceCategory category : categories) {
+            InvoiceCategory existingCategory = invoiceCategoryRepository.findById(category.getInvoiceCategoryId());
+            if (existingCategory != null) {
+                category = existingCategory;
+            }
+        }
+        existingAnnualStatement.setInvoiceCategories(categories);
+
         annualStatementRepository.persist(existingAnnualStatement);
         return Response.ok(existingAnnualStatement).build();
     }
@@ -74,7 +96,6 @@ public class AnnualStatementEndpoint {
         return Response.noContent().build();
     }
 }
-
 /**
  * End
  * Primary author GitHub Copilot

@@ -6,19 +6,15 @@
 
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class AnnualStatement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int annualStatementId;
+    private long annualStatementId;
 
     @ManyToOne
     @JoinColumn(name = "rentalAgreementId")
@@ -30,12 +26,15 @@ public class AnnualStatement {
     private float totalPrepayments;
     private float difference;
 
+    @ManyToMany(mappedBy = "annualStatements")
+    private Set<InvoiceCategory> invoiceCategories;
+
     // Getters and Setters
-    public int getAnnualStatementId() {
+    public long getAnnualStatementId() {
         return annualStatementId;
     }
 
-    public void setAnnualStatementId(int annualStatementId) {
+    public void setAnnualStatementId(long annualStatementId) {
         this.annualStatementId = annualStatementId;
     }
 
@@ -85,6 +84,14 @@ public class AnnualStatement {
 
     public void setDifference(float difference) {
         this.difference = difference;
+    }
+
+    public Set<InvoiceCategory> getInvoiceCategories() {
+        return invoiceCategories;
+    }
+
+    public void setInvoiceCategories(Set<InvoiceCategory> invoiceCategories) {
+        this.invoiceCategories = invoiceCategories;
     }
 }
 

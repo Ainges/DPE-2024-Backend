@@ -5,16 +5,14 @@
  */
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Tenant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tenantId;
+    private long tenantId;
 
     private String firstName;
     private String lastName;
@@ -22,12 +20,20 @@ public class Tenant {
     private String phoneNumber;
     private boolean active;
 
+    @ManyToMany
+    @JoinTable(
+            name = "Tenant_RentalAgreement",
+            joinColumns = @JoinColumn(name = "tenantId"),
+            inverseJoinColumns = @JoinColumn(name = "rentalAgreementId")
+    )
+    private Set<RentalAgreement> rentalAgreements;
+
     // Getters and Setters
-    public int getTenantId() {
+    public long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(int tenantId) {
+    public void setTenantId(long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -70,7 +76,16 @@ public class Tenant {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public Set<RentalAgreement> getRentalAgreements() {
+        return rentalAgreements;
+    }
+
+    public void setRentalAgreements(Set<RentalAgreement> rentalAgreements) {
+        this.rentalAgreements = rentalAgreements;
+    }
 }
+
 /**
  * End
  * Primary @author GitHub Copilot

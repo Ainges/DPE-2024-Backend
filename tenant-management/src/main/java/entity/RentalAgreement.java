@@ -3,26 +3,20 @@
  * Primary @author GitHub Copilot
  * Secondary @author Moritz Baur
  */
-
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class RentalAgreement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rentalAgreementId;
+    private long rentalAgreementId;
 
-    @ManyToOne
-    @JoinColumn(name = "tenantId")
-    private Tenant tenant;
+    @ManyToMany(mappedBy = "rentalAgreements")
+    private Set<Tenant> tenants;
 
     @ManyToOne
     @JoinColumn(name = "apartmentId")
@@ -32,20 +26,20 @@ public class RentalAgreement {
     private Date endDate;
 
     // Getters and Setters
-    public int getRentalAgreementId() {
+    public long getRentalAgreementId() {
         return rentalAgreementId;
     }
 
-    public void setRentalAgreementId(int rentalAgreementId) {
+    public void setRentalAgreementId(long rentalAgreementId) {
         this.rentalAgreementId = rentalAgreementId;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public Set<Tenant> getTenants() {
+        return tenants;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setTenants(Set<Tenant> tenants) {
+        this.tenants = tenants;
     }
 
     public Apartment getApartment() {
@@ -72,6 +66,7 @@ public class RentalAgreement {
         this.endDate = endDate;
     }
 }
+
 /**
  * End
  * Primary @author GitHub Copilot

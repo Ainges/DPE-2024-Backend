@@ -6,27 +6,33 @@
 
 package entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 public class InvoiceCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int invoiceCategoryId;
+    private long invoiceCategoryId;
 
     private String name;
     private String unit;
     private String distributionKey;
 
+    @ManyToMany
+    @JoinTable(
+            name = "InvoiceCategory_AnnualStatement",
+            joinColumns = @JoinColumn(name = "invoiceCategoryId"),
+            inverseJoinColumns = @JoinColumn(name = "annualStatementId")
+    )
+    private Set<AnnualStatement> annualStatements;
+
     // Getters and Setters
-    public int getInvoiceCategoryId() {
+    public long getInvoiceCategoryId() {
         return invoiceCategoryId;
     }
 
-    public void setInvoiceCategoryId(int invoiceCategoryId) {
+    public void setInvoiceCategoryId(long invoiceCategoryId) {
         this.invoiceCategoryId = invoiceCategoryId;
     }
 
@@ -52,6 +58,14 @@ public class InvoiceCategory {
 
     public void setDistributionKey(String distributionKey) {
         this.distributionKey = distributionKey;
+    }
+
+    public Set<AnnualStatement> getAnnualStatements() {
+        return annualStatements;
+    }
+
+    public void setAnnualStatements(Set<AnnualStatement> annualStatements) {
+        this.annualStatements = annualStatements;
     }
 }
 /**

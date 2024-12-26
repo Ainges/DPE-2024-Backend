@@ -3,10 +3,10 @@
  * Primary @author GitHub Copilot
  * Secondary @author Moritz Baur
  */
-
 package endpoint;
 
 import entity.Tenant;
+import entity.RentalAgreement;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -14,8 +14,10 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import repository.TenantRepository;
+import repository.RentalAgreementRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @ApplicationScoped
 @Path("/tenants")
@@ -25,6 +27,9 @@ public class TenantEndpoint {
 
     @Inject
     TenantRepository tenantRepository;
+
+    @Inject
+    RentalAgreementRepository rentalAgreementRepository;
 
     @GET
     public List<Tenant> getAllTenants() {
@@ -40,6 +45,13 @@ public class TenantEndpoint {
     @POST
     @Transactional
     public Response createTenant(Tenant tenant) {
+        Set<RentalAgreement> agreements = tenant.getRentalAgreements();
+        for (RentalAgreement agreement : agreements) {
+            RentalAgreement existingAgreement = rentalAgreementRepository.findById(agreement.getRentalAgreementId());
+            if (existingAgreement != null) {
+                agreement = existingAgreement;
+            }
+        }
         tenantRepository.persist(tenant);
         return Response.status(Response.Status.CREATED).entity(tenant).build();
     }
@@ -57,6 +69,16 @@ public class TenantEndpoint {
         existingTenant.setEmail(tenant.getEmail());
         existingTenant.setPhoneNumber(tenant.getPhoneNumber());
         existingTenant.setActive(tenant.isActive());
+
+        Set<RentalAgreement> agreements = tenant.getRentalAgreements();
+        for (RentalAgreement agreement : agreements) {
+            RentalAgreement existingAgreement = rentalAgreementRepository.findById(agreement.getRentalAgreementId());
+            if (existingAgreement != null) {
+                agreement = existingAgreement;
+            }
+        }
+        existingTenant.setRentalAgreements(agreements);
+
         tenantRepository.persist(existingTenant);
         return Response.ok(existingTenant).build();
     }
