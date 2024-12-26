@@ -46,11 +46,14 @@ public class TenantEndpoint {
     @Transactional
     public Response createTenant(Tenant tenant) {
         Set<RentalAgreement> agreements = tenant.getRentalAgreements();
-        for (RentalAgreement agreement : agreements) {
-            RentalAgreement existingAgreement = rentalAgreementRepository.findById(agreement.getRentalAgreementId());
-            if (existingAgreement != null) {
-                agreement = existingAgreement;
+        if (agreements != null && !agreements.isEmpty()) {
+            for (RentalAgreement agreement : agreements) {
+                RentalAgreement existingAgreement = rentalAgreementRepository.findById(agreement.getRentalAgreementId());
+                if (existingAgreement != null) {
+                    agreement = existingAgreement;
+                }
             }
+            tenant.setRentalAgreements(agreements); // Update the rental agreements set
         }
         tenantRepository.persist(tenant);
         return Response.status(Response.Status.CREATED).entity(tenant).build();
@@ -71,10 +74,12 @@ public class TenantEndpoint {
         existingTenant.setActive(tenant.isActive());
 
         Set<RentalAgreement> agreements = tenant.getRentalAgreements();
-        for (RentalAgreement agreement : agreements) {
-            RentalAgreement existingAgreement = rentalAgreementRepository.findById(agreement.getRentalAgreementId());
-            if (existingAgreement != null) {
-                agreement = existingAgreement;
+        if (agreements != null && !agreements.isEmpty()) {
+            for (RentalAgreement agreement : agreements) {
+                RentalAgreement existingAgreement = rentalAgreementRepository.findById(agreement.getRentalAgreementId());
+                if (existingAgreement != null) {
+                    agreement = existingAgreement;
+                }
             }
         }
         existingTenant.setRentalAgreements(agreements);

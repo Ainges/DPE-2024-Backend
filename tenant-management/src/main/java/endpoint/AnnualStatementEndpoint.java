@@ -46,11 +46,14 @@ public class AnnualStatementEndpoint {
     @Transactional
     public Response createAnnualStatement(AnnualStatement annualStatement) {
         Set<InvoiceCategory> categories = annualStatement.getInvoiceCategories();
-        for (InvoiceCategory category : categories) {
-            InvoiceCategory existingCategory = invoiceCategoryRepository.findById(category.getInvoiceCategoryId());
-            if (existingCategory != null) {
-                category = existingCategory;
+        if (categories != null && !categories.isEmpty()) {
+            for (InvoiceCategory category : categories) {
+                InvoiceCategory existingCategory = invoiceCategoryRepository.findById(category.getInvoiceCategoryId());
+                if (existingCategory != null) {
+                    category = existingCategory;
+                }
             }
+            annualStatement.setInvoiceCategories(categories); // Update the invoice categories set
         }
         annualStatementRepository.persist(annualStatement);
         return Response.status(Response.Status.CREATED).entity(annualStatement).build();
@@ -72,10 +75,12 @@ public class AnnualStatementEndpoint {
         existingAnnualStatement.setDifference(annualStatement.getDifference());
 
         Set<InvoiceCategory> categories = annualStatement.getInvoiceCategories();
-        for (InvoiceCategory category : categories) {
-            InvoiceCategory existingCategory = invoiceCategoryRepository.findById(category.getInvoiceCategoryId());
-            if (existingCategory != null) {
-                category = existingCategory;
+        if (categories != null && !categories.isEmpty()) {
+            for (InvoiceCategory category : categories) {
+                InvoiceCategory existingCategory = invoiceCategoryRepository.findById(category.getInvoiceCategoryId());
+                if (existingCategory != null) {
+                    category = existingCategory;
+                }
             }
         }
         existingAnnualStatement.setInvoiceCategories(categories);
@@ -83,6 +88,7 @@ public class AnnualStatementEndpoint {
         annualStatementRepository.persist(existingAnnualStatement);
         return Response.ok(existingAnnualStatement).build();
     }
+
 
     @DELETE
     @Path("/{id}")

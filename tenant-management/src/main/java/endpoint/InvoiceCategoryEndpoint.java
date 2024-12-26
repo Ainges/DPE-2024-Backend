@@ -47,11 +47,14 @@ public class InvoiceCategoryEndpoint {
     @Transactional
     public Response createInvoiceCategory(InvoiceCategory invoiceCategory) {
         Set<AnnualStatement> statements = invoiceCategory.getAnnualStatements();
-        for (AnnualStatement statement : statements) {
-            AnnualStatement existingStatement = annualStatementRepository.findById(statement.getAnnualStatementId());
-            if (existingStatement != null) {
-                statement = existingStatement;
+        if (statements != null && !statements.isEmpty()) {
+            for (AnnualStatement statement : statements) {
+                AnnualStatement existingStatement = annualStatementRepository.findById(statement.getAnnualStatementId());
+                if (existingStatement != null) {
+                    statement = existingStatement;
+                }
             }
+            invoiceCategory.setAnnualStatements(statements); // Update the annual statements set
         }
         invoiceCategoryRepository.persist(invoiceCategory);
         return Response.status(Response.Status.CREATED).entity(invoiceCategory).build();
@@ -70,10 +73,12 @@ public class InvoiceCategoryEndpoint {
         existingInvoiceCategory.setDistributionKey(invoiceCategory.getDistributionKey());
 
         Set<AnnualStatement> statements = invoiceCategory.getAnnualStatements();
-        for (AnnualStatement statement : statements) {
-            AnnualStatement existingStatement = annualStatementRepository.findById(statement.getAnnualStatementId());
-            if (existingStatement != null) {
-                statement = existingStatement;
+        if (statements != null && !statements.isEmpty()) {
+            for (AnnualStatement statement : statements) {
+                AnnualStatement existingStatement = annualStatementRepository.findById(statement.getAnnualStatementId());
+                if (existingStatement != null) {
+                    statement = existingStatement;
+                }
             }
         }
         existingInvoiceCategory.setAnnualStatements(statements);

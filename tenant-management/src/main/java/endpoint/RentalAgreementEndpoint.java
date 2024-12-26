@@ -46,12 +46,16 @@ public class RentalAgreementEndpoint {
     @Transactional
     public Response createRentalAgreement(RentalAgreement rentalAgreement) {
         Set<Tenant> tenants = rentalAgreement.getTenants();
-        for (Tenant tenant : tenants) {
-            Tenant existingTenant = tenantRepository.findById(tenant.getTenantId());
-            if (existingTenant != null) {
-                tenant = existingTenant;
+        if (tenants != null && !tenants.isEmpty()) {
+            for (Tenant tenant : tenants) {
+                Tenant existingTenant = tenantRepository.findById(tenant.getTenantId());
+                if (existingTenant != null) {
+                    tenant = existingTenant;
+                }
             }
+            rentalAgreement.setTenants(tenants); // Update the tenants set
         }
+
         rentalAgreementRepository.persist(rentalAgreement);
         return Response.status(Response.Status.CREATED).entity(rentalAgreement).build();
     }
@@ -69,10 +73,12 @@ public class RentalAgreementEndpoint {
         existingRentalAgreement.setEndDate(rentalAgreement.getEndDate());
 
         Set<Tenant> tenants = rentalAgreement.getTenants();
-        for (Tenant tenant : tenants) {
-            Tenant existingTenant = tenantRepository.findById(tenant.getTenantId());
-            if (existingTenant != null) {
-                tenant = existingTenant;
+        if (tenants != null && !tenants.isEmpty()) {
+            for (Tenant tenant : tenants) {
+                Tenant existingTenant = tenantRepository.findById(tenant.getTenantId());
+                if (existingTenant != null) {
+                    tenant = existingTenant;
+                }
             }
         }
         existingRentalAgreement.setTenants(tenants);
