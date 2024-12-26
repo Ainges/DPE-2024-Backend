@@ -1,4 +1,8 @@
-/** Moritz Baur: Created using GitHub Copilot */
+/**
+ * Start
+ * Primary @author GitHub Copilot
+ * Secondary @author Moritz Baur
+ */
 
 package entity;
 
@@ -90,3 +94,8 @@ public class HousingObject {
         this.numberOfApartments = numberOfApartments;
     }
 }
+/**
+ * End
+ * Primary @author GitHub Copilot
+ * Secondary @author Moritz Baur
+ */

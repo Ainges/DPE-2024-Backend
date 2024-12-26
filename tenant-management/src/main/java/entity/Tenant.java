@@ -1,5 +1,8 @@
-/** Moritz Baur: Created using GitHub Copilot */
-
+/**
+ * Start
+ * Primary @author GitHub Copilot
+ * Secondary @author Moritz Baur
+ */
 package entity;
 
 import jakarta.persistence.Entity;
@@ -68,3 +71,8 @@ public class Tenant {
         this.active = active;
     }
 }
+/**
+ * End
+ * Primary @author GitHub Copilot
+ * Secondary @author Moritz Baur
+ */

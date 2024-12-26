@@ -1,5 +1,8 @@
-/** Moritz Baur: Created using GitHub Copilot */
-
+/**
+ * Start
+ * Primary @author GitHub Copilot
+ * Secondary @author Moritz Baur
+ */
 package entity;
 
 import jakarta.persistence.Entity;
@@ -82,3 +85,9 @@ public class Apartment {
         this.additionalCostPrepayment = additionalCostPrepayment;
     }
 }
+
+/**
+ * End
+ * Primary @author GitHub Copilot
+ * Secondary @author Moritz Baur
+ */

@@ -1,4 +1,8 @@
-/** Moritz Baur: Created using GitHub Copilot */
+/**
+ * Start
+ * Primary @author GitHub Copilot
+ * Secondary @author Moritz Baur
+ */
 
 package entity;
 
@@ -83,3 +87,9 @@ public class AnnualStatement {
         this.difference = difference;
     }
 }
+
+/**
+ * End
+ * Primary @author GitHub Copilot
+ * Secondary @author Moritz Baur
+ */
