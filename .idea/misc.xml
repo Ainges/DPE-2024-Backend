@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="Quarkus" url="file://$PROJECT_DIR$/service1" />
+    <file type="Quarkus" url="file://$PROJECT_DIR$/tenant-management" />
   </component>
   <component name="JsBuildToolPackageJson" sorting="DEFINITION_ORDER" />
   <component name="MavenProjectsManager">
