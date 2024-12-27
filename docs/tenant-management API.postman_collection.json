@@ -1,0 +1,3107 @@
+{
+	"info": {
+		"_postman_id": "9b3a5117-b33c-4fa5-9fec-c4807822ad8f",
+		"name": "tenant-management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21948436"
+	},
+	"item": [
+		{
+			"name": "annual-statements",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Get Annual Statement",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/annual-statements/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"annual-statements",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Get Annual Statement"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/annual-statements/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"annual-statements",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"annualStatementId\": \"<long>\",\n  \"rentalAgreement\": {\n    \"rentalAgreementId\": \"<long>\",\n    \"tenants\": [\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"apartment\": {\n      \"apartmentId\": \"<long>\",\n      \"housingObject\": {\n        \"housingObjectId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"street\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipCode\": \"<string>\",\n        \"numberOfApartments\": \"<integer>\"\n      },\n      \"areaInM2\": \"<float>\",\n      \"numberOfRooms\": \"<integer>\",\n      \"coldRent\": \"<float>\",\n      \"heatingCostPrepayment\": \"<float>\",\n      \"additionalCostPrepayment\": \"<float>\"\n    },\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  },\n  \"periodStart\": \"<date>\",\n  \"periodEnd\": \"<date>\",\n  \"totalCost\": \"<float>\",\n  \"totalPrepayments\": \"<float>\",\n  \"difference\": \"<float>\",\n  \"invoiceCategories\": [\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    },\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    }\n  ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Annual Statement",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annualStatementId\": \"<long>\",\n  \"rentalAgreement\": {\n    \"rentalAgreementId\": \"<long>\",\n    \"tenants\": [\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"apartment\": {\n      \"apartmentId\": \"<long>\",\n      \"housingObject\": {\n        \"housingObjectId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"street\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipCode\": \"<string>\",\n        \"numberOfApartments\": \"<integer>\"\n      },\n      \"areaInM2\": \"<float>\",\n      \"numberOfRooms\": \"<integer>\",\n      \"coldRent\": \"<float>\",\n      \"heatingCostPrepayment\": \"<float>\",\n      \"additionalCostPrepayment\": \"<float>\"\n    },\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  },\n  \"periodStart\": \"<date>\",\n  \"periodEnd\": \"<date>\",\n  \"totalCost\": \"<float>\",\n  \"totalPrepayments\": \"<float>\",\n  \"difference\": \"<float>\",\n  \"invoiceCategories\": [\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    },\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/annual-statements/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"annual-statements",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Update Annual Statement"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"annualStatementId\": \"<long>\",\n  \"rentalAgreement\": {\n    \"rentalAgreementId\": \"<long>\",\n    \"tenants\": [\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"apartment\": {\n      \"apartmentId\": \"<long>\",\n      \"housingObject\": {\n        \"housingObjectId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"street\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipCode\": \"<string>\",\n        \"numberOfApartments\": \"<integer>\"\n      },\n      \"areaInM2\": \"<float>\",\n      \"numberOfRooms\": \"<integer>\",\n      \"coldRent\": \"<float>\",\n      \"heatingCostPrepayment\": \"<float>\",\n      \"additionalCostPrepayment\": \"<float>\"\n    },\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  },\n  \"periodStart\": \"<date>\",\n  \"periodEnd\": \"<date>\",\n  \"totalCost\": \"<float>\",\n  \"totalPrepayments\": \"<float>\",\n  \"difference\": \"<float>\",\n  \"invoiceCategories\": [\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    },\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    }\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/annual-statements/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"annual-statements",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete Annual Statement",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/annual-statements/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"annual-statements",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Delete Annual Statement"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/annual-statements/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"annual-statements",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get All Annual Statements",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/annual-statements",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"annual-statements"
+							]
+						},
+						"description": "Get All Annual Statements"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/annual-statements",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"annual-statements"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"annualStatementId\": \"<long>\",\n    \"rentalAgreement\": {\n      \"rentalAgreementId\": \"<long>\",\n      \"tenants\": [\n        {\n          \"tenantId\": \"<long>\",\n          \"firstName\": \"<string>\",\n          \"lastName\": \"<string>\",\n          \"email\": \"<string>\",\n          \"phoneNumber\": \"<string>\",\n          \"active\": \"<boolean>\"\n        },\n        {\n          \"tenantId\": \"<long>\",\n          \"firstName\": \"<string>\",\n          \"lastName\": \"<string>\",\n          \"email\": \"<string>\",\n          \"phoneNumber\": \"<string>\",\n          \"active\": \"<boolean>\"\n        }\n      ],\n      \"apartment\": {\n        \"apartmentId\": \"<long>\",\n        \"housingObject\": {\n          \"housingObjectId\": \"<long>\",\n          \"name\": \"<string>\",\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zipCode\": \"<string>\",\n          \"numberOfApartments\": \"<integer>\"\n        },\n        \"areaInM2\": \"<float>\",\n        \"numberOfRooms\": \"<integer>\",\n        \"coldRent\": \"<float>\",\n        \"heatingCostPrepayment\": \"<float>\",\n        \"additionalCostPrepayment\": \"<float>\"\n      },\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\"\n    },\n    \"periodStart\": \"<date>\",\n    \"periodEnd\": \"<date>\",\n    \"totalCost\": \"<float>\",\n    \"totalPrepayments\": \"<float>\",\n    \"difference\": \"<float>\",\n    \"invoiceCategories\": [\n      {\n        \"invoiceCategoryId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"unit\": \"<string>\",\n        \"distributionKey\": \"<string>\"\n      },\n      {\n        \"invoiceCategoryId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"unit\": \"<string>\",\n        \"distributionKey\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"annualStatementId\": \"<long>\",\n    \"rentalAgreement\": {\n      \"rentalAgreementId\": \"<long>\",\n      \"tenants\": [\n        {\n          \"tenantId\": \"<long>\",\n          \"firstName\": \"<string>\",\n          \"lastName\": \"<string>\",\n          \"email\": \"<string>\",\n          \"phoneNumber\": \"<string>\",\n          \"active\": \"<boolean>\"\n        },\n        {\n          \"tenantId\": \"<long>\",\n          \"firstName\": \"<string>\",\n          \"lastName\": \"<string>\",\n          \"email\": \"<string>\",\n          \"phoneNumber\": \"<string>\",\n          \"active\": \"<boolean>\"\n        }\n      ],\n      \"apartment\": {\n        \"apartmentId\": \"<long>\",\n        \"housingObject\": {\n          \"housingObjectId\": \"<long>\",\n          \"name\": \"<string>\",\n          \"street\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zipCode\": \"<string>\",\n          \"numberOfApartments\": \"<integer>\"\n        },\n        \"areaInM2\": \"<float>\",\n        \"numberOfRooms\": \"<integer>\",\n        \"coldRent\": \"<float>\",\n        \"heatingCostPrepayment\": \"<float>\",\n        \"additionalCostPrepayment\": \"<float>\"\n      },\n      \"startDate\": \"<date>\",\n      \"endDate\": \"<date>\"\n    },\n    \"periodStart\": \"<date>\",\n    \"periodEnd\": \"<date>\",\n    \"totalCost\": \"<float>\",\n    \"totalPrepayments\": \"<float>\",\n    \"difference\": \"<float>\",\n    \"invoiceCategories\": [\n      {\n        \"invoiceCategoryId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"unit\": \"<string>\",\n        \"distributionKey\": \"<string>\"\n      },\n      {\n        \"invoiceCategoryId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"unit\": \"<string>\",\n        \"distributionKey\": \"<string>\"\n      }\n    ]\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Annual Statement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"annualStatementId\": \"<long>\",\n  \"rentalAgreement\": {\n    \"rentalAgreementId\": \"<long>\",\n    \"tenants\": [\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"apartment\": {\n      \"apartmentId\": \"<long>\",\n      \"housingObject\": {\n        \"housingObjectId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"street\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipCode\": \"<string>\",\n        \"numberOfApartments\": \"<integer>\"\n      },\n      \"areaInM2\": \"<float>\",\n      \"numberOfRooms\": \"<integer>\",\n      \"coldRent\": \"<float>\",\n      \"heatingCostPrepayment\": \"<float>\",\n      \"additionalCostPrepayment\": \"<float>\"\n    },\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  },\n  \"periodStart\": \"<date>\",\n  \"periodEnd\": \"<date>\",\n  \"totalCost\": \"<float>\",\n  \"totalPrepayments\": \"<float>\",\n  \"difference\": \"<float>\",\n  \"invoiceCategories\": [\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    },\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/annual-statements",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"annual-statements"
+							]
+						},
+						"description": "Create Annual Statement"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annualStatementId\": \"<long>\",\n  \"rentalAgreement\": {\n    \"rentalAgreementId\": \"<long>\",\n    \"tenants\": [\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"apartment\": {\n      \"apartmentId\": \"<long>\",\n      \"housingObject\": {\n        \"housingObjectId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"street\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipCode\": \"<string>\",\n        \"numberOfApartments\": \"<integer>\"\n      },\n      \"areaInM2\": \"<float>\",\n      \"numberOfRooms\": \"<integer>\",\n      \"coldRent\": \"<float>\",\n      \"heatingCostPrepayment\": \"<float>\",\n      \"additionalCostPrepayment\": \"<float>\"\n    },\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  },\n  \"periodStart\": \"<date>\",\n  \"periodEnd\": \"<date>\",\n  \"totalCost\": \"<float>\",\n  \"totalPrepayments\": \"<float>\",\n  \"difference\": \"<float>\",\n  \"invoiceCategories\": [\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    },\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/annual-statements",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"annual-statements"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "apartments",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Get Apartment",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/apartments/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"apartments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Get Apartment"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/apartments/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"apartments",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"apartmentId\": \"<long>\",\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  },\n  \"areaInM2\": \"<float>\",\n  \"numberOfRooms\": \"<integer>\",\n  \"coldRent\": \"<float>\",\n  \"heatingCostPrepayment\": \"<float>\",\n  \"additionalCostPrepayment\": \"<float>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Apartment",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"apartmentId\": \"<long>\",\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  },\n  \"areaInM2\": \"<float>\",\n  \"numberOfRooms\": \"<integer>\",\n  \"coldRent\": \"<float>\",\n  \"heatingCostPrepayment\": \"<float>\",\n  \"additionalCostPrepayment\": \"<float>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/apartments/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"apartments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Update Apartment"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"apartmentId\": \"<long>\",\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  },\n  \"areaInM2\": \"<float>\",\n  \"numberOfRooms\": \"<integer>\",\n  \"coldRent\": \"<float>\",\n  \"heatingCostPrepayment\": \"<float>\",\n  \"additionalCostPrepayment\": \"<float>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/apartments/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"apartments",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete Apartment",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/apartments/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"apartments",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Delete Apartment"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/apartments/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"apartments",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get All Apartments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/apartments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"apartments"
+							]
+						},
+						"description": "Get All Apartments"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/apartments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"apartments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"apartmentId\": \"<long>\",\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    },\n    \"areaInM2\": \"<float>\",\n    \"numberOfRooms\": \"<integer>\",\n    \"coldRent\": \"<float>\",\n    \"heatingCostPrepayment\": \"<float>\",\n    \"additionalCostPrepayment\": \"<float>\"\n  },\n  {\n    \"apartmentId\": \"<long>\",\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    },\n    \"areaInM2\": \"<float>\",\n    \"numberOfRooms\": \"<integer>\",\n    \"coldRent\": \"<float>\",\n    \"heatingCostPrepayment\": \"<float>\",\n    \"additionalCostPrepayment\": \"<float>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Apartment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"apartmentId\": \"<long>\",\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  },\n  \"areaInM2\": \"<float>\",\n  \"numberOfRooms\": \"<integer>\",\n  \"coldRent\": \"<float>\",\n  \"heatingCostPrepayment\": \"<float>\",\n  \"additionalCostPrepayment\": \"<float>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/apartments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"apartments"
+							]
+						},
+						"description": "Create Apartment"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"apartmentId\": \"<long>\",\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  },\n  \"areaInM2\": \"<float>\",\n  \"numberOfRooms\": \"<integer>\",\n  \"coldRent\": \"<float>\",\n  \"heatingCostPrepayment\": \"<float>\",\n  \"additionalCostPrepayment\": \"<float>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/apartments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"apartments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "example",
+			"item": [
+				{
+					"name": "Get All Examples",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/example",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"example"
+							]
+						},
+						"description": "Get All Examples"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/example",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"example"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"<long>\",\n    \"var1\": \"<string>\",\n    \"var2\": \"<string>\"\n  },\n  {\n    \"id\": \"<long>\",\n    \"var1\": \"<string>\",\n    \"var2\": \"<string>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Post Example",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"<long>\",\n  \"var1\": \"<string>\",\n  \"var2\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/example",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"example"
+							]
+						},
+						"description": "Post Example"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"<long>\",\n  \"var1\": \"<string>\",\n  \"var2\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/example",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"example"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<long>\",\n  \"var1\": \"<string>\",\n  \"var2\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "housing-objects",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Get Housing Object",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/housing-objects/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"housing-objects",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Get Housing Object"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/housing-objects/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"housing-objects",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"housingObjectId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"numberOfApartments\": \"<integer>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Housing Object",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"housingObjectId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"numberOfApartments\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/housing-objects/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"housing-objects",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Update Housing Object"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"housingObjectId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"numberOfApartments\": \"<integer>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/housing-objects/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"housing-objects",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete Housing Object",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/housing-objects/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"housing-objects",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Delete Housing Object"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/housing-objects/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"housing-objects",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get All Housing Objects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/housing-objects",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"housing-objects"
+							]
+						},
+						"description": "Get All Housing Objects"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/housing-objects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"housing-objects"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  },\n  {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Housing Object",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"housingObjectId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"numberOfApartments\": \"<integer>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/housing-objects",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"housing-objects"
+							]
+						},
+						"description": "Create Housing Object"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"housingObjectId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"numberOfApartments\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/housing-objects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"housing-objects"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "invoice-categories",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Get Invoice Category",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/invoice-categories/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoice-categories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Get Invoice Category"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/invoice-categories/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"invoice-categories",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"invoiceCategoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"unit\": \"<string>\",\n  \"distributionKey\": \"<string>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Invoice Category",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceCategoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"unit\": \"<string>\",\n  \"distributionKey\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoice-categories/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoice-categories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Update Invoice Category"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"invoiceCategoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"unit\": \"<string>\",\n  \"distributionKey\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/invoice-categories/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"invoice-categories",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete Invoice Category",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/invoice-categories/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoice-categories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Delete Invoice Category"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/invoice-categories/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"invoice-categories",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get All Invoice Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/invoice-categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoice-categories"
+							]
+						},
+						"description": "Get All Invoice Categories"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/invoice-categories",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoice-categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\"\n  },\n  {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Invoice Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceCategoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"unit\": \"<string>\",\n  \"distributionKey\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoice-categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoice-categories"
+							]
+						},
+						"description": "Create Invoice Category"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceCategoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"unit\": \"<string>\",\n  \"distributionKey\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoice-categories",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoice-categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "invoices",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Get Invoice",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/invoices/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Get Invoice"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/invoices/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"invoices",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Invoice",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoices/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Update Invoice"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/invoices/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"invoices",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete Invoice",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/invoices/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Delete Invoice"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/invoices/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"invoices",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get All Invoices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoices"
+							]
+						},
+						"description": "Get All Invoices"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/invoices",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"invoiceId\": \"<long>\",\n    \"invoiceDate\": \"<date>\",\n    \"invoiceAmount\": \"<float>\",\n    \"invoiceCategory\": {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    },\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    }\n  },\n  {\n    \"invoiceId\": \"<long>\",\n    \"invoiceDate\": \"<date>\",\n    \"invoiceAmount\": \"<float>\",\n    \"invoiceCategory\": {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\"\n    },\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    }\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Invoice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoices"
+							]
+						},
+						"description": "Create Invoice"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoices",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "rental-agreements",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Get Rental Agreement",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/rental-agreements/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"rental-agreements",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Get Rental Agreement"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/rental-agreements/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"rental-agreements",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"rentalAgreementId\": \"<long>\",\n  \"tenants\": [\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\"\n    },\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\"\n    }\n  ],\n  \"apartment\": {\n    \"apartmentId\": \"<long>\",\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    },\n    \"areaInM2\": \"<float>\",\n    \"numberOfRooms\": \"<integer>\",\n    \"coldRent\": \"<float>\",\n    \"heatingCostPrepayment\": \"<float>\",\n    \"additionalCostPrepayment\": \"<float>\"\n  },\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Rental Agreement",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"rentalAgreementId\": \"<long>\",\n  \"tenants\": [\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\"\n    },\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\"\n    }\n  ],\n  \"apartment\": {\n    \"apartmentId\": \"<long>\",\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    },\n    \"areaInM2\": \"<float>\",\n    \"numberOfRooms\": \"<integer>\",\n    \"coldRent\": \"<float>\",\n    \"heatingCostPrepayment\": \"<float>\",\n    \"additionalCostPrepayment\": \"<float>\"\n  },\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/rental-agreements/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"rental-agreements",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Update Rental Agreement"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"rentalAgreementId\": \"<long>\",\n  \"tenants\": [\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\"\n    },\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\"\n    }\n  ],\n  \"apartment\": {\n    \"apartmentId\": \"<long>\",\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    },\n    \"areaInM2\": \"<float>\",\n    \"numberOfRooms\": \"<integer>\",\n    \"coldRent\": \"<float>\",\n    \"heatingCostPrepayment\": \"<float>\",\n    \"additionalCostPrepayment\": \"<float>\"\n  },\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/rental-agreements/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"rental-agreements",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete Rental Agreement",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/rental-agreements/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"rental-agreements",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Delete Rental Agreement"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/rental-agreements/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"rental-agreements",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get All Rental Agreements",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/rental-agreements",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rental-agreements"
+							]
+						},
+						"description": "Get All Rental Agreements"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/rental-agreements",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"rental-agreements"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"rentalAgreementId\": \"<long>\",\n    \"tenants\": [\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"apartment\": {\n      \"apartmentId\": \"<long>\",\n      \"housingObject\": {\n        \"housingObjectId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"street\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipCode\": \"<string>\",\n        \"numberOfApartments\": \"<integer>\"\n      },\n      \"areaInM2\": \"<float>\",\n      \"numberOfRooms\": \"<integer>\",\n      \"coldRent\": \"<float>\",\n      \"heatingCostPrepayment\": \"<float>\",\n      \"additionalCostPrepayment\": \"<float>\"\n    },\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  },\n  {\n    \"rentalAgreementId\": \"<long>\",\n    \"tenants\": [\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"apartment\": {\n      \"apartmentId\": \"<long>\",\n      \"housingObject\": {\n        \"housingObjectId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"street\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipCode\": \"<string>\",\n        \"numberOfApartments\": \"<integer>\"\n      },\n      \"areaInM2\": \"<float>\",\n      \"numberOfRooms\": \"<integer>\",\n      \"coldRent\": \"<float>\",\n      \"heatingCostPrepayment\": \"<float>\",\n      \"additionalCostPrepayment\": \"<float>\"\n    },\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Rental Agreement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rentalAgreementId\": \"<long>\",\n  \"tenants\": [\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\"\n    },\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\"\n    }\n  ],\n  \"apartment\": {\n    \"apartmentId\": \"<long>\",\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    },\n    \"areaInM2\": \"<float>\",\n    \"numberOfRooms\": \"<integer>\",\n    \"coldRent\": \"<float>\",\n    \"heatingCostPrepayment\": \"<float>\",\n    \"additionalCostPrepayment\": \"<float>\"\n  },\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/rental-agreements",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rental-agreements"
+							]
+						},
+						"description": "Create Rental Agreement"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"rentalAgreementId\": \"<long>\",\n  \"tenants\": [\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\"\n    },\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\"\n    }\n  ],\n  \"apartment\": {\n    \"apartmentId\": \"<long>\",\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    },\n    \"areaInM2\": \"<float>\",\n    \"numberOfRooms\": \"<integer>\",\n    \"coldRent\": \"<float>\",\n    \"heatingCostPrepayment\": \"<float>\",\n    \"additionalCostPrepayment\": \"<float>\"\n  },\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/rental-agreements",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"rental-agreements"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "tenants",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Get Tenant",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/tenants/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"tenants",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Get Tenant"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/tenants/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"tenants",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"tenantId\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"active\": \"<boolean>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Tenant",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"tenantId\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"active\": \"<boolean>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/tenants/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"tenants",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Update Tenant"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"tenantId\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"active\": \"<boolean>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/tenants/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"tenants",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Delete Tenant",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/tenants/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"tenants",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<long>",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Delete Tenant"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/tenants/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"tenants",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get All Tenants",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/tenants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tenants"
+							]
+						},
+						"description": "Get All Tenants"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/tenants",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"tenants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"tenantId\": \"<long>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phoneNumber\": \"<string>\",\n    \"active\": \"<boolean>\"\n  },\n  {\n    \"tenantId\": \"<long>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phoneNumber\": \"<string>\",\n    \"active\": \"<boolean>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Tenant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tenantId\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"active\": \"<boolean>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tenants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tenants"
+							]
+						},
+						"description": "Create Tenant"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"tenantId\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"active\": \"<boolean>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/tenants",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"tenants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Testing",
+			"item": [
+				{
+					"name": "1. Create Housing Object",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Sunset Apartments\",\n  \"street\": \"123 Main St\",\n  \"city\": \"Springfield\",\n  \"state\": \"IL\",\n  \"zipCode\": \"62704\",\n  \"numberOfApartments\": 20\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/housing-objects",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"housing-objects"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"housingObjectId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"state\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"numberOfApartments\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/housing-objects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"housing-objects"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "2. Create Apartment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"housingObject\": {\n    \"housingObjectId\": 1,\n    \"name\": \"Sunset Apartments\",\n    \"street\": \"123 Main St\",\n    \"city\": \"Springfield\",\n    \"state\": \"IL\",\n    \"zipCode\": \"62704\",\n    \"numberOfApartments\": 20\n  },\n  \"areaInM2\": 75,\n  \"numberOfRooms\": 3,\n  \"coldRent\": 1200,\n  \"heatingCostPrepayment\": 150,\n  \"additionalCostPrepayment\": 100\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/apartments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"apartments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"apartmentId\": \"<long>\",\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  },\n  \"areaInM2\": \"<float>\",\n  \"numberOfRooms\": \"<integer>\",\n  \"coldRent\": \"<float>\",\n  \"heatingCostPrepayment\": \"<float>\",\n  \"additionalCostPrepayment\": \"<float>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/apartments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"apartments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "3. Create Tenant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"Alice\",\n  \"lastName\": \"Johnson\",\n  \"email\": \"alice.johnson@example.com\",\n  \"phoneNumber\": \"555-7890\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tenants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tenants"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"tenantId\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"rentalAgreements\": [\n    {\n      \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n    },\n    {\n      \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/tenants",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"tenants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "4. Create Rental Agreement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tenants\": [{\n        \"tenantId\": 1,\n        \"firstName\": \"Alice\",\n        \"lastName\": \"Johnson\",\n        \"email\": \"alice.johnson@example.com\",\n        \"phoneNumber\": \"555-7890\",\n        \"active\": true,\n        \"rentalAgreements\": null\n    }],\n    \"apartment\": {\n        \"apartmentId\": 1,\n        \"housingObject\": {\n            \"housingObjectId\": 1,\n            \"name\": \"Sunset Apartments\",\n            \"street\": \"123 Main St\",\n            \"city\": \"Springfield\",\n            \"state\": \"IL\",\n            \"zipCode\": \"62704\",\n            \"numberOfApartments\": 20\n        },\n        \"areaInM2\": 75.0,\n        \"numberOfRooms\": 3,\n        \"coldRent\": 1200.0,\n        \"heatingCostPrepayment\": 150.0,\n        \"additionalCostPrepayment\": 100.0\n    },\n    \"startDate\": \"2024-01-01\",\n    \"endDate\": \"2024-12-31\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/rental-agreements",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rental-agreements"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"rentalAgreementId\": \"<long>\",\n  \"tenants\": [\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"rentalAgreements\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n        }\n      ]\n    },\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"rentalAgreements\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n        }\n      ]\n    }\n  ],\n  \"apartment\": {\n    \"apartmentId\": \"<long>\",\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    },\n    \"areaInM2\": \"<float>\",\n    \"numberOfRooms\": \"<integer>\",\n    \"coldRent\": \"<float>\",\n    \"heatingCostPrepayment\": \"<float>\",\n    \"additionalCostPrepayment\": \"<float>\"\n  },\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/rental-agreements",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"rental-agreements"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "6. Create Invoice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 1500,\n    \"housingObject\": {\n        \"housingObjectId\": 1,\n        \"name\": \"Sunset Apartments\",\n        \"street\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zipCode\": \"62704\",\n        \"numberOfApartments\": 20\n    },\n    \"invoiceCategory\": {\n        \"invoiceCategoryId\": 1,\n        \"name\": \"Maintenance\",\n        \"unit\": \"USD\",\n        \"distributionKey\": \"equal\"\n    }\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoices"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\",\n    \"annualStatements\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      }\n    ]\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoices",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "5. Create Invoice Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Maintenance\",\n  \"unit\": \"USD\",\n  \"distributionKey\": \"equal\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoice-categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoice-categories"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceCategoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"unit\": \"<string>\",\n  \"distributionKey\": \"<string>\",\n  \"annualStatements\": [\n    {\n      \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n    },\n    {\n      \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoice-categories",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoice-categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "7. Create Annual Statement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rentalAgreement\": {\n        \"rentalAgreementId\": 1,\n        \"tenants\": [\n            {\n                \"tenantId\": 1,\n                \"firstName\": \"Alice\",\n                \"lastName\": \"Johnson\",\n                \"email\": \"alice.johnson@example.com\",\n                \"phoneNumber\": \"555-7890\",\n                \"active\": true,\n                \"rentalAgreements\": null\n            }\n        ],\n        \"apartment\": {\n            \"apartmentId\": 1,\n            \"housingObject\": {\n                \"housingObjectId\": 1,\n                \"name\": \"Sunset Apartments\",\n                \"street\": \"123 Main St\",\n                \"city\": \"Springfield\",\n                \"state\": \"IL\",\n                \"zipCode\": \"62704\",\n                \"numberOfApartments\": 20\n            },\n            \"areaInM2\": 75.0,\n            \"numberOfRooms\": 3,\n            \"coldRent\": 1200.0,\n            \"heatingCostPrepayment\": 150.0,\n            \"additionalCostPrepayment\": 100.0\n        },\n        \"startDate\": \"2024-01-01T00:00:00.000+00:00\",\n        \"endDate\": \"2024-12-31T00:00:00.000+00:00\"\n    },\n    \"periodStart\": \"2023-01-01\",\n    \"periodEnd\": \"2023-12-31\",\n    \"totalCost\": 18000,\n    \"totalPrepayments\": 17000,\n    \"difference\": 1000,\n    \"invoiceCategories\": [\n        {\n            \"invoiceCategoryId\": 1,\n            \"name\": \"Maintenance\",\n            \"unit\": \"USD\",\n            \"distributionKey\": \"equal\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/annual-statements",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"annual-statements"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"annualStatementId\": \"<long>\",\n  \"rentalAgreement\": {\n    \"rentalAgreementId\": \"<long>\",\n    \"tenants\": [\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\",\n        \"rentalAgreements\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n          }\n        ]\n      },\n      {\n        \"tenantId\": \"<long>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"email\": \"<string>\",\n        \"phoneNumber\": \"<string>\",\n        \"active\": \"<boolean>\",\n        \"rentalAgreements\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n          }\n        ]\n      }\n    ],\n    \"apartment\": {\n      \"apartmentId\": \"<long>\",\n      \"housingObject\": {\n        \"housingObjectId\": \"<long>\",\n        \"name\": \"<string>\",\n        \"street\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zipCode\": \"<string>\",\n        \"numberOfApartments\": \"<integer>\"\n      },\n      \"areaInM2\": \"<float>\",\n      \"numberOfRooms\": \"<integer>\",\n      \"coldRent\": \"<float>\",\n      \"heatingCostPrepayment\": \"<float>\",\n      \"additionalCostPrepayment\": \"<float>\"\n    },\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\"\n  },\n  \"periodStart\": \"<date>\",\n  \"periodEnd\": \"<date>\",\n  \"totalCost\": \"<float>\",\n  \"totalPrepayments\": \"<float>\",\n  \"difference\": \"<float>\",\n  \"invoiceCategories\": [\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\",\n      \"annualStatements\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n        }\n      ]\n    },\n    {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"distributionKey\": \"<string>\",\n      \"annualStatements\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n        }\n      ]\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/annual-statements",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"annual-statements"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
