@@ -1758,6 +1758,140 @@
 					]
 				},
 				{
+					"name": "category",
+					"item": [
+						{
+							"name": "{categoryId}",
+							"item": [
+								{
+									"name": "Get Invoices By Category",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/invoices/category/:categoryId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"invoices",
+												"category",
+												":categoryId"
+											],
+											"variable": [
+												{
+													"key": "categoryId",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Get Invoices By Category"
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/invoices/category/:categoryId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"invoices",
+														"category",
+														":categoryId"
+													],
+													"variable": [
+														{
+															"key": "categoryId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "housing-object",
+					"item": [
+						{
+							"name": "{housingObjectId}",
+							"item": [
+								{
+									"name": "Get Invoices By Housing Object",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/invoices/housing-object/:housingObjectId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"invoices",
+												"housing-object",
+												":housingObjectId"
+											],
+											"variable": [
+												{
+													"key": "housingObjectId",
+													"value": "<long>",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Get Invoices By Housing Object"
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/invoices/housing-object/:housingObjectId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"invoices",
+														"housing-object",
+														":housingObjectId"
+													],
+													"variable": [
+														{
+															"key": "housingObjectId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "Get All Invoices",
 					"request": {
 						"method": "GET",
