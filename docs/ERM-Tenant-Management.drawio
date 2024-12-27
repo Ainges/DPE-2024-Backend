@@ -1,0 +1,207 @@
+<mxfile host="65bd71144e">
+    <diagram name="ER Model Tenant Management" id="0">
+        <mxGraphModel dx="892" dy="2167" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="Tenant" value="Tenant" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="261" y="-10" width="160" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="TenantID" value="Tenant ID (PK) [int]" style="text" parent="Tenant" vertex="1">
+                    <mxGeometry x="20" y="20" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="FirstName" value="First Name [varchar]" style="text" parent="Tenant" vertex="1">
+                    <mxGeometry x="20" y="60" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="LastName" value="Last Name [varchar]" style="text" parent="Tenant" vertex="1">
+                    <mxGeometry x="20" y="100" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="Email" value="Email [varchar]" style="text" parent="Tenant" vertex="1">
+                    <mxGeometry x="20" y="140" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="PhoneNumber" value="Phone Number [varchar]" style="text" parent="Tenant" vertex="1">
+                    <mxGeometry x="20" y="180" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="Active" value="Active [boolean]" style="text" parent="Tenant" vertex="1">
+                    <mxGeometry x="20" y="210" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="Object" value="Housing Object" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="-320" width="170" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="ObjectID" value="Housing Object ID (PK) [int]" style="text" parent="Object" vertex="1">
+                    <mxGeometry x="20" y="20" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ObjectName" value="Name [varchar]" style="text" parent="Object" vertex="1">
+                    <mxGeometry x="20" y="60" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="Street" value="Street [varchar]" style="text" parent="Object" vertex="1">
+                    <mxGeometry x="20" y="100" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="City" value="City [varchar]" style="text" parent="Object" vertex="1">
+                    <mxGeometry x="20" y="140" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="State" value="State [varchar]" style="text" parent="Object" vertex="1">
+                    <mxGeometry x="20" y="180" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ZipCode" value="Zip Code [varchar]" style="text" parent="Object" vertex="1">
+                    <mxGeometry x="20" y="220" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="Number of apartments [int]" style="text" parent="Object" vertex="1">
+                    <mxGeometry x="20" y="250" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="Apartment" value="Apartment" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="-290" width="200" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="ApartmentID" value="Apartment ID (PK) [int]" style="text" parent="Apartment" vertex="1">
+                    <mxGeometry x="20" y="20" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="LivingSpace" value="Area in m2 [float]" style="text" parent="Apartment" vertex="1">
+                    <mxGeometry x="20" y="97" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="NumberOfRooms" value="Number of Rooms [int]" style="text" parent="Apartment" vertex="1">
+                    <mxGeometry x="20" y="131" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ColdRent" value="Cold Rent [float]" style="text" parent="Apartment" vertex="1">
+                    <mxGeometry x="20" y="171" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="HeatingCostAdvance" value="Heating Cost Prepayment [float]" style="text" parent="Apartment" vertex="1">
+                    <mxGeometry x="20" y="211" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="AdditionalCostAdvance" value="Additional Cost Prepayment [float]" style="text" parent="Apartment" vertex="1">
+                    <mxGeometry x="20" y="251" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Housing Object ID (FK) [int]" style="text" parent="Apartment" vertex="1">
+                    <mxGeometry x="19" y="58" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="RentalAgreement" value="Rental Agreement" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="827" y="-256" width="193" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="RentalAgreementID" value="Rental Agreement ID (PK) [int]" style="text" parent="RentalAgreement" vertex="1">
+                    <mxGeometry x="20" y="20" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="TenantID_FK" value="Tenant ID (FK) [int]" style="text" parent="RentalAgreement" vertex="1">
+                    <mxGeometry x="20" y="60" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="ApartmentID_FK" value="Apartment ID (FK) [int]" style="text" parent="RentalAgreement" vertex="1">
+                    <mxGeometry x="20" y="100" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="StartDate" value="Start Date [date]" style="text" parent="RentalAgreement" vertex="1">
+                    <mxGeometry x="20" y="140" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="EndDate" value="End Date [date]" style="text" parent="RentalAgreement" vertex="1">
+                    <mxGeometry x="20" y="180" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="N:1" style="edgeStyle=none;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=ERmany;startFill=0;endArrow=ERone;endFill=0;" edge="1" parent="1" source="Invoice" target="AdditionalCostPosition">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="Invoice" value="Invoice" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="254" width="193" height="236" as="geometry"/>
+                </mxCell>
+                <mxCell id="InvoiceID" value="Invoice ID (PK) [int]" style="text" parent="Invoice" vertex="1">
+                    <mxGeometry x="20" y="20" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="InvoiceDate" value="Invoice Date [date]" style="text" parent="Invoice" vertex="1">
+                    <mxGeometry x="20" y="122" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="InvoiceAmount" value="Invoice Amount [float]" style="text" parent="Invoice" vertex="1">
+                    <mxGeometry x="20" y="162" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Invoice Category ID (FK) [int]" style="text" parent="Invoice" vertex="1">
+                    <mxGeometry x="20" y="202" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Housing Object ID (FK) [int]" style="text" parent="Invoice" vertex="1">
+                    <mxGeometry x="20" y="83" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="Invoice Category ID (PK) [int]" style="text" vertex="1" parent="Invoice">
+                    <mxGeometry x="20" y="50" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="Billing" value="Annual Statement" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="839" y="40" width="243" height="360" as="geometry"/>
+                </mxCell>
+                <mxCell id="BillingID" value="Annual Statement ID (PK) [int]" style="text" parent="Billing" vertex="1">
+                    <mxGeometry x="20" y="25" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="BillingFK" value="Rental Agreement ID (FK) [int]" style="text" parent="Billing" vertex="1">
+                    <mxGeometry x="20" y="60" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="PeriodStart" value="Period Start [date]" style="text" parent="Billing" vertex="1">
+                    <mxGeometry x="20" y="100" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="PeriodEnd" value="Period End [date]" style="text" parent="Billing" vertex="1">
+                    <mxGeometry x="20" y="140" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="TotalCost" value="Total Cost [float]" style="text" parent="Billing" vertex="1">
+                    <mxGeometry x="20" y="180" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="AdditionalPayment" value="Total Prepayments [float]" style="text" parent="Billing" vertex="1">
+                    <mxGeometry x="20" y="219" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="Refund" value="Difference [float]" style="text" parent="Billing" vertex="1">
+                    <mxGeometry x="20" y="260" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="rel1" value="M:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERmany;startFill=0;endArrow=ERmany;endFill=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" parent="1" target="RentalAgreement" edge="1" source="Tenant">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="310" y="90" as="sourcePoint"/>
+                        <mxPoint x="794" y="-34" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="700" y="53"/>
+                            <mxPoint x="700" y="28"/>
+                            <mxPoint x="875" y="28"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="rel2" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;" parent="1" source="Apartment" target="RentalAgreement" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="650" y="-180" as="sourcePoint"/>
+                        <mxPoint x="820" y="-180" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="827" y="-145"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="rel3" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="RentalAgreement" edge="1" target="Billing">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="910" y="-40" as="sourcePoint"/>
+                        <mxPoint x="910" y="50" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="924" y="20"/>
+                            <mxPoint x="960" y="20"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="rel7" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;" parent="1" source="Object" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="300" y="-180" as="sourcePoint"/>
+                        <mxPoint x="460" y="-247" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="17" value="M:N" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;startArrow=ERmany;startFill=0;endArrow=ERmany;endFill=0;" edge="1" parent="1" source="AdditionalCostPosition" target="Billing">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="AdditionalCostPosition" value="Invoice Category" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="482" y="210" width="190" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="PositionID" value="Invoice Category ID (PK) [int]" style="text" parent="AdditionalCostPosition" vertex="1">
+                    <mxGeometry x="20" y="25" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="Name" value="Name [varchar]" style="text" parent="AdditionalCostPosition" vertex="1">
+                    <mxGeometry x="20" y="60" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="Unit" value="Unit [varchar]" style="text" parent="AdditionalCostPosition" vertex="1">
+                    <mxGeometry x="20" y="100" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="DistributionKey" value="Distribution Key [varchar]" style="text" parent="AdditionalCostPosition" vertex="1">
+                    <mxGeometry x="20" y="140" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Object" target="Invoice">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="7">
+                    <mxGeometry x="0.2025" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
