@@ -5,6 +5,7 @@
  */
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -21,12 +22,10 @@ public class Tenant {
     private String phoneNumber;
     private boolean active;
 
-    @ManyToMany
-    @JoinTable(
-            name = "Tenant_RentalAgreement",
-            joinColumns = @JoinColumn(name = "tenantId"),
-            inverseJoinColumns = @JoinColumn(name = "rentalAgreementId")
-    )
+    // Rental Agreement is the owner of the m:n relationship with Tenant.
+    // Therefore, the relationships should be created, when the Rental Agreement is created.
+    @ManyToMany(mappedBy = "tenants")
+    @JsonIgnore
     private Set<RentalAgreement> rentalAgreements;
 
     // Default constructor

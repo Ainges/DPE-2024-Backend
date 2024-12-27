@@ -6,6 +6,7 @@
 
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -20,12 +21,10 @@ public class InvoiceCategory {
     private String unit;
     private String distributionKey;
 
-    @ManyToMany
-    @JoinTable(
-            name = "InvoiceCategory_AnnualStatement",
-            joinColumns = @JoinColumn(name = "invoiceCategoryId"),
-            inverseJoinColumns = @JoinColumn(name = "annualStatementId")
-    )
+    // Annual Statement is the owner of the m:n relationship with Invoice Category.
+    // Therefore, the relationships should be created, when the Annual Statement is created.
+    @ManyToMany(mappedBy = "invoiceCategories")
+    @JsonIgnore
     private Set<AnnualStatement> annualStatements;
 
     // Default constructor

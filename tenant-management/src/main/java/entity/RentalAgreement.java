@@ -16,7 +16,14 @@ public class RentalAgreement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long rentalAgreementId;
 
-    @ManyToMany(mappedBy = "rentalAgreements")
+    // Rental Agreement is the owner of the m:n relationship with Tenant.
+    // Therefore, the relationships should be created, when the Rental Agreement is created.
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "Tenant_RentalAgreement",
+            joinColumns = @JoinColumn(name = "rentalAgreementId"),
+            inverseJoinColumns = @JoinColumn(name = "tenantId")
+    )
     private Set<Tenant> tenants;
 
     @ManyToOne

@@ -27,7 +27,14 @@ public class AnnualStatement {
     private float totalPrepayments;
     private float difference;
 
-    @ManyToMany(mappedBy = "annualStatements")
+    // Annual Statement is the owner of the m:n relationship with Invoice Category.
+    // Therefore, the relationships should be created, when the Annual Statement is created.
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "InvoiceCategory_AnnualStatement",
+            joinColumns = @JoinColumn(name = "annualStatementId"),
+            inverseJoinColumns = @JoinColumn(name = "invoiceCategoryId")
+    )
     private Set<InvoiceCategory> invoiceCategories;
 
     // Default constructor
