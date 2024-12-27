@@ -1,7 +1,7 @@
 /**
  * Start
- * Primary author GitHub Copilot
- * Secondary author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */
 
 package endpoint;
@@ -64,7 +64,7 @@ public class InvoiceEndpoint {
      *
      * @param categoryId the ID of the category
      * @return a Response containing the list of invoices for the specified category,
-     *         or a 404 Not Found status if the category does not exist
+     * or a 404 Not Found status if the category does not exist
      */
     @GET
     @Path("/category/{categoryId}")
@@ -82,7 +82,7 @@ public class InvoiceEndpoint {
      *
      * @param housingObjectId the ID of the housing object
      * @return a Response containing the list of invoices for the specified housing object,
-     *         or a 404 Not Found status if the housing object does not exist
+     * or a 404 Not Found status if the housing object does not exist
      */
     @GET
     @Path("/housing-object/{housingObjectId}")
@@ -111,10 +111,10 @@ public class InvoiceEndpoint {
     /**
      * Updates an existing invoice.
      *
-     * @param id the ID of the invoice to update
+     * @param id      the ID of the invoice to update
      * @param invoice the updated invoice data
      * @return a Response containing the updated invoice,
-     *         or a 404 Not Found status if the invoice does not exist
+     * or a 404 Not Found status if the invoice does not exist
      */
     @PUT
     @Path("/{id}")
@@ -137,7 +137,7 @@ public class InvoiceEndpoint {
      *
      * @param id the ID of the invoice to delete
      * @return a Response with no content if the deletion was successful,
-     *         or a 404 Not Found status if the invoice does not exist
+     * or a 404 Not Found status if the invoice does not exist
      */
     @DELETE
     @Path("/{id}")
@@ -154,6 +154,6 @@ public class InvoiceEndpoint {
 
 /**
  * End
- * Primary author GitHub Copilot
- * Secondary author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */

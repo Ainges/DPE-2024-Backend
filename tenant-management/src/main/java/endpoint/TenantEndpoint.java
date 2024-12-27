@@ -1,8 +1,9 @@
 /**
  * Start
- * Primary @author GitHub Copilot
- * Secondary @author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */
+
 package endpoint;
 
 import entity.Tenant;
@@ -31,17 +32,34 @@ public class TenantEndpoint {
     @Inject
     RentalAgreementRepository rentalAgreementRepository;
 
+    /**
+     * Retrieves all tenants.
+     *
+     * @return a list of all tenants
+     */
     @GET
     public List<Tenant> getAllTenants() {
         return tenantRepository.listAll();
     }
 
+    /**
+     * Retrieves a specific tenant by its ID.
+     *
+     * @param id the ID of the tenant
+     * @return the tenant with the specified ID
+     */
     @GET
     @Path("/{id}")
     public Tenant getTenant(@PathParam("id") long id) {
         return tenantRepository.findById(id);
     }
 
+    /**
+     * Creates a new tenant.
+     *
+     * @param tenant the tenant to create
+     * @return a Response containing the created tenant
+     */
     @POST
     @Transactional
     public Response createTenant(Tenant tenant) {
@@ -59,6 +77,14 @@ public class TenantEndpoint {
         return Response.status(Response.Status.CREATED).entity(tenant).build();
     }
 
+    /**
+     * Updates an existing tenant.
+     *
+     * @param id     the ID of the tenant to update
+     * @param tenant the updated tenant data
+     * @return a Response containing the updated tenant,
+     * or a 404 Not Found status if the tenant does not exist
+     */
     @PUT
     @Path("/{id}")
     @Transactional
@@ -88,6 +114,13 @@ public class TenantEndpoint {
         return Response.ok(existingTenant).build();
     }
 
+    /**
+     * Deletes an existing tenant.
+     *
+     * @param id the ID of the tenant to delete
+     * @return a Response with no content if the deletion was successful,
+     * or a 404 Not Found status if the tenant does not exist
+     */
     @DELETE
     @Path("/{id}")
     @Transactional
@@ -103,6 +136,6 @@ public class TenantEndpoint {
 
 /**
  * End
- * Primary @author GitHub Copilot
- * Secondary @author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */

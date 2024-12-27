@@ -1,21 +1,25 @@
 /**
  * Start
- * Primary @author GitHub Copilot
- * Secondary @author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */
+
 package repository;
 
 import entity.Apartment;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
+/**
+ * Repository for managing {@link Apartment} entities.
+ * This repository is implemented by Quarkus.
+ */
 @ApplicationScoped
 public class ApartmentRepository implements PanacheRepository<Apartment> {
-    //Will be implemented by Quarkus
 }
 
 /**
  * End
- * Primary @author GitHub Copilot
- * Secondary @author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */

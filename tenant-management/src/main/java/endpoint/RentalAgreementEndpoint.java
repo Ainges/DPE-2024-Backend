@@ -1,8 +1,9 @@
 /**
  * Start
- * Primary @author GitHub Copilot
- * Secondary @author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */
+
 package endpoint;
 
 import entity.RentalAgreement;
@@ -31,17 +32,34 @@ public class RentalAgreementEndpoint {
     @Inject
     TenantRepository tenantRepository;
 
+    /**
+     * Retrieves all rental agreements.
+     *
+     * @return a list of all rental agreements
+     */
     @GET
     public List<RentalAgreement> getAllRentalAgreements() {
         return rentalAgreementRepository.listAll();
     }
 
+    /**
+     * Retrieves a specific rental agreement by its ID.
+     *
+     * @param id the ID of the rental agreement
+     * @return the rental agreement with the specified ID
+     */
     @GET
     @Path("/{id}")
     public RentalAgreement getRentalAgreement(@PathParam("id") long id) {
         return rentalAgreementRepository.findById(id);
     }
 
+    /**
+     * Creates a new rental agreement.
+     *
+     * @param rentalAgreement the rental agreement to create
+     * @return a Response containing the created rental agreement
+     */
     @POST
     @Transactional
     public Response createRentalAgreement(RentalAgreement rentalAgreement) {
@@ -60,6 +78,14 @@ public class RentalAgreementEndpoint {
         return Response.status(Response.Status.CREATED).entity(rentalAgreement).build();
     }
 
+    /**
+     * Updates an existing rental agreement.
+     *
+     * @param id              the ID of the rental agreement to update
+     * @param rentalAgreement the updated rental agreement data
+     * @return a Response containing the updated rental agreement,
+     * or a 404 Not Found status if the rental agreement does not exist
+     */
     @PUT
     @Path("/{id}")
     @Transactional
@@ -87,6 +113,13 @@ public class RentalAgreementEndpoint {
         return Response.ok(existingRentalAgreement).build();
     }
 
+    /**
+     * Deletes an existing rental agreement.
+     *
+     * @param id the ID of the rental agreement to delete
+     * @return a Response with no content if the deletion was successful,
+     * or a 404 Not Found status if the rental agreement does not exist
+     */
     @DELETE
     @Path("/{id}")
     @Transactional
@@ -102,6 +135,6 @@ public class RentalAgreementEndpoint {
 
 /**
  * End
- * Primary author GitHub Copilot
- * Secondary author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */

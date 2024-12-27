@@ -1,8 +1,8 @@
 /**
  * Start
- * Primary @author GitHub Copilot
- * Secondary @author Moritz Baur
-*/
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
+ */
 
 package endpoint;
 
@@ -26,17 +26,34 @@ public class HousingObjectEndpoint {
     @Inject
     HousingObjectRepository housingObjectRepository;
 
+    /**
+     * Retrieves all housing objects.
+     *
+     * @return a list of all housing objects
+     */
     @GET
     public List<HousingObject> getAllHousingObjects() {
         return housingObjectRepository.listAll();
     }
 
+    /**
+     * Retrieves a specific housing object by its ID.
+     *
+     * @param id the ID of the housing object
+     * @return the housing object with the specified ID
+     */
     @GET
     @Path("/{id}")
     public HousingObject getHousingObject(@PathParam("id") long id) {
         return housingObjectRepository.findById(id);
     }
 
+    /**
+     * Creates a new housing object.
+     *
+     * @param housingObject the housing object to create
+     * @return a Response containing the created housing object
+     */
     @POST
     @Transactional
     public Response createHousingObject(HousingObject housingObject) {
@@ -44,6 +61,14 @@ public class HousingObjectEndpoint {
         return Response.status(Response.Status.CREATED).entity(housingObject).build();
     }
 
+    /**
+     * Updates an existing housing object.
+     *
+     * @param id            the ID of the housing object to update
+     * @param housingObject the updated housing object data
+     * @return a Response containing the updated housing object,
+     * or a 404 Not Found status if the housing object does not exist
+     */
     @PUT
     @Path("/{id}")
     @Transactional
@@ -62,6 +87,13 @@ public class HousingObjectEndpoint {
         return Response.ok(existingHousingObject).build();
     }
 
+    /**
+     * Deletes an existing housing object.
+     *
+     * @param id the ID of the housing object to delete
+     * @return a Response with no content if the deletion was successful,
+     * or a 404 Not Found status if the housing object does not exist
+     */
     @DELETE
     @Path("/{id}")
     @Transactional
@@ -74,9 +106,8 @@ public class HousingObjectEndpoint {
         return Response.noContent().build();
     }
 }
-
 /**
  * End
- * Primary @author GitHub Copilot
- * Secondary @author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */

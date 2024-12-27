@@ -1,7 +1,7 @@
 /**
  * Start
- * Primary author GitHub Copilot
- * Secondary author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */
 
 package endpoint;
@@ -32,17 +32,34 @@ public class InvoiceCategoryEndpoint {
     @Inject
     AnnualStatementRepository annualStatementRepository;
 
+    /**
+     * Retrieves all invoice categories.
+     *
+     * @return a list of all invoice categories
+     */
     @GET
     public List<InvoiceCategory> getAllInvoiceCategories() {
         return invoiceCategoryRepository.listAll();
     }
 
+    /**
+     * Retrieves a specific invoice category by its ID.
+     *
+     * @param id the ID of the invoice category
+     * @return the invoice category with the specified ID
+     */
     @GET
     @Path("/{id}")
     public InvoiceCategory getInvoiceCategory(@PathParam("id") long id) {
         return invoiceCategoryRepository.findById(id);
     }
 
+    /**
+     * Creates a new invoice category.
+     *
+     * @param invoiceCategory the invoice category to create
+     * @return a Response containing the created invoice category
+     */
     @POST
     @Transactional
     public Response createInvoiceCategory(InvoiceCategory invoiceCategory) {
@@ -60,6 +77,14 @@ public class InvoiceCategoryEndpoint {
         return Response.status(Response.Status.CREATED).entity(invoiceCategory).build();
     }
 
+    /**
+     * Updates an existing invoice category.
+     *
+     * @param id the ID of the invoice category to update
+     * @param invoiceCategory the updated invoice category data
+     * @return a Response containing the updated invoice category,
+     *         or a 404 Not Found status if the invoice category does not exist
+     */
     @PUT
     @Path("/{id}")
     @Transactional
@@ -87,6 +112,13 @@ public class InvoiceCategoryEndpoint {
         return Response.ok(existingInvoiceCategory).build();
     }
 
+    /**
+     * Deletes an existing invoice category.
+     *
+     * @param id the ID of the invoice category to delete
+     * @return a Response with no content if the deletion was successful,
+     *         or a 404 Not Found status if the invoice category does not exist
+     */
     @DELETE
     @Path("/{id}")
     @Transactional
@@ -99,9 +131,8 @@ public class InvoiceCategoryEndpoint {
         return Response.noContent().build();
     }
 }
-
 /**
  * End
- * Primary author GitHub Copilot
- * Secondary author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */

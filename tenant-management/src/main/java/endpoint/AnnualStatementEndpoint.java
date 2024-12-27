@@ -1,8 +1,9 @@
 /**
  * Start
- * Primary author GitHub Copilot
- * Secondary author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */
+
 package endpoint;
 
 import entity.AnnualStatement;
@@ -31,17 +32,34 @@ public class AnnualStatementEndpoint {
     @Inject
     InvoiceCategoryRepository invoiceCategoryRepository;
 
+    /**
+     * Retrieves all annual statements.
+     *
+     * @return a list of all annual statements
+     */
     @GET
     public List<AnnualStatement> getAllAnnualStatements() {
         return annualStatementRepository.listAll();
     }
 
+    /**
+     * Retrieves a specific annual statement by its ID.
+     *
+     * @param id the ID of the annual statement
+     * @return the annual statement with the specified ID
+     */
     @GET
     @Path("/{id}")
     public AnnualStatement getAnnualStatement(@PathParam("id") long id) {
         return annualStatementRepository.findById(id);
     }
 
+    /**
+     * Creates a new annual statement.
+     *
+     * @param annualStatement the annual statement to create
+     * @return a Response containing the created annual statement
+     */
     @POST
     @Transactional
     public Response createAnnualStatement(AnnualStatement annualStatement) {
@@ -59,6 +77,14 @@ public class AnnualStatementEndpoint {
         return Response.status(Response.Status.CREATED).entity(annualStatement).build();
     }
 
+    /**
+     * Updates an existing annual statement.
+     *
+     * @param id              the ID of the annual statement to update
+     * @param annualStatement the updated annual statement data
+     * @return a Response containing the updated annual statement,
+     * or a 404 Not Found status if the annual statement does not exist
+     */
     @PUT
     @Path("/{id}")
     @Transactional
@@ -89,7 +115,13 @@ public class AnnualStatementEndpoint {
         return Response.ok(existingAnnualStatement).build();
     }
 
-
+    /**
+     * Deletes an existing annual statement.
+     *
+     * @param id the ID of the annual statement to delete
+     * @return a Response with no content if the deletion was successful,
+     * or a 404 Not Found status if the annual statement does not exist
+     */
     @DELETE
     @Path("/{id}")
     @Transactional
@@ -104,6 +136,6 @@ public class AnnualStatementEndpoint {
 }
 /**
  * End
- * Primary author GitHub Copilot
- * Secondary author Moritz Baur
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
  */
