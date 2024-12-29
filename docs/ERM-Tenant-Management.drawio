@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="ER Model Tenant Management" id="0">
-        <mxGraphModel dx="839" dy="1704" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1216" dy="1945" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -91,12 +91,6 @@
                 <mxCell id="EndDate" value="End Date [date]" style="text" parent="RentalAgreement" vertex="1">
                     <mxGeometry x="20" y="180" width="120" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="14" value="N:1" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=ERmany;startFill=0;endArrow=ERone;endFill=0;" parent="1" source="Invoice" target="AdditionalCostPosition" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="333" y="202.5" as="sourcePoint"/>
-                        <mxPoint x="480" y="207" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
                 <mxCell id="Invoice" value="Invoice" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="140" y="72" width="193" height="293" as="geometry"/>
                 </mxCell>
@@ -118,10 +112,10 @@
                 <mxCell id="15" value="Invoice Category ID (PK) [int]" style="text" parent="Invoice" vertex="1">
                     <mxGeometry x="20" y="50" width="120" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="18" value="Description [varchar]" style="text" vertex="1" parent="Invoice">
+                <mxCell id="18" value="Description [varchar]" style="text" parent="Invoice" vertex="1">
                     <mxGeometry x="20" y="232" width="120" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="30" value="Status [varchar]" style="text" vertex="1" parent="Invoice">
+                <mxCell id="30" value="Status [varchar]" style="text" parent="Invoice" vertex="1">
                     <mxGeometry x="20" y="258" width="120" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="Billing" value="Annual Statement" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -187,7 +181,7 @@
                 <mxCell id="17" value="N:1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=ERmany;startFill=0;endArrow=ERmany;endFill=0;rounded=0;" parent="1" source="AdditionalCostPosition" target="Billing" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="26" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;rounded=0;" edge="1" parent="1" source="AdditionalCostPosition" target="RentalAgreement">
+                <mxCell id="26" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;rounded=0;" parent="1" source="AdditionalCostPosition" target="RentalAgreement" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="749" y="118"/>
@@ -195,7 +189,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="33" value="N:1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="26">
+                <mxCell id="33" value="N:1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="26" vertex="1" connectable="0">
                     <mxGeometry x="0.0589" y="-1" relative="1" as="geometry">
                         <mxPoint as="offset"/>
                     </mxGeometry>
@@ -212,16 +206,16 @@
                 <mxCell id="Unit" value="Overall Amount [float]" style="text" parent="AdditionalCostPosition" vertex="1">
                     <mxGeometry x="20" y="188" width="120" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="25" value="Rental Agreement ID (FK) [int]" style="text" vertex="1" parent="AdditionalCostPosition">
+                <mxCell id="25" value="Rental Agreement ID (FK) [int]" style="text" parent="AdditionalCostPosition" vertex="1">
                     <mxGeometry x="20" y="53" width="120" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="27" value="Annual Statement ID (FK) [int]" style="text" vertex="1" parent="AdditionalCostPosition">
+                <mxCell id="27" value="Annual Statement ID (FK) [int]" style="text" parent="AdditionalCostPosition" vertex="1">
                     <mxGeometry x="20" y="79" width="120" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="28" value="Amount payable [float]" style="text" vertex="1" parent="AdditionalCostPosition">
+                <mxCell id="28" value="Amount payable [float]" style="text" parent="AdditionalCostPosition" vertex="1">
                     <mxGeometry x="20" y="130" width="120" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="29" value="Distribution key [varchar]" style="text" vertex="1" parent="AdditionalCostPosition">
+                <mxCell id="29" value="Distribution key [varchar]" style="text" parent="AdditionalCostPosition" vertex="1">
                     <mxGeometry x="20" y="158" width="120" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="7" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=ERone;startFill=0;endArrow=ERmany;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="Object" target="Invoice" edge="1">
@@ -232,16 +226,16 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="24" value="N:1" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" edge="1" parent="1" source="19" target="Invoice">
+                <mxCell id="24" value="N:1" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=ERmany;endFill=0;startArrow=ERone;startFill=0;" parent="1" source="19" target="Invoice" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="19" value="Invoice Category" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="19" value="Invoice Category" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="140" y="426" width="190" height="103" as="geometry"/>
                 </mxCell>
-                <mxCell id="20" value="Invoice Category ID (PK) [int]" style="text" vertex="1" parent="19">
+                <mxCell id="20" value="Invoice Category ID (PK) [int]" style="text" parent="19" vertex="1">
                     <mxGeometry x="20" y="25" width="120" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="21" value="Name [varchar]" style="text" vertex="1" parent="19">
+                <mxCell id="21" value="Name [varchar]" style="text" parent="19" vertex="1">
                     <mxGeometry x="20" y="60" width="120" height="30" as="geometry"/>
                 </mxCell>
             </root>
