@@ -128,6 +128,8 @@ public class InvoiceEndpoint {
         existingInvoice.setInvoiceAmount(invoice.getInvoiceAmount());
         existingInvoice.setInvoiceCategory(invoice.getInvoiceCategory());
         existingInvoice.setHousingObject(invoice.getHousingObject());
+        existingInvoice.setDescription(invoice.getDescription());
+        existingInvoice.setStatus(invoice.getStatus());
         invoiceRepository.persist(existingInvoice);
         return Response.ok(existingInvoice).build();
     }

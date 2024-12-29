@@ -15,6 +15,7 @@ public class Invoice {
     private Date invoiceDate;
     private float invoiceAmount;
     private String description;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "invoiceCategoryId")
@@ -36,13 +37,15 @@ public class Invoice {
      * @param invoiceDate     the date of the invoice
      * @param invoiceAmount   the amount of the invoice
      * @param description     the description of the invoice
+     * @param status          the status of the invoice e.g. paid, unpaid
      * @param invoiceCategory the category of the invoice
      * @param housingObject   the housing object associated with the invoice
      */
-    public Invoice(Date invoiceDate, float invoiceAmount, String description, InvoiceCategory invoiceCategory, HousingObject housingObject) {
+    public Invoice(Date invoiceDate, float invoiceAmount, String description, String status, InvoiceCategory invoiceCategory, HousingObject housingObject) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
         this.description = description;
+        this.status = status;
         this.invoiceCategory = invoiceCategory;
         this.housingObject = housingObject;
     }
@@ -119,6 +122,24 @@ public class Invoice {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Gets the status of the invoice.
+     *
+     * @return the status of the invoice
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets the status of the invoice.
+     *
+     * @param status the status of the invoice
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     /**
