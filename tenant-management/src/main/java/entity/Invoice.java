@@ -1,13 +1,6 @@
-/**
- * Start
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
- */
-
 package entity;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 /**
@@ -21,6 +14,7 @@ public class Invoice {
 
     private Date invoiceDate;
     private float invoiceAmount;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "invoiceCategoryId")
@@ -41,12 +35,14 @@ public class Invoice {
      *
      * @param invoiceDate     the date of the invoice
      * @param invoiceAmount   the amount of the invoice
+     * @param description     the description of the invoice
      * @param invoiceCategory the category of the invoice
      * @param housingObject   the housing object associated with the invoice
      */
-    public Invoice(Date invoiceDate, float invoiceAmount, InvoiceCategory invoiceCategory, HousingObject housingObject) {
+    public Invoice(Date invoiceDate, float invoiceAmount, String description, InvoiceCategory invoiceCategory, HousingObject housingObject) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
+        this.description = description;
         this.invoiceCategory = invoiceCategory;
         this.housingObject = housingObject;
     }
@@ -108,6 +104,24 @@ public class Invoice {
     }
 
     /**
+     * Gets the description of the invoice.
+     *
+     * @return the description of the invoice
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets the description of the invoice.
+     *
+     * @param description the description of the invoice
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
      * Gets the category of the invoice.
      *
      * @return the category of the invoice
@@ -143,8 +157,3 @@ public class Invoice {
         this.housingObject = housingObject;
     }
 }
-/**
- * End
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
- */
