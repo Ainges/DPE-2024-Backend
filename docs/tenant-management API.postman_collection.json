@@ -1745,7 +1745,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}"
+									"body": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}"
 								}
 							]
 						},
@@ -1761,7 +1761,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -1801,7 +1801,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+											"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -1943,7 +1943,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n  {\n    \"invoiceId\": \"<long>\",\n    \"invoiceDate\": \"<date>\",\n    \"invoiceAmount\": \"<float>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"invoiceCategory\": {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\"\n    },\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    }\n  },\n  {\n    \"invoiceId\": \"<long>\",\n    \"invoiceDate\": \"<date>\",\n    \"invoiceAmount\": \"<float>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"invoiceCategory\": {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\"\n    },\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    }\n  }\n]"
+							"body": "[\n  {\n    \"invoiceId\": \"<long>\",\n    \"invoiceDate\": \"<date>\",\n    \"invoiceAmount\": \"<float>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"receiver\": \"<string>\",\n    \"receiverIban\": \"<string>\",\n    \"receiverBic\": \"<string>\",\n    \"invoiceCategory\": {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\"\n    },\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    }\n  },\n  {\n    \"invoiceId\": \"<long>\",\n    \"invoiceDate\": \"<date>\",\n    \"invoiceAmount\": \"<float>\",\n    \"description\": \"<string>\",\n    \"status\": \"<string>\",\n    \"receiver\": \"<string>\",\n    \"receiverIban\": \"<string>\",\n    \"receiverBic\": \"<string>\",\n    \"invoiceCategory\": {\n      \"invoiceCategoryId\": \"<long>\",\n      \"name\": \"<string>\"\n    },\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    }\n  }\n]"
 						}
 					]
 				},
@@ -1959,7 +1959,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+							"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -1991,7 +1991,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -3062,6 +3062,49 @@
 			]
 		},
 		{
+			"name": "Spiff Requests",
+			"item": [
+				{
+					"name": "New Invoice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Spiffworkflow-Api-Key",
+								"value": "{{Spiffworkflow-Api-Key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"digitalInvoice\": false}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SpiffBaseUrl}}/messages/invoice_received",
+							"host": [
+								"{{SpiffBaseUrl}}"
+							],
+							"path": [
+								"messages",
+								"invoice_received"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Testing",
 			"item": [
 				{
@@ -3426,7 +3469,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 1500,\n    \"status\": \"unpaid\",\n    \"description\": \"Hausmeisterdienste\",\n    \"housingObject\": {\n        \"housingObjectId\": 1,\n        \"name\": \"Sunset Apartments\",\n        \"street\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zipCode\": \"62704\",\n        \"numberOfApartments\": 20\n    },\n    \"invoiceCategory\": {\n        \"invoiceCategoryId\": 1,\n        \"name\": \"Maintenance\"\n    }\n}",
+							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 1500,\n    \"status\": \"unpaid\",\n    \"description\": \"Hausmeisterdienste\",\n    \"receiver\": \"John Doe\",\n    \"receiverIban\": \"DE123457784367437643\",\n    \"receiverBic\": \"XYZ12ABC3\",\n    \"housingObject\": {\n        \"housingObjectId\": 1,\n        \"name\": \"Sunset Apartments\",\n        \"street\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zipCode\": \"62704\",\n        \"numberOfApartments\": 20\n    },\n    \"invoiceCategory\": {\n        \"invoiceCategoryId\": 1,\n        \"name\": \"Maintenance\"\n    }\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -3654,6 +3697,16 @@
 		{
 			"key": "baseUrl",
 			"value": "http://localhost:8080"
+		},
+		{
+			"key": "Spiffworkflow-Api-Key",
+			"value": "94307308-b4a9-43f0-9e35-8cf7e92d5f39",
+			"type": "string"
+		},
+		{
+			"key": "SpiffBaseUrl",
+			"value": "http://localhost:8000/v1.0",
+			"type": "string"
 		}
 	]
 }
