@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="Quarkus" url="file://$PROJECT_DIR$/notification-service" />
     <file type="Quarkus" url="file://$PROJECT_DIR$/tenant-management" />
+    <file type="Qute" url="file://$PROJECT_DIR$/notification-service" />
   </component>
   <component name="JsBuildToolPackageJson" sorting="DEFINITION_ORDER" />
   <component name="MavenProjectsManager">
@@ -10,6 +12,7 @@
       <list>
         <option value="$PROJECT_DIR$/service1/pom.xml" />
         <option value="$PROJECT_DIR$/tenant-management/pom.xml" />
+        <option value="$PROJECT_DIR$/notification-service/pom.xml" />
       </list>
     </option>
   </component>
