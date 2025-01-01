@@ -1,6 +1,13 @@
+/**
+ * Start
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
+ */
+
 package entity;
 
 import jakarta.persistence.*;
+
 import java.util.Date;
 
 /**
@@ -16,6 +23,9 @@ public class Invoice {
     private float invoiceAmount;
     private String description;
     private String status;
+    private String receiver;
+    private String receiverIban;
+    private String receiverBic;
 
     @ManyToOne
     @JoinColumn(name = "invoiceCategoryId")
@@ -38,14 +48,20 @@ public class Invoice {
      * @param invoiceAmount   the amount of the invoice
      * @param description     the description of the invoice
      * @param status          the status of the invoice e.g. paid, unpaid
+     * @param receiver        the receiver of the invoice
+     * @param receiverIban    the IBAN of the receiver
+     * @param receiverBic     the BIC of the receiver
      * @param invoiceCategory the category of the invoice
      * @param housingObject   the housing object associated with the invoice
      */
-    public Invoice(Date invoiceDate, float invoiceAmount, String description, String status, InvoiceCategory invoiceCategory, HousingObject housingObject) {
+    public Invoice(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, InvoiceCategory invoiceCategory, HousingObject housingObject) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
         this.description = description;
         this.status = status;
+        this.receiver = receiver;
+        this.receiverIban = receiverIban;
+        this.receiverBic = receiverBic;
         this.invoiceCategory = invoiceCategory;
         this.housingObject = housingObject;
     }
@@ -177,4 +193,63 @@ public class Invoice {
     public void setHousingObject(HousingObject housingObject) {
         this.housingObject = housingObject;
     }
+
+    /**
+     * Gets the receiver of the invoice.
+     *
+     * @return the receiver
+     */
+    public String getReceiver() {
+        return receiver;
+    }
+
+    /**
+     * Sets the receiver of the invoice.
+     *
+     * @param receiver the receiver
+     */
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    /**
+     * Gets the IBAN of the receiver.
+     *
+     * @return the IBAN of the receiver
+     */
+    public String getReceiverIban() {
+        return receiverIban;
+    }
+
+    /**
+     * Sets the IBAN of the receiver.
+     *
+     * @param receiverIban the IBAN of the receiver
+     */
+    public void setReceiverIban(String receiverIban) {
+        this.receiverIban = receiverIban;
+    }
+
+    /**
+     * Gets the BIC of the receiver.
+     *
+     * @return the BIC of the receiver
+     */
+    public String getReceiverBic() {
+        return receiverBic;
+    }
+
+    /**
+     * Sets the BIC of the receiver.
+     *
+     * @param receiverBic the BIC of the receiver
+     */
+    public void setReceiverBic(String receiverBic) {
+        this.receiverBic = receiverBic;
+    }
 }
+/**
+ * End
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
+ */

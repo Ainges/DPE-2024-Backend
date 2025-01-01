@@ -130,6 +130,9 @@ public class InvoiceEndpoint {
         existingInvoice.setHousingObject(invoice.getHousingObject());
         existingInvoice.setDescription(invoice.getDescription());
         existingInvoice.setStatus(invoice.getStatus());
+        existingInvoice.setReceiver(invoice.getReceiver());
+        existingInvoice.setReceiverIban(invoice.getReceiverIban());
+        existingInvoice.setReceiverBic(invoice.getReceiverBic());
         invoiceRepository.persist(existingInvoice);
         return Response.ok(existingInvoice).build();
     }
