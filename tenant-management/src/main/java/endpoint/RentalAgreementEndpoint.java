@@ -1,5 +1,6 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -55,6 +56,41 @@ public class RentalAgreementEndpoint {
     }
 
     /**
+     * Retrieves rental agreements based on the apartment ID.
+     *
+     * @param apartmentId the ID of the apartment to filter rental agreements
+     * @return a Response containing a list of rental agreements for the specified apartment,
+     * or a 404 Not Found status if no rental agreements are found
+     */
+    @GET
+    @Path("/by-apartment/{apartmentId}")
+    public Response getRentalAgreementsByApartmentId(@PathParam("apartmentId") long apartmentId) {
+        List<RentalAgreement> rentalAgreements = rentalAgreementRepository.find("apartment.id", apartmentId).list();
+        if (rentalAgreements.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(rentalAgreements).build();
+    }
+
+    /**
+     * Retrieves rental agreements based on the housing object ID.
+     *
+     * @param housingObjectId the ID of the housing object to filter rental agreements
+     * @return a Response containing a list of rental agreements for the specified housing object,
+     * or a 404 Not Found status if no rental agreements are found
+     */
+    @GET
+    @Path("/by-housing-object/{housingObjectId}")
+    public Response getRentalAgreementsByHousingObjectId(@PathParam("housingObjectId") long housingObjectId) {
+        List<RentalAgreement> rentalAgreements = rentalAgreementRepository.find(
+                "apartment.housingObject.housingObjectId", housingObjectId).list();
+        if (rentalAgreements.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(rentalAgreements).build();
+    }
+
+    /**
      * Creates a new rental agreement.
      *
      * @param rentalAgreement the rental agreement to create
@@ -94,10 +130,15 @@ public class RentalAgreementEndpoint {
         if (existingRentalAgreement == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        existingRentalAgreement.setApartment(rentalAgreement.getApartment());
-        existingRentalAgreement.setStartDate(rentalAgreement.getStartDate());
-        existingRentalAgreement.setEndDate(rentalAgreement.getEndDate());
-
+        if (rentalAgreement.getApartment() != null) {
+            existingRentalAgreement.setApartment(rentalAgreement.getApartment());
+        }
+        if (rentalAgreement.getStartDate() != null) {
+            existingRentalAgreement.setStartDate(rentalAgreement.getStartDate());
+        }
+        if (rentalAgreement.getEndDate() != null) {
+            existingRentalAgreement.setEndDate(rentalAgreement.getEndDate());
+        }
         Set<Tenant> tenants = rentalAgreement.getTenants();
         if (tenants != null && !tenants.isEmpty()) {
             for (Tenant tenant : tenants) {
@@ -106,9 +147,8 @@ public class RentalAgreementEndpoint {
                     tenant = existingTenant;
                 }
             }
+            existingRentalAgreement.setTenants(tenants);
         }
-        existingRentalAgreement.setTenants(tenants);
-
         rentalAgreementRepository.persist(existingRentalAgreement);
         return Response.ok(existingRentalAgreement).build();
     }
@@ -135,6 +175,7 @@ public class RentalAgreementEndpoint {
 
 /**
  * End
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */

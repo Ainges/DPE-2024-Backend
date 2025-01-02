@@ -1,5 +1,6 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -77,12 +78,24 @@ public class HousingObjectEndpoint {
         if (existingHousingObject == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        existingHousingObject.setName(housingObject.getName());
-        existingHousingObject.setStreet(housingObject.getStreet());
-        existingHousingObject.setCity(housingObject.getCity());
-        existingHousingObject.setState(housingObject.getState());
-        existingHousingObject.setZipCode(housingObject.getZipCode());
-        existingHousingObject.setNumberOfApartments(housingObject.getNumberOfApartments());
+        if (housingObject.getName() != null) {
+            existingHousingObject.setName(housingObject.getName());
+        }
+        if (housingObject.getStreet() != null) {
+            existingHousingObject.setStreet(housingObject.getStreet());
+        }
+        if (housingObject.getCity() != null) {
+            existingHousingObject.setCity(housingObject.getCity());
+        }
+        if (housingObject.getState() != null) {
+            existingHousingObject.setState(housingObject.getState());
+        }
+        if (housingObject.getZipCode() != null) {
+            existingHousingObject.setZipCode(housingObject.getZipCode());
+        }
+        if (housingObject.getNumberOfApartments() != 0) {
+            existingHousingObject.setNumberOfApartments(housingObject.getNumberOfApartments());
+        }
         housingObjectRepository.persist(existingHousingObject);
         return Response.ok(existingHousingObject).build();
     }

@@ -18,7 +18,6 @@ import jakarta.ws.rs.core.Response;
 import repository.HousingObjectRepository;
 import repository.InvoiceRepository;
 import repository.InvoiceCategoryRepository;
-import entity.HousingObject;
 
 import java.util.List;
 
@@ -124,15 +123,33 @@ public class InvoiceEndpoint {
         if (existingInvoice == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        existingInvoice.setInvoiceDate(invoice.getInvoiceDate());
-        existingInvoice.setInvoiceAmount(invoice.getInvoiceAmount());
-        existingInvoice.setInvoiceCategory(invoice.getInvoiceCategory());
-        existingInvoice.setHousingObject(invoice.getHousingObject());
-        existingInvoice.setDescription(invoice.getDescription());
-        existingInvoice.setStatus(invoice.getStatus());
-        existingInvoice.setReceiver(invoice.getReceiver());
-        existingInvoice.setReceiverIban(invoice.getReceiverIban());
-        existingInvoice.setReceiverBic(invoice.getReceiverBic());
+        if (invoice.getInvoiceDate() != null) {
+            existingInvoice.setInvoiceDate(invoice.getInvoiceDate());
+        }
+        if (invoice.getInvoiceAmount() != 0.0) {
+            existingInvoice.setInvoiceAmount(invoice.getInvoiceAmount());
+        }
+        if (invoice.getInvoiceCategory() != null) {
+            existingInvoice.setInvoiceCategory(invoice.getInvoiceCategory());
+        }
+        if (invoice.getHousingObject() != null) {
+            existingInvoice.setHousingObject(invoice.getHousingObject());
+        }
+        if (invoice.getDescription() != null) {
+            existingInvoice.setDescription(invoice.getDescription());
+        }
+        if (invoice.getStatus() != null) {
+            existingInvoice.setStatus(invoice.getStatus());
+        }
+        if (invoice.getReceiver() != null) {
+            existingInvoice.setReceiver(invoice.getReceiver());
+        }
+        if (invoice.getReceiverIban() != null) {
+            existingInvoice.setReceiverIban(invoice.getReceiverIban());
+        }
+        if (invoice.getReceiverBic() != null) {
+            existingInvoice.setReceiverBic(invoice.getReceiverBic());
+        }
         invoiceRepository.persist(existingInvoice);
         return Response.ok(existingInvoice).build();
     }

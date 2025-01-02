@@ -74,6 +74,14 @@ services:
       - "61616:61616"
       - "8161:8161"
 
+  smtp4dev:
+    image: rnwood/smtp4dev:3.5.0
+    ports:
+      - "3300:80"
+      - "2525:25"
+    environment:
+      - ServerOptions__DisableMessageSanitisation=true
+
 
   
 

@@ -1,5 +1,6 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -77,7 +78,9 @@ public class InvoiceCategoryEndpoint {
         if (existingInvoiceCategory == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        existingInvoiceCategory.setName(invoiceCategory.getName());
+        if (invoiceCategory.getName() != null) {
+            existingInvoiceCategory.setName(invoiceCategory.getName());
+        }
         invoiceCategoryRepository.persist(existingInvoiceCategory);
         return Response.ok(existingInvoiceCategory).build();
     }

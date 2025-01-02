@@ -93,12 +93,24 @@ public class AnnualStatementEndpoint {
         if (existingAnnualStatement == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        existingAnnualStatement.setRentalAgreement(annualStatement.getRentalAgreement());
-        existingAnnualStatement.setPeriodStart(annualStatement.getPeriodStart());
-        existingAnnualStatement.setPeriodEnd(annualStatement.getPeriodEnd());
-        existingAnnualStatement.setTotalCost(annualStatement.getTotalCost());
-        existingAnnualStatement.setTotalPrepayments(annualStatement.getTotalPrepayments());
-        existingAnnualStatement.setDifference(annualStatement.getDifference());
+        if (annualStatement.getRentalAgreement() != null) {
+            existingAnnualStatement.setRentalAgreement(annualStatement.getRentalAgreement());
+        }
+        if (annualStatement.getPeriodStart() != null) {
+            existingAnnualStatement.setPeriodStart(annualStatement.getPeriodStart());
+        }
+        if (annualStatement.getPeriodEnd() != null) {
+            existingAnnualStatement.setPeriodEnd(annualStatement.getPeriodEnd());
+        }
+        if (annualStatement.getTotalCost() != 0.0) {
+            existingAnnualStatement.setTotalCost(annualStatement.getTotalCost());
+        }
+        if (annualStatement.getTotalPrepayments() != 0.0) {
+            existingAnnualStatement.setTotalPrepayments(annualStatement.getTotalPrepayments());
+        }
+        if (annualStatement.getDifference() != 0.0) {
+            existingAnnualStatement.setDifference(annualStatement.getDifference());
+        }
 
         Set<InvoiceCategory> categories = annualStatement.getInvoiceCategories();
         if (categories != null && !categories.isEmpty()) {
