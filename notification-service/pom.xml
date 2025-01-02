@@ -47,10 +47,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-activemq</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jackson</artifactId>
         </dependency>
         <dependency>
@@ -65,6 +61,20 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-rest</artifactId>
         </dependency>
+        <!--ActiveMQ Config - ALL 3 REQUIRED!-->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-activemq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.messaginghub</groupId>
+            <artifactId>quarkus-pooled-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-jms</artifactId>
+        </dependency>
+        <!-- -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
@@ -86,6 +96,11 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-mail</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-direct</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
