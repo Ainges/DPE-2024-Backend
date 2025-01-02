@@ -1,7 +1,7 @@
 package endpoint;
 
+import dto.StatementEntryServiceDTO;
 import entity.RentalAgreement;
-import entity.StatementEntry;
 import service.StatementEntryService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -10,22 +10,46 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.List;
-
 @ApplicationScoped
-@Path("/statement-entries")
+@Path("/statement-entries-service")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class StatementEntryServiceEndpoint {
 
+    @Inject
+    StatementEntryService statementEntryService;
+
     @POST
     @Path("/no-tenant-change")
     @Transactional
-    public Response createStatementEntry(StatementEntryService statementEntryService) {
-        for(RentalAgreement rentalAgreement : statementEntryService.getRentalAgreements()) {
+    public Response createStatementEntryNoChange(StatementEntryServiceDTO dto) {
+        statementEntryService = new StatementEntryService(
+                dto.getDistributionKey(),
+                dto.getInvoiceCategoryName(),
+                dto.getInvoiceCategorySum(),
+                dto.getHousingObject(),
+                dto.getRentalAgreements()
+        );
+        for (RentalAgreement rentalAgreement : dto.getRentalAgreements()) {
             statementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement);
         }
+        return Response.status(Response.Status.ACCEPTED).build();
+    }
 
+    @POST
+    @Path("/tenant-change")
+    @Transactional
+    public Response createStatementEntryChange(StatementEntryServiceDTO dto) {
+        statementEntryService = new StatementEntryService(
+                dto.getDistributionKey(),
+                dto.getInvoiceCategoryName(),
+                dto.getInvoiceCategorySum(),
+                dto.getHousingObject(),
+                dto.getRentalAgreements()
+        );
+        for (RentalAgreement rentalAgreement : dto.getRentalAgreements()) {
+            statementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement);
+        }
         return Response.status(Response.Status.ACCEPTED).build();
     }
 }

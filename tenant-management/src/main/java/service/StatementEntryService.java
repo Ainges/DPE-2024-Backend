@@ -73,8 +73,6 @@ public class StatementEntryService {
      * Divides the invoice category sum for the whole year based on the given distribution key.
      *
      * @param rentalAgreement    the rental agreement for which the sum is being divided
-     * @param distributionKey    the distribution key used for dividing the sum
-     * @param invoiceCategorySum the total sum of the invoice category
      * @return the amount per unit based on the distribution key
      */
     public void divideInvoiceCategorySumWholeYear(RentalAgreement rentalAgreement) {
