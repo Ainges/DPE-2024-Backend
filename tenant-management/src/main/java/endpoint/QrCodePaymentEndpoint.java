@@ -17,8 +17,6 @@ import java.io.InputStream;
 
 @ApplicationScoped
 @Path("/qrCodePayment")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class QrCodePaymentEndpoint {
 
     private static final Logger logger = LoggerFactory.getLogger(QrCodePaymentEndpoint.class);
