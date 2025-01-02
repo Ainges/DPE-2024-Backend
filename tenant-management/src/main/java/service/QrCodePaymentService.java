@@ -46,3 +46,8 @@ public class QrCodePaymentService {
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
     }
 }
+/**
+ * End
+ * @author 1 GitHub Copilot
+ * @author 2 Zohal Mohammadi
+ */

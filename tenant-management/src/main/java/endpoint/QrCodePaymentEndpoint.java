@@ -40,3 +40,8 @@ public class QrCodePaymentEndpoint {
         }
     }
 }
+/**
+ * End
+ * @author 1 GitHub Copilot
+ * @author 2 Zohal Mohammadi
+ */
