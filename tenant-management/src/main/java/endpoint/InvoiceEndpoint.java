@@ -18,7 +18,6 @@ import jakarta.ws.rs.core.Response;
 import repository.HousingObjectRepository;
 import repository.InvoiceRepository;
 import repository.InvoiceCategoryRepository;
-import entity.HousingObject;
 
 import java.util.List;
 
