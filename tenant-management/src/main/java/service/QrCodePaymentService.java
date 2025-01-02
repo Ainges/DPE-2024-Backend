@@ -24,6 +24,11 @@ public class QrCodePaymentService {
     public String generateQrCode(InvoiceDTO invoiceDTO) {
         try {
             logger.info("Generating QR code for invoice: {}", invoiceDTO);
+            logger.debug("Receiver: {}", invoiceDTO.getReceiver());
+            logger.debug("Receiver IBAN: {}", invoiceDTO.getReceiverIban());
+            logger.debug("Invoice Amount: {}", invoiceDTO.getInvoiceAmount());
+            logger.debug("Description: {}", invoiceDTO.getDescription());
+
             PaymentQRCode paymentQRCode = PaymentQRCode.Builder
                     .paymentQRCode()
                     .withRecipient(invoiceDTO.getReceiver())
@@ -34,6 +39,7 @@ public class QrCodePaymentService {
                     .build();
 
             generateQRCodeImage(paymentQRCode.getQRCodeSubject(), 250, 250, QR_CODE_IMAGE_PATH);
+            logger.info("QR code generated successfully at path: {}", QR_CODE_IMAGE_PATH);
             return QR_CODE_IMAGE_PATH;
         } catch (WrongInputException e) {
             logger.error("Invalid input for PaymentQRCode: {}", e.getMessage());
