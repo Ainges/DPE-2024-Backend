@@ -9,6 +9,7 @@ package endpoint;
 
 import entity.RentalAgreement;
 import entity.Tenant;
+import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -18,6 +19,8 @@ import jakarta.ws.rs.core.Response;
 import repository.RentalAgreementRepository;
 import repository.TenantRepository;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -87,6 +90,28 @@ public class RentalAgreementEndpoint {
         if (rentalAgreements.isEmpty()) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+        return Response.ok(rentalAgreements).build();
+    }
+
+    /**
+     * Retrieves rental agreements based on the year.
+     *
+     * @param year the year to filter rental agreements
+     * @return a Response containing a list of rental agreements for the specified year,
+     * or a 404 Not Found status if no rental agreements are found
+     */
+    @GET
+    @Path("/by-year/{year}")
+    public Response getRentalAgreementsByYear(@PathParam("year") int year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, Calendar.JANUARY, 1, 0, 0, 0);
+        Date startDate = calendar.getTime();
+        calendar.set(year, Calendar.DECEMBER, 31, 23, 59, 59);
+        Date endDate = calendar.getTime();
+
+        List<RentalAgreement> rentalAgreements = rentalAgreementRepository.find(
+                "startDate <= :endDate AND endDate >= :startDate",
+                Parameters.with("endDate", endDate).and("startDate", startDate)).list();
         return Response.ok(rentalAgreements).build();
     }
 
