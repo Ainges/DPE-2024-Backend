@@ -1,6 +1,5 @@
 /**
  * Start
- *
  * @author 1 Moritz Baur
  * @author 2 GitHub Copilot
  */
@@ -43,7 +42,6 @@ public class StatementEntryService {
     private float invoiceCategorySum;
     private HousingObject housingObject;
     private List<RentalAgreement> rentalAgreements;
-    private List<Apartment> apartments;
 
     /**
      * Default constructor.
@@ -66,19 +64,18 @@ public class StatementEntryService {
         this.invoiceCategorySum = invoiceCategorySum;
         this.housingObject = housingObject;
         this.rentalAgreements = rentalAgreements;
-        this.apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
     }
 
     /**
      * Divides the invoice category sum for the whole year based on the given distribution key.
      *
-     * @param rentalAgreement    the rental agreement for which the sum is being divided
+     * @param rentalAgreement the rental agreement for which the sum is being divided
      * @return the amount per unit based on the distribution key
      */
     public void divideInvoiceCategorySumWholeYear(RentalAgreement rentalAgreement) {
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
-
+        List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
         switch (distributionKey) {
             case "Area":
                 for (Apartment apartment : apartments) {
@@ -216,22 +213,10 @@ public class StatementEntryService {
     public void setRentalAgreements(List<RentalAgreement> rentalAgreements) {
         this.rentalAgreements = rentalAgreements;
     }
-
-    /**
-     * Gets the list of apartments.
-     *
-     * @return the list of apartments
-     */
-    public List<Apartment> getApartments() {
-        return apartments;
-    }
-
-    /**
-     * Sets the list of apartments.
-     *
-     * @param apartments the list of apartments
-     */
-    public void setApartments(List<Apartment> apartments) {
-        this.apartments = apartments;
-    }
 }
+
+/**
+ * End
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
+ */
