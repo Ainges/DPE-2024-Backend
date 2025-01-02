@@ -1,5 +1,6 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -94,10 +95,15 @@ public class RentalAgreementEndpoint {
         if (existingRentalAgreement == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        existingRentalAgreement.setApartment(rentalAgreement.getApartment());
-        existingRentalAgreement.setStartDate(rentalAgreement.getStartDate());
-        existingRentalAgreement.setEndDate(rentalAgreement.getEndDate());
-
+        if (rentalAgreement.getApartment() != null) {
+            existingRentalAgreement.setApartment(rentalAgreement.getApartment());
+        }
+        if (rentalAgreement.getStartDate() != null) {
+            existingRentalAgreement.setStartDate(rentalAgreement.getStartDate());
+        }
+        if (rentalAgreement.getEndDate() != null) {
+            existingRentalAgreement.setEndDate(rentalAgreement.getEndDate());
+        }
         Set<Tenant> tenants = rentalAgreement.getTenants();
         if (tenants != null && !tenants.isEmpty()) {
             for (Tenant tenant : tenants) {
@@ -106,9 +112,8 @@ public class RentalAgreementEndpoint {
                     tenant = existingTenant;
                 }
             }
+            existingRentalAgreement.setTenants(tenants);
         }
-        existingRentalAgreement.setTenants(tenants);
-
         rentalAgreementRepository.persist(existingRentalAgreement);
         return Response.ok(existingRentalAgreement).build();
     }

@@ -77,12 +77,24 @@ public class ApartmentEndpoint {
         if (existingApartment == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        existingApartment.setHousingObject(apartment.getHousingObject());
-        existingApartment.setAreaInM2(apartment.getAreaInM2());
-        existingApartment.setNumberOfRooms(apartment.getNumberOfRooms());
-        existingApartment.setColdRent(apartment.getColdRent());
-        existingApartment.setHeatingCostPrepayment(apartment.getHeatingCostPrepayment());
-        existingApartment.setAdditionalCostPrepayment(apartment.getAdditionalCostPrepayment());
+        if (apartment.getHousingObject() != null) {
+            existingApartment.setHousingObject(apartment.getHousingObject());
+        }
+        if (apartment.getAreaInM2() != 0.0) {
+            existingApartment.setAreaInM2(apartment.getAreaInM2());
+        }
+        if (apartment.getNumberOfRooms() != 0) {
+            existingApartment.setNumberOfRooms(apartment.getNumberOfRooms());
+        }
+        if (apartment.getColdRent() != 0.0) {
+            existingApartment.setColdRent(apartment.getColdRent());
+        }
+        if (apartment.getHeatingCostPrepayment() != 0.0) {
+            existingApartment.setHeatingCostPrepayment(apartment.getHeatingCostPrepayment());
+        }
+        if (apartment.getAdditionalCostPrepayment() != 0.0) {
+            existingApartment.setAdditionalCostPrepayment(apartment.getAdditionalCostPrepayment());
+        }
         apartmentRepository.persist(existingApartment);
         return Response.ok(existingApartment).build();
     }

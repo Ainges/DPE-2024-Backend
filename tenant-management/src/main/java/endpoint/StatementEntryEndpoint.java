@@ -62,14 +62,6 @@ public class StatementEntryEndpoint {
         return Response.status(Response.Status.CREATED).entity(statementEntry).build();
     }
 
-    /**
-     * Updates an existing statement entry.
-     *
-     * @param id             the ID of the statement entry to update
-     * @param statementEntry the updated statement entry data
-     * @return a Response containing the updated statement entry,
-     * or a 404 Not Found status if the statement entry does not exist
-     */
     @PUT
     @Path("/{id}")
     @Transactional
@@ -78,12 +70,24 @@ public class StatementEntryEndpoint {
         if (existingStatementEntry == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        existingStatementEntry.setName(statementEntry.getName());
-        existingStatementEntry.setOverallAmount(statementEntry.getOverallAmount());
-        existingStatementEntry.setAmountPayable(statementEntry.getAmountPayable());
-        existingStatementEntry.setDistributionKey(statementEntry.getDistributionKey());
-        existingStatementEntry.setRentalAgreement(statementEntry.getRentalAgreement());
-        existingStatementEntry.setAnnualStatement(statementEntry.getAnnualStatement());
+        if (statementEntry.getName() != null) {
+            existingStatementEntry.setName(statementEntry.getName());
+        }
+        if (statementEntry.getOverallAmount() != 0.0) {
+            existingStatementEntry.setOverallAmount(statementEntry.getOverallAmount());
+        }
+        if (statementEntry.getAmountPayable() != 0.0) {
+            existingStatementEntry.setAmountPayable(statementEntry.getAmountPayable());
+        }
+        if (statementEntry.getDistributionKey() != null) {
+            existingStatementEntry.setDistributionKey(statementEntry.getDistributionKey());
+        }
+        if (statementEntry.getRentalAgreement() != null) {
+            existingStatementEntry.setRentalAgreement(statementEntry.getRentalAgreement());
+        }
+        if (statementEntry.getAnnualStatement() != null) {
+            existingStatementEntry.setAnnualStatement(statementEntry.getAnnualStatement());
+        }
         statementEntryRepository.persist(existingStatementEntry);
         return Response.ok(existingStatementEntry).build();
     }

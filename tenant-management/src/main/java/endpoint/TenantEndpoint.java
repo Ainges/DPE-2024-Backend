@@ -1,5 +1,6 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -77,14 +78,6 @@ public class TenantEndpoint {
         return Response.status(Response.Status.CREATED).entity(tenant).build();
     }
 
-    /**
-     * Updates an existing tenant.
-     *
-     * @param id     the ID of the tenant to update
-     * @param tenant the updated tenant data
-     * @return a Response containing the updated tenant,
-     * or a 404 Not Found status if the tenant does not exist
-     */
     @PUT
     @Path("/{id}")
     @Transactional
@@ -93,10 +86,18 @@ public class TenantEndpoint {
         if (existingTenant == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        existingTenant.setFirstName(tenant.getFirstName());
-        existingTenant.setLastName(tenant.getLastName());
-        existingTenant.setEmail(tenant.getEmail());
-        existingTenant.setPhoneNumber(tenant.getPhoneNumber());
+        if (tenant.getFirstName() != null) {
+            existingTenant.setFirstName(tenant.getFirstName());
+        }
+        if (tenant.getLastName() != null) {
+            existingTenant.setLastName(tenant.getLastName());
+        }
+        if (tenant.getEmail() != null) {
+            existingTenant.setEmail(tenant.getEmail());
+        }
+        if (tenant.getPhoneNumber() != null) {
+            existingTenant.setPhoneNumber(tenant.getPhoneNumber());
+        }
         existingTenant.setActive(tenant.isActive());
 
         Set<RentalAgreement> agreements = tenant.getRentalAgreements();
@@ -107,8 +108,8 @@ public class TenantEndpoint {
                     agreement = existingAgreement;
                 }
             }
+            existingTenant.setRentalAgreements(agreements);
         }
-        existingTenant.setRentalAgreements(agreements);
 
         tenantRepository.persist(existingTenant);
         return Response.ok(existingTenant).build();
