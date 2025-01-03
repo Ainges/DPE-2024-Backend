@@ -18,7 +18,6 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long invoiceId;
-
     private Date invoiceDate;
     private float invoiceAmount;
     private String description;

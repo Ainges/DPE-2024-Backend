@@ -10,6 +10,7 @@ public class InvoiceDTO {
     private String receiverIban;
     private double invoiceAmount;
     private String description;
+    private String country;
 
     /**
      * Gets the receiver of the invoice.
@@ -81,5 +82,23 @@ public class InvoiceDTO {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Gets the country code of the invoice.
+     *
+     * @return the country code of the invoice
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * Sets the country code of the invoice.
+     *
+     * @param country the country code of the invoice
+     */
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
