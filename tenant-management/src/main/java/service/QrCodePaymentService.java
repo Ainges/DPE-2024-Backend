@@ -1,7 +1,7 @@
 package service;
 
 import com.github.mateuszjanczak.paymentqrcode.PaymentQRCode;
-import com.github.mateuszjanczak.paymentqrcode.exceptions.WrongInputException;
+import com.github.mateuszjanczak.paymentqrcode.exceptions.*;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -28,6 +28,7 @@ public class QrCodePaymentService {
             logger.debug("Receiver IBAN: {}", invoiceDTO.getReceiverIban());
             logger.debug("Invoice Amount: {}", invoiceDTO.getInvoiceAmount());
             logger.debug("Description: {}", invoiceDTO.getDescription());
+            logger.debug("Country: {}", invoiceDTO.getCountry());
 
             PaymentQRCode paymentQRCode = PaymentQRCode.Builder
                     .paymentQRCode()
@@ -35,12 +36,19 @@ public class QrCodePaymentService {
                     .withAccountNumber(invoiceDTO.getReceiverIban())
                     .withAmount(invoiceDTO.getInvoiceAmount())
                     .withTitle(invoiceDTO.getDescription())
-                    .withCountry("DE")
+                    .withCountry(invoiceDTO.getCountry())
                     .build();
 
-            generateQRCodeImage(paymentQRCode.getQRCodeSubject(), 250, 250, QR_CODE_IMAGE_PATH);
+            String qrCodeSubject = paymentQRCode.getQRCodeSubject();
+            System.out.println(qrCodeSubject);  // Print the QR code subject to the console
+            logger.debug("QR Code Subject: {}", qrCodeSubject);
+
+            generateQRCodeImage(qrCodeSubject, 250, 250, QR_CODE_IMAGE_PATH);
             logger.info("QR code generated successfully at path: {}", QR_CODE_IMAGE_PATH);
             return QR_CODE_IMAGE_PATH;
+        } catch (BadRecipientException | BadAccountNumberException | BadCountryCodeException | BadNipException | BadTitleException e) {
+            logger.error("Invalid input for PaymentQRCode: {}", e.getMessage());
+            throw new IllegalArgumentException("Invalid input for PaymentQRCode: " + e.getMessage(), e);
         } catch (WrongInputException e) {
             logger.error("Invalid input for PaymentQRCode: {}", e.getMessage());
             throw new IllegalArgumentException("Invalid input for PaymentQRCode: " + e.getMessage(), e);
