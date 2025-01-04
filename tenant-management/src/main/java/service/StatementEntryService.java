@@ -1,25 +1,12 @@
-/**
- * Start
- * @author 1 Moritz Baur
- * @author 2 GitHub Copilot
- */
-
-/**
- * Service for managing statement entries.
- * This service provides methods to handle statement entries, including dividing invoice category sums
- * based on different distribution keys and creating statement entries.
- */
 package service;
 
 import entity.*;
-
 import repository.ApartmentRepository;
 import repository.RentalAgreementRepository;
 import repository.StatementEntryRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-
 import java.util.List;
 
 /**
@@ -36,6 +23,9 @@ public class StatementEntryService {
 
     @Inject
     ApartmentRepository apartmentRepository;
+
+    @Inject
+    InvoiceCategorySumService invoiceCategorySumService;
 
     private String distributionKey;
     private String invoiceCategoryName;
@@ -70,9 +60,9 @@ public class StatementEntryService {
      * Divides the invoice category sum for the whole year based on the given distribution key.
      *
      * @param rentalAgreement the rental agreement for which the sum is being divided
-     * @return the amount per unit based on the distribution key
      */
     public void divideInvoiceCategorySumWholeYear(RentalAgreement rentalAgreement) {
+        calculateInvoiceCategorySum();
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
         List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
@@ -81,31 +71,19 @@ public class StatementEntryService {
                 for (Apartment apartment : apartments) {
                     divisor += apartment.getAreaInM2();
                 }
-
-                // Calculate Amount per M2
                 amountPerUnit = invoiceCategorySum / divisor;
-
                 createStatementEntry(amountPerUnit * rentalAgreement.getApartment().getAreaInM2(), rentalAgreement.getRentalAgreementId());
-
                 break;
             case "Tenants":
                 for (RentalAgreement ra : rentalAgreements) {
                     divisor += ra.getTenants().size();
                 }
-                // Calculate Amount per Tenant
                 amountPerUnit = invoiceCategorySum / divisor;
-
-                // Save divided StatementEntries
                 createStatementEntry(amountPerUnit * rentalAgreement.getTenants().size(), rentalAgreement.getRentalAgreementId());
-
                 break;
             case "Apartments":
                 divisor = apartments.size();
-
-                // Calculate Amount per Apartment
                 amountPerUnit = invoiceCategorySum / divisor;
-
-                // Save divided StatementEntries
                 createStatementEntry(amountPerUnit, rentalAgreement.getRentalAgreementId());
                 break;
             default:
@@ -125,91 +103,50 @@ public class StatementEntryService {
     }
 
     /**
-     * Gets the distribution key.
-     *
-     * @return the distribution key
+     * Calculates the invoice category sum using the InvoiceCategorySumService.
      */
+    public void calculateInvoiceCategorySum() {
+        this.invoiceCategorySum = (float) invoiceCategorySumService.getCategoryTotalSumByName(this.invoiceCategoryName);
+    }
+
+    // Getters and Setters
+
     public String getDistributionKey() {
         return distributionKey;
     }
 
-    /**
-     * Sets the distribution key.
-     *
-     * @param distributionKey the distribution key
-     */
     public void setDistributionKey(String distributionKey) {
         this.distributionKey = distributionKey;
     }
 
-    /**
-     * Gets the invoice category name.
-     *
-     * @return the invoice category name
-     */
     public String getInvoiceCategoryName() {
         return invoiceCategoryName;
     }
 
-    /**
-     * Sets the invoice category name.
-     *
-     * @param invoiceCategoryName the invoice category name
-     */
     public void setInvoiceCategoryName(String invoiceCategoryName) {
         this.invoiceCategoryName = invoiceCategoryName;
     }
 
-    /**
-     * Gets the invoice category sum.
-     *
-     * @return the invoice category sum
-     */
     public float getInvoiceCategorySum() {
         return invoiceCategorySum;
     }
 
-    /**
-     * Sets the invoice category sum.
-     *
-     * @param invoiceCategorySum the invoice category sum
-     */
     public void setInvoiceCategorySum(float invoiceCategorySum) {
         this.invoiceCategorySum = invoiceCategorySum;
     }
 
-    /**
-     * Gets the housing object.
-     *
-     * @return the housing object
-     */
     public HousingObject getHousingObject() {
         return housingObject;
     }
 
-    /**
-     * Sets the housing object.
-     *
-     * @param housingObject the housing object
-     */
     public void setHousingObject(HousingObject housingObject) {
         this.housingObject = housingObject;
     }
 
-    /**
-     * Gets the list of rental agreements.
-     *
-     * @return the list of rental agreements
-     */
     public List<RentalAgreement> getRentalAgreements() {
         return rentalAgreements;
     }
 
-    /**
-     * Sets the list of rental agreements.
-     *
-     * @param rentalAgreements the list of rental agreements
-     */
     public void setRentalAgreements(List<RentalAgreement> rentalAgreements) {
         this.rentalAgreements = rentalAgreements;
     }
