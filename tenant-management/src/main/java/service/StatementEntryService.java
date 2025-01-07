@@ -7,6 +7,9 @@ import repository.StatementEntryRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+
+import java.time.*;
+
 import java.util.List;
 
 /**
@@ -92,6 +95,64 @@ public class StatementEntryService {
     }
 
     /**
+     * Only for Mid-Year Tenant Changes! - to be implemented
+     /**
+     * Divides the invoice category sum for mid-year tenant changes based on the given distribution key.
+     *
+     * @param rentalAgreements the list of rental agreements to process
+     */
+    public void divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements) {
+        calculateInvoiceCategorySum();
+        float amountPerUnit = 0.0f;
+        float divisor = 0.0f;
+        List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
+
+        switch (distributionKey) {
+            case "Area":
+                for (Apartment apartment : apartments) {
+                    divisor += apartment.getAreaInM2();
+                }
+                amountPerUnit = invoiceCategorySum / divisor;
+
+                for (RentalAgreement ra : rentalAgreements) {
+
+                    float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
+                    float amountPayable = (amountPerUnit * ra.getApartment().getAreaInM2()) / 365;
+                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId());
+                }
+                break;
+            case "Tenants":
+                for (RentalAgreement ra : rentalAgreements) {
+                    divisor += ra.getTenants().size();
+                }
+                amountPerUnit = invoiceCategorySum / divisor;
+
+                for (RentalAgreement ra : rentalAgreements) {
+
+                    float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
+                    float amountPayable = (amountPerUnit * ra.getTenants().size()) / 365;
+                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId());
+                }
+
+                break;
+            case "Apartments":
+                divisor = apartments.size();
+                amountPerUnit = invoiceCategorySum / divisor;
+
+                for (RentalAgreement ra : rentalAgreements) {
+
+                    float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
+                    float amountPayable = amountPerUnit / 365;
+                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId());
+                }
+
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid distribution key: " + distributionKey);
+        }
+    }
+
+    /**
      * Creates a statement entry and persists it in the repository.
      *
      * @param amountPayable     the amount payable for the statement entry
@@ -154,6 +215,7 @@ public class StatementEntryService {
 
 /**
  * End
+ *
  * @author 1 Moritz Baur
  * @author 2 GitHub Copilot
  */

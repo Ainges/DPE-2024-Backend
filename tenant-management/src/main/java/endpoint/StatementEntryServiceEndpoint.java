@@ -17,6 +17,9 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * REST endpoint for managing statement entries.
  */
@@ -68,9 +71,27 @@ public class StatementEntryServiceEndpoint {
         statementEntryService.setHousingObject(dto.getHousingObject());
         statementEntryService.setRentalAgreements(dto.getRentalAgreements());
 
-        for (RentalAgreement rentalAgreement : dto.getRentalAgreements()) {
+        List<RentalAgreement> rentalAgreementsWithoutChanges = dto.getRentalAgreements();
+        List<RentalAgreement> rentalAgreementsWithChanges = null;
+
+        //Get all rental agreements with the same apartment id
+        for (RentalAgreement rentalAgreement : rentalAgreementsWithoutChanges) {
+            long apartmentId = rentalAgreement.getApartment().getApartmentId();
+            rentalAgreementsWithChanges = rentalAgreementsWithoutChanges.stream()
+                    .filter(ra -> ra.getApartment().getApartmentId() == apartmentId)
+                    .collect(Collectors.toList());
+        }
+
+        //Remove from rental agreements without changes
+        rentalAgreementsWithoutChanges.removeAll(rentalAgreementsWithChanges);
+
+        for (RentalAgreement rentalAgreement : rentalAgreementsWithoutChanges) {
             statementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement);
         }
+
+        statementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreementsWithChanges);
+
+
         return Response.status(Response.Status.ACCEPTED).build();
     }
 }
