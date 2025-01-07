@@ -89,7 +89,7 @@ public class StatementEntryServiceEndpoint {
             statementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement);
         }
 
-        statementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreementsWithChanges);
+        statementEntryService.divideInvoiceCategorySumMidYear(rentalAgreementsWithChanges);
 
 
         return Response.status(Response.Status.ACCEPTED).build();
