@@ -12,9 +12,9 @@ import entity.RentalAgreement;
 import java.util.List;
 
 /**
- * Data Transfer Object for StatementEntryService.
+ * Data Transfer Object for CreateStatementEntryService.
  */
-public class StatementEntryServiceDTO {
+public class CreateStatementEntryServiceDTO {
     private String distributionKey;
     private String invoiceCategoryName;
     private float invoiceCategorySum;

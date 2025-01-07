@@ -1,6 +1,6 @@
 package service;
 
-import dto.StatementEntryServiceDTO;
+import dto.CreateStatementEntryServiceDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -11,7 +11,6 @@ import repository.StatementEntryRepository;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,11 +29,11 @@ public class AnnualStatementDocumentCreationService {
     /**
      * Generates a PDF document for the given list of statement entries.
      *
-     * @param dtos List of StatementEntryServiceDTO objects containing the data for the PDF.
+     * @param dtos List of CreateStatementEntryServiceDTO objects containing the data for the PDF.
      * @return A byte array representing the generated PDF document.
      * @throws IOException If an I/O error occurs during PDF generation.
      */
-    public byte[] generatePDF(List<StatementEntryServiceDTO> dtos) throws IOException {
+    public byte[] generatePDF(List<CreateStatementEntryServiceDTO> dtos) throws IOException {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
             document.addPage(page);
@@ -47,7 +46,7 @@ public class AnnualStatementDocumentCreationService {
                 contentStream.newLineAtOffset(0, -20);
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
 
-                for (StatementEntryServiceDTO dto : dtos) {
+                for (CreateStatementEntryServiceDTO dto : dtos) {
                     contentStream.showText("Distribution Key: " + dto.getDistributionKey());
                     contentStream.newLineAtOffset(0, -15);
                     contentStream.showText("Period Start: " + dto.getPeriodStart());
@@ -84,7 +83,7 @@ public class AnnualStatementDocumentCreationService {
      * @return A byte array representing the updated PDF document.
      * @throws IOException If an I/O error occurs during PDF generation.
      */
-    public byte[] updatePDF(Long id, StatementEntryServiceDTO dto) throws IOException {
+    public byte[] updatePDF(Long id, CreateStatementEntryServiceDTO dto) throws IOException {
         if (!pdfStorage.containsKey(id)) {
             throw new IllegalArgumentException("PDF not found");
         }

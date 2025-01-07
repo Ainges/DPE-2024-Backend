@@ -7,9 +7,9 @@
 
 package endpoint;
 
-import dto.StatementEntryServiceDTO;
+import dto.CreateStatementEntryServiceDTO;
 import entity.RentalAgreement;
-import service.StatementEntryService;
+import service.CreateStatementEntryService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -24,13 +24,13 @@ import java.util.stream.Collectors;
  * REST endpoint for managing statement entries.
  */
 @ApplicationScoped
-@Path("/statement-entries-service")
+@Path("/create-statement-entries-service")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class StatementEntryServiceEndpoint {
+public class CreateStatementEntryServiceEndpoint {
 
     @Inject
-    StatementEntryService statementEntryService;
+    CreateStatementEntryService createStatementEntryService;
 
     /**
      * Creates statement entries for rental agreements without tenant change.
@@ -41,15 +41,15 @@ public class StatementEntryServiceEndpoint {
     @POST
     @Path("/no-tenant-change")
     @Transactional
-    public Response createStatementEntryNoChange(StatementEntryServiceDTO dto) {
-        statementEntryService.setDistributionKey(dto.getDistributionKey());
-        statementEntryService.setInvoiceCategoryName(dto.getInvoiceCategoryName());
-        statementEntryService.setInvoiceCategorySum(dto.getInvoiceCategorySum());
-        statementEntryService.setHousingObject(dto.getHousingObject());
-        statementEntryService.setRentalAgreements(dto.getRentalAgreements());
+    public Response createStatementEntryNoChange(CreateStatementEntryServiceDTO dto) {
+        createStatementEntryService.setDistributionKey(dto.getDistributionKey());
+        createStatementEntryService.setInvoiceCategoryName(dto.getInvoiceCategoryName());
+        createStatementEntryService.setInvoiceCategorySum(dto.getInvoiceCategorySum());
+        createStatementEntryService.setHousingObject(dto.getHousingObject());
+        createStatementEntryService.setRentalAgreements(dto.getRentalAgreements());
 
         for (RentalAgreement rentalAgreement : dto.getRentalAgreements()) {
-            statementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement);
+            createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement);
         }
         return Response.status(Response.Status.ACCEPTED).build();
     }
@@ -64,12 +64,12 @@ public class StatementEntryServiceEndpoint {
     @POST
     @Path("/tenant-change")
     @Transactional
-    public Response createStatementEntryChange(StatementEntryServiceDTO dto) {
-        statementEntryService.setDistributionKey(dto.getDistributionKey());
-        statementEntryService.setInvoiceCategoryName(dto.getInvoiceCategoryName());
-        statementEntryService.setInvoiceCategorySum(dto.getInvoiceCategorySum());
-        statementEntryService.setHousingObject(dto.getHousingObject());
-        statementEntryService.setRentalAgreements(dto.getRentalAgreements());
+    public Response createStatementEntryChange(CreateStatementEntryServiceDTO dto) {
+        createStatementEntryService.setDistributionKey(dto.getDistributionKey());
+        createStatementEntryService.setInvoiceCategoryName(dto.getInvoiceCategoryName());
+        createStatementEntryService.setInvoiceCategorySum(dto.getInvoiceCategorySum());
+        createStatementEntryService.setHousingObject(dto.getHousingObject());
+        createStatementEntryService.setRentalAgreements(dto.getRentalAgreements());
 
         List<RentalAgreement> rentalAgreementsWithoutChanges = dto.getRentalAgreements();
         List<RentalAgreement> rentalAgreementsWithChanges = null;
@@ -86,10 +86,10 @@ public class StatementEntryServiceEndpoint {
         rentalAgreementsWithoutChanges.removeAll(rentalAgreementsWithChanges);
 
         for (RentalAgreement rentalAgreement : rentalAgreementsWithoutChanges) {
-            statementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement);
+            createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement);
         }
 
-        statementEntryService.divideInvoiceCategorySumMidYear(rentalAgreementsWithChanges);
+        createStatementEntryService.divideInvoiceCategorySumMidYear(rentalAgreementsWithChanges);
 
 
         return Response.status(Response.Status.ACCEPTED).build();

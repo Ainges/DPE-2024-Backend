@@ -1,6 +1,6 @@
 package endpoint;
 
-import dto.StatementEntryServiceDTO;
+import dto.CreateStatementEntryServiceDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -23,7 +23,7 @@ public class AnnualStatementDocumentEndpoint {
     @POST
     @Path("/generate")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response generatePDF(List<StatementEntryServiceDTO> dtos) {
+    public Response generatePDF(List<CreateStatementEntryServiceDTO> dtos) {
         try {
             byte[] pdfData = annualStatementDocumentCreationService.generatePDF(dtos);
             return Response.ok(pdfData)
@@ -38,7 +38,7 @@ public class AnnualStatementDocumentEndpoint {
     @PUT
     @Path("/update/{id}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response updatePDF(@PathParam("id") Long id, StatementEntryServiceDTO dto) {
+    public Response updatePDF(@PathParam("id") Long id, CreateStatementEntryServiceDTO dto) {
         try {
             byte[] pdfData = annualStatementDocumentCreationService.updatePDF(id, dto);
             return Response.ok(pdfData)

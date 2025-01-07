@@ -16,7 +16,7 @@ import java.util.List;
  * Service for managing statement entries.
  */
 @ApplicationScoped
-public class StatementEntryService {
+public class CreateStatementEntryService {
 
     @Inject
     StatementEntryRepository statementEntryRepository;
@@ -39,7 +39,7 @@ public class StatementEntryService {
     /**
      * Default constructor.
      */
-    public StatementEntryService() {
+    public CreateStatementEntryService() {
     }
 
     /**
@@ -51,7 +51,7 @@ public class StatementEntryService {
      * @param housingObject       the housing object associated with the statement entries
      * @param rentalAgreements    the list of rental agreements associated with the housing object
      */
-    public StatementEntryService(String distributionKey, String invoiceCategoryName, float invoiceCategorySum, HousingObject housingObject, List<RentalAgreement> rentalAgreements) {
+    public CreateStatementEntryService(String distributionKey, String invoiceCategoryName, float invoiceCategorySum, HousingObject housingObject, List<RentalAgreement> rentalAgreements) {
         this.distributionKey = distributionKey;
         this.invoiceCategoryName = invoiceCategoryName;
         this.invoiceCategorySum = invoiceCategorySum;
