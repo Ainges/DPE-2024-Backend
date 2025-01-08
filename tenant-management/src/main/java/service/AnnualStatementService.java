@@ -119,7 +119,7 @@ public class AnnualStatementService {
         }
     }
 
-    // erstelle mir jetzt einen PDFCreate Methode, über die AnnualStatementid der alle Statemententries auflistet, welches zu der gleichen Rentelagreement gehören. Dann am ENde die Total Kost auflistet, sowie die Periode und die totelPerepayment period start sowie period ende
+
     public byte[] createPDF(long annualStatementId) throws IOException {
         AnnualStatement annualStatement = annualStatementRepository.findById(annualStatementId);
         if (annualStatement == null) {
