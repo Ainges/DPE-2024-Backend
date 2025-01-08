@@ -1,8 +1,33 @@
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+/**
+ * This class defines the routes for the notification service.
+ * It extends the RouteBuilder class to configure the routes.
+ * 
+ * Configuration properties:
+ * - quarkus.profile: The active profile (dev or prod).
+ * - smtp.config.host: The SMTP host (default: localhost).
+ * - smtp.config.port: The SMTP port (default: 2525).
+ * - smtp.config.username: The SMTP username (default: user).
+ * - smtp.config.password: The SMTP password (default: password).
+ * 
+ * Routes:
+ * - POST /api/notification: Receives notification requests and routes them to "direct:notificationSort".
+ * - activemq:queue:notification: Receives notifications from the ActiveMQ queue and routes them to "direct:notificationSort".
+ * - direct:notificationSort: Sorts notifications based on the mailType field and routes them to the appropriate route.
+ *   - type1: Routes to "direct:route1".
+ *   - type2: Routes to "direct:route2".
+ *   - Unsupported types: Routes to "activemq:queue:deadLetterQueue".
+ * - direct:route1: Handles request confirmation notifications and routes them to "direct:sendMail".
+ * - direct:route2: Handles reservation confirmation notifications and routes them to "direct:sendMail".
+ * - direct:sendMail: Sends emails via SMTP or SMTPS based on the active profile.
+ *   - dev profile: Sends emails via SMTP to a mocked mail server.
+ *   - prod profile: Sends emails via SMTPS to a real mail server.
+ */
 @ApplicationScoped
 public class Route extends RouteBuilder {
 
@@ -25,6 +50,9 @@ public class Route extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
+        // ### Ingress Routes ###
+
+        // Message from the REST API
         rest("/api/")
                 .post("notification")
                 .type(NotificationDto.class)
@@ -33,61 +61,76 @@ public class Route extends RouteBuilder {
                 .to("direct:notificationSort");
 
 
+        // Message from the ActiveMQ queue
         from("activemq:queue:notification")
                 .routeId("notification-from-Queue-Route")
                 .log("Notification received")
                 .to("direct:notificationSort");
 
+
+        // ### -------------- ###
+        // ### Internal Routes ###
+
         // Route for sorting the notification
         from("direct:notificationSort")
-                .routeId("notificationSort-Route")
-                .log("Notification to Sort received")
-
-                // Unmarshal the incoming JSON to a NotificationDto object
-                .unmarshal().json(NotificationDto.class)
-
-                .process(exchange -> {
-
-                    // Set the type of the notification as header, so that the content based routing can be done
-                    NotificationDto notificationDto = exchange.getMessage().getBody(NotificationDto.class);
-                    exchange.getMessage().setHeader("type", notificationDto.getType());
-                })
                 .choice()
+                //
+                    .when(jsonpath("$.mailType").isEqualTo("type1")).to("direct:route1")
+                    .when(jsonpath("$.mailType").isEqualTo("type2")).to("direct:route2")
+                    .when(jsonpath("$.mailType").isEqualTo("type3")).to("direct:route3")
+                    .when(jsonpath("$.mailType").isEqualTo("type4")).to("direct:route4")
+                    .when(jsonpath("$.mailType").isEqualTo("type5")).to("direct:route5")
 
-                // ## Content based routing
-
-                // Request Confirmation Route
-                // Erste Variante mit when
-                .when(header("type").isEqualTo("request-confirmation"))
-                .setBody(simple("Request Confirmation Notification received"))
-                .to("direct:requestConfirmation")
-
-                // Reservation Confirmation Route
-                // Zweite Variante mit when
-                .when(header("type").isEqualTo("reservation-confirmation"))
-                .setBody(simple("Reservation Confirmation Notification received"))
-                .to("direct:reservationConfirmation")
-
-                // Default Route
-                // Wenn der Typ nicht erkannt wird, wird eine Log-Nachricht ausgegeben
-                .otherwise()
-                .log("Notification type not recognized")
-                .end();
+                    //Send to DLQ (Dead-Letter-Queue) if the notification type is not supported
+                    .otherwise().to("activemq:queue:deadLetterQueue");
 
 
-        from("direct:requestConfirmation")
-                .routeId("sendRequestConfirmation-Route")
-                .setBody(simple("Request Confirmation Notification received"))
-                .log("Request Confirmation Notification received")
+
+        from("direct:route1")
+                .routeId("route1-Route")
+                // write json body to xml in fs
+                .to("direct:toxml")
+                .setBody(simple("route1 received"))
+                .log("route1")
                 .to("direct:sendMail");
 
-        from("direct:reservationConfirmation")
-                .routeId("sendReservationConfirmation-Route")
-                .setBody(simple("Reservation Confirmation Notification received"))
-                .log("Reservation Confirmation Notification received")
+        from("direct:route2")
+                .routeId("route2-Route")
+                .setBody(simple("route2 received"))
+                .log("route2")
+                .to("direct:sendMail");
+
+        from("direct:route3")
+                .routeId("route3-Route")
+                .setBody(simple("route3 received"))
+                .log("route3")
+                .to("direct:sendMail");
+
+        from("direct:route4")
+                .routeId("route4-Route")
+                .setBody(simple("route4 received"))
+                .log("route4")
+                .to("direct:sendMail");
+
+        from("direct:route5")
+                .routeId("route5-Route")
+                .setBody(simple("route5 received"))
+                .log("route5")
                 .to("direct:sendMail");
 
 
+        from("direct:toxml")
+                .routeId("toxml-Route")
+                .unmarshal().json(JsonLibrary.Jackson)
+                // Konvertierung der Map in XML
+                .marshal().jacksonXml()
+                .log("to XML")
+                .to("file:target/output?fileName=notification.xml");
+
+        // ### -------------- ###
+        // ### Egress Routes ###
+
+        // Route for sending the mail
         from("direct:sendMail")
                 //TODO: Remove this part after testing
                 .process(exchange -> {
@@ -106,5 +149,7 @@ public class Route extends RouteBuilder {
                 .to("smtps://{{smtp.config.host}}:{{smtp.config.port}}"
                     + "?username={{smtp.config.username}}&password={{smtp.config.password}}")
                 .end();
+
+        // ### -------------- ###
     }
 }
