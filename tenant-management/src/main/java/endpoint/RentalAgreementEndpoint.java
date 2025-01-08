@@ -87,9 +87,6 @@ public class RentalAgreementEndpoint {
     public Response getRentalAgreementsByHousingObjectId(@PathParam("housingObjectId") long housingObjectId) {
         List<RentalAgreement> rentalAgreements = rentalAgreementRepository.find(
                 "apartment.housingObject.housingObjectId", housingObjectId).list();
-        if (rentalAgreements.isEmpty()) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
         return Response.ok(rentalAgreements).build();
     }
 
@@ -112,6 +109,29 @@ public class RentalAgreementEndpoint {
         List<RentalAgreement> rentalAgreements = rentalAgreementRepository.find(
                 "startDate <= :endDate AND endDate >= :startDate",
                 Parameters.with("endDate", endDate).and("startDate", startDate)).list();
+        return Response.ok(rentalAgreements).build();
+    }
+
+    /**
+     * Retrieves rental agreements based on the housing object ID and year.
+     *
+     * @param housingObjectId the ID of the housing object to filter rental agreements
+     * @param year            the year to filter rental agreements
+     * @return a Response containing a list of rental agreements for the specified housing object and year,
+     * or a 404 Not Found status if no rental agreements are found
+     */
+    @GET
+    @Path("/by-housing-object-and-year/{housingObjectId}/{year}")
+    public Response getRentalAgreementsByHousingObjectAndYear(@PathParam("housingObjectId") long housingObjectId, @PathParam("year") int year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, Calendar.JANUARY, 1, 0, 0, 0);
+        Date startDate = calendar.getTime();
+        calendar.set(year, Calendar.DECEMBER, 31, 23, 59, 59);
+        Date endDate = calendar.getTime();
+
+        List<RentalAgreement> rentalAgreements = rentalAgreementRepository.find(
+                "apartment.housingObject.housingObjectId = :housingObjectId AND startDate <= :endDate AND endDate >= :startDate",
+                Parameters.with("housingObjectId", housingObjectId).and("endDate", endDate).and("startDate", startDate)).list();
         return Response.ok(rentalAgreements).build();
     }
 
