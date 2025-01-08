@@ -1,8 +1,8 @@
 package endpoint;
 
-import jakarta.ws.rs.*;
 import service.InvoiceCategorySumService;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -18,15 +18,15 @@ public class InvoiceCategorySumEndpoint {
     InvoiceCategorySumService invoiceCategorySumService;
 
     /**
-     * Endpoint to get the total sum of invoices for a given category by name.
+     * Endpoint to get the total sum of invoices for a given category by ID.
      *
-     * @param categoryName the name of the invoice category
+     * @param categoryId the ID of the invoice category
      * @return a Response containing the total sum of invoice amounts for the given category
      */
     @GET
-    @Path("/totalByName")
-    public Response getCategoryTotalSumByName(@QueryParam("categoryName") String categoryName) {
-        double totalSum = invoiceCategorySumService.getCategoryTotalSumByName(categoryName);
+    @Path("/totalById")
+    public Response getCategoryTotalSumById(@QueryParam("categoryId") long categoryId) {
+        double totalSum = invoiceCategorySumService.getCategoryTotalSumById(categoryId);
         return Response.ok(totalSum).build();
     }
 }

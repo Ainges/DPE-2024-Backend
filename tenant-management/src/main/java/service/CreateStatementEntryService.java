@@ -167,9 +167,8 @@ public class CreateStatementEntryService {
      * Calculates the invoice category sum using the InvoiceCategorySumService.
      */
     public void calculateInvoiceCategorySum() {
-        this.invoiceCategorySum = (float) invoiceCategorySumService.getCategoryTotalSumByName(this.invoiceCategoryName);
+        this.invoiceCategorySum = (float) invoiceCategorySumService.getCategoryTotalSumById(this.housingObject.getHousingObjectId());
     }
-
     // Getters and Setters
 
     public String getDistributionKey() {
