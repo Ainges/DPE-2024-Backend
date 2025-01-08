@@ -35,6 +35,7 @@ public class CreateStatementEntryService {
     private float invoiceCategorySum;
     private HousingObject housingObject;
     private List<RentalAgreement> rentalAgreements;
+    private String annualStatementPeriod;
 
     /**
      * Default constructor.
@@ -51,12 +52,13 @@ public class CreateStatementEntryService {
      * @param housingObject       the housing object associated with the statement entries
      * @param rentalAgreements    the list of rental agreements associated with the housing object
      */
-    public CreateStatementEntryService(String distributionKey, String invoiceCategoryName, float invoiceCategorySum, HousingObject housingObject, List<RentalAgreement> rentalAgreements) {
+    public CreateStatementEntryService(String distributionKey, String invoiceCategoryName, float invoiceCategorySum, HousingObject housingObject, List<RentalAgreement> rentalAgreements, String annualStatementPeriod) {
         this.distributionKey = distributionKey;
         this.invoiceCategoryName = invoiceCategoryName;
         this.invoiceCategorySum = invoiceCategorySum;
         this.housingObject = housingObject;
         this.rentalAgreements = rentalAgreements;
+        this.annualStatementPeriod = annualStatementPeriod;
     }
 
     /**
@@ -96,7 +98,7 @@ public class CreateStatementEntryService {
 
     /**
      * Only for Mid-Year Tenant Changes! - to be implemented
-     /**
+     * /**
      * Divides the invoice category sum for mid-year tenant changes based on the given distribution key.
      *
      * @param rentalAgreements the list of rental agreements to process
@@ -160,7 +162,7 @@ public class CreateStatementEntryService {
      */
     @Transactional
     public void createStatementEntry(float amountPayable, long rentalAgreementId) {
-        statementEntryRepository.persist(new StatementEntry(this.invoiceCategoryName, this.invoiceCategorySum, amountPayable, this.distributionKey, rentalAgreementRepository.findById(rentalAgreementId)));
+        statementEntryRepository.persist(new StatementEntry(this.invoiceCategoryName, this.invoiceCategorySum, amountPayable, this.distributionKey, rentalAgreementRepository.findById(rentalAgreementId), this.annualStatementPeriod));
     }
 
     /**

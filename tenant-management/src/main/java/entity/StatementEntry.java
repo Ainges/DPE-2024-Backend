@@ -41,37 +41,41 @@ public class StatementEntry {
     /**
      * Constructor without annual statements.
      *
-     * @param name            the name of the statement entry
-     * @param overallAmount   the overall amount of the statement entry
-     * @param amountPayable   the amount to be paid for the statement entry
-     * @param distributionKey the distribution key of the statement entry
-     * @param rentalAgreement the rental agreement associated with the statement entry
+     * @param name                  the name of the statement entry
+     * @param overallAmount         the overall amount of the statement entry
+     * @param amountPayable         the amount to be paid for the statement entry
+     * @param distributionKey       the distribution key of the statement entry
+     * @param rentalAgreement       the rental agreement associated with the statement entry
+     * @param annualStatementPeriod the annual statement period of the statement entry
      */
-    public StatementEntry(String name, float overallAmount, float amountPayable, String distributionKey, RentalAgreement rentalAgreement) {
+    public StatementEntry(String name, float overallAmount, float amountPayable, String distributionKey, RentalAgreement rentalAgreement, String annualStatementPeriod) {
         this.name = name;
         this.overallAmount = overallAmount;
         this.amountPayable = amountPayable;
         this.distributionKey = distributionKey;
         this.rentalAgreement = rentalAgreement;
+        this.annualStatementPeriod = annualStatementPeriod;
     }
 
     /**
      * Parameterized constructor.
      *
-     * @param name            the name of the statement entry
-     * @param overallAmount   the overall amount of the statement entry
-     * @param amountPayable   the amount to be paid for the statement entry
-     * @param distributionKey the distribution key of the statement entry
-     * @param rentalAgreement the rental agreement associated with the statement entry
-     * @param annualStatement the annual statement associated with the statement entry
+     * @param name                  the name of the statement entry
+     * @param overallAmount         the overall amount of the statement entry
+     * @param amountPayable         the amount to be paid for the statement entry
+     * @param distributionKey       the distribution key of the statement entry
+     * @param rentalAgreement       the rental agreement associated with the statement entry
+     * @param annualStatement       the annual statement associated with the statement entry
+     * @param annualStatementPeriod the annual statement period of the statement entry
      */
-    public StatementEntry(String name, float overallAmount, float amountPayable, String distributionKey, RentalAgreement rentalAgreement, AnnualStatement annualStatement) {
+    public StatementEntry(String name, float overallAmount, float amountPayable, String distributionKey, RentalAgreement rentalAgreement, AnnualStatement annualStatement, String annualStatementPeriod) {
         this.name = name;
         this.overallAmount = overallAmount;
         this.amountPayable = amountPayable;
         this.distributionKey = distributionKey;
         this.rentalAgreement = rentalAgreement;
         this.annualStatement = annualStatement;
+        this.annualStatementPeriod = annualStatementPeriod;
     }
 
     // Getters and Setters

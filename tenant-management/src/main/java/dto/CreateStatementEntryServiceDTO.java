@@ -1,5 +1,6 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -20,6 +21,7 @@ public class CreateStatementEntryServiceDTO {
     private float invoiceCategorySum;
     private HousingObject housingObject;
     private List<RentalAgreement> rentalAgreements;
+    private String annualStatementPeriod;
     private String periodStart;
     private String periodEnd;
     private float totalCost;
@@ -65,6 +67,7 @@ public class CreateStatementEntryServiceDTO {
     public void setDifference(float difference) {
         this.difference = difference;
     }
+
     /**
      * Gets the distribution key.
      *
@@ -153,6 +156,14 @@ public class CreateStatementEntryServiceDTO {
      */
     public void setRentalAgreements(List<RentalAgreement> rentalAgreements) {
         this.rentalAgreements = rentalAgreements;
+    }
+
+    public String getAnnualStatementPeriod() {
+        return annualStatementPeriod;
+    }
+
+    public void setAnnualStatementPeriod(String annualStatementPeriod) {
+        this.annualStatementPeriod = annualStatementPeriod;
     }
 }
 /**
