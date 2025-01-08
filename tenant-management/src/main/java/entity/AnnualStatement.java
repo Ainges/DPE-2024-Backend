@@ -31,18 +31,6 @@ public class AnnualStatement {
     private float difference;
 
     /**
-     * Annual Statement is the owner of the m:n relationship with Invoice Category.
-     * Therefore, the relationships should be created, when the Annual Statement is created.
-     */
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "InvoiceCategory_AnnualStatement",
-            joinColumns = @JoinColumn(name = "annualStatementId"),
-            inverseJoinColumns = @JoinColumn(name = "invoiceCategoryId")
-    )
-    private Set<InvoiceCategory> invoiceCategories;
-
-    /**
      * Default constructor.
      */
     public AnnualStatement() {
@@ -65,27 +53,6 @@ public class AnnualStatement {
         this.totalCost = totalCost;
         this.totalPrepayments = totalPrepayments;
         this.difference = difference;
-    }
-
-    /**
-     * Constructor with invoice categories.
-     *
-     * @param rentalAgreement   the rental agreement associated with this annual statement
-     * @param periodStart       the start date of the period
-     * @param periodEnd         the end date of the period
-     * @param totalCost         the total cost for the period
-     * @param totalPrepayments  the total prepayments for the period
-     * @param difference        the difference between total cost and total prepayments
-     * @param invoiceCategories the set of invoice categories associated with this annual statement
-     */
-    public AnnualStatement(RentalAgreement rentalAgreement, Date periodStart, Date periodEnd, float totalCost, float totalPrepayments, float difference, Set<InvoiceCategory> invoiceCategories) {
-        this.rentalAgreement = rentalAgreement;
-        this.periodStart = periodStart;
-        this.periodEnd = periodEnd;
-        this.totalCost = totalCost;
-        this.totalPrepayments = totalPrepayments;
-        this.difference = difference;
-        this.invoiceCategories = invoiceCategories;
     }
 
     // Getters and Setters
@@ -216,23 +183,6 @@ public class AnnualStatement {
         this.difference = difference;
     }
 
-    /**
-     * Gets the set of invoice categories associated with this annual statement.
-     *
-     * @return the set of invoice categories
-     */
-    public Set<InvoiceCategory> getInvoiceCategories() {
-        return invoiceCategories;
-    }
-
-    /**
-     * Sets the set of invoice categories associated with this annual statement.
-     *
-     * @param invoiceCategories the set of invoice categories
-     */
-    public void setInvoiceCategories(Set<InvoiceCategory> invoiceCategories) {
-        this.invoiceCategories = invoiceCategories;
-    }
 }
 
 /**

@@ -7,7 +7,6 @@
 package endpoint;
 
 import entity.AnnualStatement;
-import entity.InvoiceCategory;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -18,7 +17,6 @@ import repository.AnnualStatementRepository;
 import repository.InvoiceCategoryRepository;
 
 import java.util.List;
-import java.util.Set;
 
 @ApplicationScoped
 @Path("/annual-statements")
@@ -28,9 +26,6 @@ public class AnnualStatementEndpoint {
 
     @Inject
     AnnualStatementRepository annualStatementRepository;
-
-    @Inject
-    InvoiceCategoryRepository invoiceCategoryRepository;
 
     /**
      * Retrieves all annual statements.
@@ -63,16 +58,6 @@ public class AnnualStatementEndpoint {
     @POST
     @Transactional
     public Response createAnnualStatement(AnnualStatement annualStatement) {
-        Set<InvoiceCategory> categories = annualStatement.getInvoiceCategories();
-        if (categories != null && !categories.isEmpty()) {
-            for (InvoiceCategory category : categories) {
-                InvoiceCategory existingCategory = invoiceCategoryRepository.findById(category.getInvoiceCategoryId());
-                if (existingCategory != null) {
-                    category = existingCategory;
-                }
-            }
-            annualStatement.setInvoiceCategories(categories); // Update the invoice categories set
-        }
         annualStatementRepository.persist(annualStatement);
         return Response.status(Response.Status.CREATED).entity(annualStatement).build();
     }
@@ -111,17 +96,6 @@ public class AnnualStatementEndpoint {
         if (annualStatement.getDifference() != 0.0) {
             existingAnnualStatement.setDifference(annualStatement.getDifference());
         }
-
-        Set<InvoiceCategory> categories = annualStatement.getInvoiceCategories();
-        if (categories != null && !categories.isEmpty()) {
-            for (InvoiceCategory category : categories) {
-                InvoiceCategory existingCategory = invoiceCategoryRepository.findById(category.getInvoiceCategoryId());
-                if (existingCategory != null) {
-                    category = existingCategory;
-                }
-            }
-        }
-        existingAnnualStatement.setInvoiceCategories(categories);
 
         annualStatementRepository.persist(existingAnnualStatement);
         return Response.ok(existingAnnualStatement).build();
