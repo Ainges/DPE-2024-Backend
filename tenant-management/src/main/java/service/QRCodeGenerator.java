@@ -9,7 +9,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.qrcode.QRCodeWriter;
-import dto.InvoiceDTO;
+import dto.PayableInvoiceDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.io.IOException;
@@ -24,13 +24,13 @@ import java.util.Formatter;
 public class QRCodeGenerator {
 
     /**
-     * Generates an EPC-QR Code for bank transfers based on the given InvoiceDTO and saves it to the file system.
+     * Generates an EPC-QR Code for bank transfers based on the given PayableInvoiceDTO and saves it to the file system.
      *
-     * @param invoiceDTO the invoice data transfer object containing the necessary information
+     * @param payableInvoiceDTO the invoice data transfer object containing the necessary information
      * @param filePath the file path where the QR code should be saved
      * @throws Exception if an error occurs during QR code generation
      */
-    public void generateEpcQrCode(InvoiceDTO invoiceDTO, String filePath) throws Exception {
+    public void generateEpcQrCode(PayableInvoiceDTO payableInvoiceDTO, String filePath) throws Exception {
         StringBuilder sb = new StringBuilder();
         Formatter formatter = new Formatter(sb);
 
@@ -39,14 +39,14 @@ public class QRCodeGenerator {
         formatter.format("001\n");
         formatter.format("1\n");
         formatter.format("SCT\n");
-        formatter.format("%s\n", invoiceDTO.getBic() != null ? invoiceDTO.getBic() : "");
-        formatter.format("%s\n", invoiceDTO.getReceiver());
-        formatter.format("%s\n", invoiceDTO.getReceiverIban());
-        formatter.format("%s\n", invoiceDTO.getCurrency());
-        formatter.format("%.2f\n", invoiceDTO.getInvoiceAmount());
+        formatter.format("%s\n", payableInvoiceDTO.getBic() != null ? payableInvoiceDTO.getBic() : "");
+        formatter.format("%s\n", payableInvoiceDTO.getReceiver());
+        formatter.format("%s\n", payableInvoiceDTO.getReceiverIban());
+        formatter.format("%s\n", payableInvoiceDTO.getCurrency());
+        formatter.format("%.2f\n", payableInvoiceDTO.getInvoiceAmount());
         formatter.format("\n"); // Purpose of the payment (optional)
-        formatter.format("%s\n", invoiceDTO.getReference() != null ? invoiceDTO.getReference() : "");
-        formatter.format("%s\n", invoiceDTO.getDescription());
+        formatter.format("%s\n", payableInvoiceDTO.getReference() != null ? payableInvoiceDTO.getReference() : "");
+        formatter.format("%s\n", payableInvoiceDTO.getDescription());
 
         String epcQrCodeData = sb.toString();
 

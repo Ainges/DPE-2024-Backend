@@ -5,7 +5,7 @@
  */
 package endpoint;
 
-import dto.InvoiceDTO;
+import dto.PayableInvoiceDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -36,18 +36,18 @@ public class QrCodePaymentEndpoint {
     QRCodeGenerator qrCodeGenerator;
 
     /**
-     * Generates a QR code based on the provided InvoiceDTO and returns it as a PNG image.
+     * Generates a QR code based on the provided PayableInvoiceDTO and returns it as a PNG image.
      *
-     * @param invoiceDTO the invoice data transfer object containing the necessary information
+     * @param payableInvoiceDTO the invoice data transfer object containing the necessary information
      * @return a Response containing the QR code image
      */
     @POST
     @Path("/generate")
     @Produces("image/png")
-    public Response generateQrCode(InvoiceDTO invoiceDTO) {
+    public Response generateQrCode(PayableInvoiceDTO payableInvoiceDTO) {
         try {
-            logger.info("Received request to generate QR code: {}", invoiceDTO);
-            String qrCodePath = qrCodePaymentService.generateQrCode(invoiceDTO);
+            logger.info("Received request to generate QR code: {}", payableInvoiceDTO);
+            String qrCodePath = qrCodePaymentService.generateQrCode(payableInvoiceDTO);
             File qrCodeFile = new File(qrCodePath);
             InputStream qrCodeStream = new FileInputStream(qrCodeFile);
             return Response.ok(qrCodeStream).type("image/png").build();
@@ -64,19 +64,19 @@ public class QrCodePaymentEndpoint {
     }
 
     /**
-     * Generates an EPC-QR code based on the provided InvoiceDTO and saves it to the file system.
+     * Generates an EPC-QR code based on the provided PayableInvoiceDTO and saves it to the file system.
      *
-     * @param invoiceDTO the invoice data transfer object containing the necessary information
+     * @param payableInvoiceDTO the invoice data transfer object containing the necessary information
      * @return a Response containing the file path of the saved EPC-QR code
      */
     @POST
     @Path("/generateEpcQrCode")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response generateEpcQrCode(InvoiceDTO invoiceDTO) {
+    public Response generateEpcQrCode(PayableInvoiceDTO payableInvoiceDTO) {
         try {
-            logger.info("Received request to generate EPC-QR code: {}", invoiceDTO);
+            logger.info("Received request to generate EPC-QR code: {}", payableInvoiceDTO);
             String filePath = "./EpcQrCode.png";
-            qrCodeGenerator.generateEpcQrCode(invoiceDTO, filePath);
+            qrCodeGenerator.generateEpcQrCode(payableInvoiceDTO, filePath);
             return Response.ok(filePath).build();
         } catch (IllegalArgumentException e) {
             logger.error("Invalid input for EPC-QR code: {}", e.getMessage());

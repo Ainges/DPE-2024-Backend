@@ -10,7 +10,7 @@ package dto;
  * This class represents the data structure for an invoice, including the receiver's details,
  * the invoice amount, and a description of the invoice.
  */
-public class InvoiceDTO {
+public class PayableInvoiceDTO {
     private String receiver;
     private String receiverIban;
     private double invoiceAmount;

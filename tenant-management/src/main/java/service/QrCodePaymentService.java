@@ -7,7 +7,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import dto.InvoiceDTO;
+import dto.PayableInvoiceDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,22 +21,22 @@ public class QrCodePaymentService {
     private static final Logger logger = LoggerFactory.getLogger(QrCodePaymentService.class);
     private static final String QR_CODE_IMAGE_PATH = "./MyQRCode.png";
 
-    public String generateQrCode(InvoiceDTO invoiceDTO) {
+    public String generateQrCode(PayableInvoiceDTO payableInvoiceDTO) {
         try {
-            logger.info("Generating QR code for invoice: {}", invoiceDTO);
-            logger.debug("Receiver: {}", invoiceDTO.getReceiver());
-            logger.debug("Receiver IBAN: {}", invoiceDTO.getReceiverIban());
-            logger.debug("Invoice Amount: {}", invoiceDTO.getInvoiceAmount());
-            logger.debug("Description: {}", invoiceDTO.getDescription());
-            logger.debug("Country: {}", invoiceDTO.getCountry());
+            logger.info("Generating QR code for invoice: {}", payableInvoiceDTO);
+            logger.debug("Receiver: {}", payableInvoiceDTO.getReceiver());
+            logger.debug("Receiver IBAN: {}", payableInvoiceDTO.getReceiverIban());
+            logger.debug("Invoice Amount: {}", payableInvoiceDTO.getInvoiceAmount());
+            logger.debug("Description: {}", payableInvoiceDTO.getDescription());
+            logger.debug("Country: {}", payableInvoiceDTO.getCountry());
 
             PaymentQRCode paymentQRCode = PaymentQRCode.Builder
                     .paymentQRCode()
-                    .withRecipient(invoiceDTO.getReceiver())
-                    .withAccountNumber(invoiceDTO.getReceiverIban())
-                    .withAmount(invoiceDTO.getInvoiceAmount())
-                    .withTitle(invoiceDTO.getDescription())
-                    .withCountry(invoiceDTO.getCountry())
+                    .withRecipient(payableInvoiceDTO.getReceiver())
+                    .withAccountNumber(payableInvoiceDTO.getReceiverIban())
+                    .withAmount(payableInvoiceDTO.getInvoiceAmount())
+                    .withTitle(payableInvoiceDTO.getDescription())
+                    .withCountry(payableInvoiceDTO.getCountry())
                     .build();
 
             String qrCodeSubject = paymentQRCode.getQRCodeSubject();
