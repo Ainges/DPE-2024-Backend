@@ -2563,7 +2563,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"invoiceAmount\": \"<double>\",\n  \"description\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+									"raw": "{\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"invoiceAmount\": \"<double>\",\n  \"description\": \"<string>\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"bic\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -2596,7 +2596,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"invoiceAmount\": \"<double>\",\n  \"description\": \"<string>\",\n  \"country\": \"<string>\"\n}",
+											"raw": "{\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"invoiceAmount\": \"<double>\",\n  \"description\": \"<string>\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"bic\": \"<string>\"\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -2612,6 +2612,84 @@
 											"path": [
 												"qrCodePayment",
 												"generate"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "generateEpcQrCode",
+					"item": [
+						{
+							"name": "Generate Epc Qr Code",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"invoiceAmount\": \"<double>\",\n  \"description\": \"<string>\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"bic\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/qrCodePayment/generateEpcQrCode",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"qrCodePayment",
+										"generateEpcQrCode"
+									]
+								},
+								"description": "Generate Epc Qr Code"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"invoiceAmount\": \"<double>\",\n  \"description\": \"<string>\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"reference\": \"<string>\",\n  \"bic\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/qrCodePayment/generateEpcQrCode",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"qrCodePayment",
+												"generateEpcQrCode"
 											]
 										}
 									},
