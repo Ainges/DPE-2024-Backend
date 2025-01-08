@@ -8,12 +8,11 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import service.QRCodeGenerator;
 import service.QrCodePaymentService;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+
 
 @ApplicationScoped
 @Path("/qrCodePayment")
@@ -25,6 +24,10 @@ public class QrCodePaymentEndpoint {
 
     @Inject
     QrCodePaymentService qrCodePaymentService;
+
+    @Inject
+    QRCodeGenerator qrCodeGenerator;
+
 
     @POST
     @Path("/generate")
@@ -47,9 +50,30 @@ public class QrCodePaymentEndpoint {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while generating the QR code.").build();
         }
     }
+
+
+    @POST
+    @Path("/generateEpcQrCode")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response generateEpcQrCode(InvoiceDTO invoiceDTO) {
+        try {
+            logger.info("Received request to generate EPC-QR code: {}", invoiceDTO);
+            String filePath = "./EpcQrCode.png";
+            qrCodeGenerator.generateEpcQrCode(invoiceDTO, filePath);
+            return Response.ok(filePath).build();
+        } catch (IllegalArgumentException e) {
+            logger.error("Invalid input for EPC-QR code: {}", e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        } catch (Exception e) {
+            logger.error("Error generating EPC-QR code: {}", e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while generating the EPC-QR code.").build();
+        }
+    }
 }
+
 /**
  * End
+ *
  * @author 1 GitHub Copilot
  * @author 2 Zohal Mohammadi
  */
