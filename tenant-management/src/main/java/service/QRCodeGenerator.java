@@ -1,3 +1,8 @@
+/**
+ * Start
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
+ */
 package service;
 
 import com.google.zxing.BarcodeFormat;
@@ -7,12 +12,14 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import dto.InvoiceDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Formatter;
 
+/**
+ * Service class for generating EPC-QR codes.
+ */
 @ApplicationScoped
 public class QRCodeGenerator {
 
@@ -60,3 +67,8 @@ public class QRCodeGenerator {
         }
     }
 }
+/**
+ * End
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur
+ */

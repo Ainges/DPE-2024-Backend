@@ -1,3 +1,8 @@
+/**
+ * Start
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur, Zohal Mohammadi
+ */
 package endpoint;
 
 import dto.InvoiceDTO;
@@ -13,7 +18,9 @@ import service.QrCodePaymentService;
 
 import java.io.*;
 
-
+/**
+ * REST endpoint for handling QR code payment requests.
+ */
 @ApplicationScoped
 @Path("/qrCodePayment")
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,7 +35,12 @@ public class QrCodePaymentEndpoint {
     @Inject
     QRCodeGenerator qrCodeGenerator;
 
-
+    /**
+     * Generates a QR code based on the provided InvoiceDTO and returns it as a PNG image.
+     *
+     * @param invoiceDTO the invoice data transfer object containing the necessary information
+     * @return a Response containing the QR code image
+     */
     @POST
     @Path("/generate")
     @Produces("image/png")
@@ -51,7 +63,12 @@ public class QrCodePaymentEndpoint {
         }
     }
 
-
+    /**
+     * Generates an EPC-QR code based on the provided InvoiceDTO and saves it to the file system.
+     *
+     * @param invoiceDTO the invoice data transfer object containing the necessary information
+     * @return a Response containing the file path of the saved EPC-QR code
+     */
     @POST
     @Path("/generateEpcQrCode")
     @Produces(MediaType.TEXT_PLAIN)
@@ -70,10 +87,8 @@ public class QrCodePaymentEndpoint {
         }
     }
 }
-
 /**
  * End
- *
  * @author 1 GitHub Copilot
- * @author 2 Zohal Mohammadi
+ * @author 2 Moritz Baur, Zohal Mohammadi
  */

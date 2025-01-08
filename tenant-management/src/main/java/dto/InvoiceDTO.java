@@ -1,3 +1,8 @@
+/**
+ * Start
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur, Zohal Mohammadi
+ */
 package dto;
 
 /**
@@ -81,3 +86,8 @@ public class InvoiceDTO {
         this.bic = bic;
     }
 }
+/**
+ * End
+ * @author 1 GitHub Copilot
+ * @author 2 Moritz Baur, Zohal Mohammadi
+ */
