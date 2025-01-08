@@ -22,6 +22,7 @@ public class StatementEntry {
     private float overallAmount;
     private float amountPayable;
     private String distributionKey;
+    private String annualStatementPeriod; // New attribute
 
     @ManyToOne
     @JoinColumn(name = "rentalAgreementId")
@@ -163,6 +164,24 @@ public class StatementEntry {
      */
     public void setDistributionKey(String distributionKey) {
         this.distributionKey = distributionKey;
+    }
+
+    /**
+     * Gets the annual statement period of the statement entry.
+     *
+     * @return the annual statement period
+     */
+    public String getAnnualStatementPeriod() {
+        return annualStatementPeriod;
+    }
+
+    /**
+     * Sets the annual statement period of the statement entry.
+     *
+     * @param annualStatementPeriod the annual statement period
+     */
+    public void setAnnualStatementPeriod(String annualStatementPeriod) {
+        this.annualStatementPeriod = annualStatementPeriod;
     }
 
     /**

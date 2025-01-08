@@ -28,9 +28,9 @@ public class StatementEntryEndpoint {
     StatementEntryRepository statementEntryRepository;
 
     /**
-     * Retrieves all statement entries.
+     * Retrieves all StatementEntry entities.
      *
-     * @return a list of all statement entries
+     * @return a list of all StatementEntry entities
      */
     @GET
     public List<StatementEntry> getAllStatementEntries() {
@@ -38,10 +38,10 @@ public class StatementEntryEndpoint {
     }
 
     /**
-     * Retrieves a specific statement entry by its ID.
+     * Retrieves a specific StatementEntry entity by its ID.
      *
-     * @param id the ID of the statement entry
-     * @return the statement entry with the specified ID
+     * @param id the ID of the StatementEntry entity to retrieve
+     * @return the StatementEntry entity with the specified ID
      */
     @GET
     @Path("/{id}")
@@ -50,10 +50,10 @@ public class StatementEntryEndpoint {
     }
 
     /**
-     * Creates a new statement entry.
+     * Creates a new StatementEntry entity.
      *
-     * @param statementEntry the statement entry to create
-     * @return a Response containing the created statement entry
+     * @param statementEntry the StatementEntry entity to create
+     * @return a Response indicating the outcome of the create operation
      */
     @POST
     @Transactional
@@ -62,6 +62,13 @@ public class StatementEntryEndpoint {
         return Response.status(Response.Status.CREATED).entity(statementEntry).build();
     }
 
+    /**
+     * Updates an existing StatementEntry entity.
+     *
+     * @param id             the ID of the StatementEntry entity to update
+     * @param statementEntry the updated StatementEntry entity
+     * @return a Response indicating the outcome of the update operation
+     */
     @PUT
     @Path("/{id}")
     @Transactional
@@ -88,16 +95,18 @@ public class StatementEntryEndpoint {
         if (statementEntry.getAnnualStatement() != null) {
             existingStatementEntry.setAnnualStatement(statementEntry.getAnnualStatement());
         }
+        if (statementEntry.getAnnualStatementPeriod() != null) {
+            existingStatementEntry.setAnnualStatementPeriod(statementEntry.getAnnualStatementPeriod());
+        }
         statementEntryRepository.persist(existingStatementEntry);
         return Response.ok(existingStatementEntry).build();
     }
 
     /**
-     * Deletes an existing statement entry.
+     * Deletes a specific StatementEntry entity by its ID.
      *
-     * @param id the ID of the statement entry to delete
-     * @return a Response with no content if the deletion was successful,
-     * or a 404 Not Found status if the statement entry does not exist
+     * @param id the ID of the StatementEntry entity to delete
+     * @return a Response indicating the outcome of the delete operation
      */
     @DELETE
     @Path("/{id}")
