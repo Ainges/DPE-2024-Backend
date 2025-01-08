@@ -13,13 +13,13 @@ public class InvoiceCategorySumService {
     InvoiceRepository invoiceRepository;
 
     /**
-     * Calculates the total sum of invoices for a given category by name.
+     * Calculates the total sum of invoices for a given category by ID.
      *
-     * @param categoryName the name of the invoice category
+     * @param categoryId the ID of the invoice category
      * @return the total sum of invoice amounts for the given category
      */
-    public double getCategoryTotalSumByName(String categoryName) {
-        List<Invoice> invoices = invoiceRepository.find("invoiceCategory.name", categoryName).list();
+    public double getCategoryTotalSumById(long categoryId) {
+        List<Invoice> invoices = invoiceRepository.find("invoiceCategory.invoiceCategoryId", categoryId).list();
         return invoices.stream().mapToDouble(Invoice::getInvoiceAmount).sum();
     }
 }
