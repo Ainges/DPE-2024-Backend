@@ -13,9 +13,12 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.hibernate.service.spi.InjectService;
 import repository.AnnualStatementRepository;
 import repository.InvoiceCategoryRepository;
+import service.AnnualStatementService;
 
+import java.io.IOException;
 import java.util.List;
 
 @ApplicationScoped
@@ -26,6 +29,9 @@ public class AnnualStatementEndpoint {
 
     @Inject
     AnnualStatementRepository annualStatementRepository;
+    @Inject
+    AnnualStatementService annualStatementService;
+
 
     /**
      * Retrieves all annual statements.
@@ -60,6 +66,22 @@ public class AnnualStatementEndpoint {
     public Response createAnnualStatement(AnnualStatement annualStatement) {
         annualStatementRepository.persist(annualStatement);
         return Response.status(Response.Status.CREATED).entity(annualStatement).build();
+    }
+    @POST
+    @Path("/{id}/pdf")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response createPDF(@PathParam("id") long id) {
+        try {
+            byte[] pdfData = annualStatementService.createPDF(id);
+            return Response.ok(pdfData)
+                    .header("Content-Disposition", "attachment; filename=AnnualStatement.pdf")
+                    .build();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
     }
 
     /**
