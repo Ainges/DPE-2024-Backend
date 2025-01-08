@@ -42,11 +42,11 @@ public class QRCodeGenerator {
         formatter.format("%s\n", payableInvoiceDTO.getBic() != null ? payableInvoiceDTO.getBic() : "");
         formatter.format("%s\n", payableInvoiceDTO.getReceiver());
         formatter.format("%s\n", payableInvoiceDTO.getReceiverIban());
-        formatter.format("%s\n", payableInvoiceDTO.getCurrency());
-        formatter.format("%.2f\n", payableInvoiceDTO.getInvoiceAmount());
+        formatter.format("%s%.2f\n", payableInvoiceDTO.getCurrency(), payableInvoiceDTO.getInvoiceAmount());
         formatter.format("\n"); // Purpose of the payment (optional)
-        formatter.format("%s\n", payableInvoiceDTO.getReference() != null ? payableInvoiceDTO.getReference() : "");
-        formatter.format("%s\n", payableInvoiceDTO.getDescription());
+        formatter.format("%s\n", payableInvoiceDTO.getDescription() != null ? payableInvoiceDTO.getDescription() : "");
+        formatter.format("\n"); // Description of the payment (optional)
+        formatter.format("Tenant-Management-System\n");
 
         String epcQrCodeData = sb.toString();
 

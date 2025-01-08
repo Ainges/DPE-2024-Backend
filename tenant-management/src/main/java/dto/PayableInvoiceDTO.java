@@ -17,7 +17,6 @@ public class PayableInvoiceDTO {
     private String description;
     private String country;
     private String currency = "EUR"; // Default currency
-    private String reference; // Optional
     private String bic; // Optional
 
     // Getters and setters for all attributes
@@ -68,14 +67,6 @@ public class PayableInvoiceDTO {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
     }
 
     public String getBic() {
