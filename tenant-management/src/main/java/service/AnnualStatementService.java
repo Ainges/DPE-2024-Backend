@@ -326,5 +326,5 @@ public class AnnualStatementService {
  * End
  *
  * @author 1 GitHub Copilot
- * @author 2 Zohal Mohammadi
+ * @author 2 Zohal Mohammadi, Moritz Baur
  */

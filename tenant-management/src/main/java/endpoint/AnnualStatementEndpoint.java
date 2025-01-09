@@ -2,7 +2,7 @@
  * Start
  *
  * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
+ * @author 2 Zohal Mohammadi, Moritz Baur
  */
 
 package endpoint;
@@ -166,6 +166,7 @@ public class AnnualStatementEndpoint {
 }
 /**
  * End
+ *
  * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
+ * @author 2 Zohal Mohammadi, Moritz Baur
  */
