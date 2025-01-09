@@ -33,13 +33,6 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/mateuszjanczak/payment-qr-code</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -79,11 +72,6 @@
             <artifactId>mockito-core</artifactId>
             <version>5.5.0</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.mateuszjanczak</groupId>
-            <artifactId>payment-qr-code</artifactId>
-            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.google.zxing</groupId>

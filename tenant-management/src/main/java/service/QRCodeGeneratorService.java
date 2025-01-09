@@ -1,7 +1,8 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
+ * @author 2 Zohal Mohammadi, Moritz Baur
  */
 package service;
 
@@ -12,25 +13,25 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import dto.PayableInvoiceDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
+import java.util.Base64;
 import java.util.Formatter;
 
 /**
  * Service class for generating EPC-QR codes.
  */
 @ApplicationScoped
-public class QRCodeGenerator {
+public class QRCodeGeneratorService {
 
     /**
-     * Generates an EPC-QR Code for bank transfers based on the given PayableInvoiceDTO and saves it to the file system.
+     * Generates an EPC-QR Code for bank transfers based on the given PayableInvoiceDTO and returns it as a Base64 string.
      *
      * @param payableInvoiceDTO the invoice data transfer object containing the necessary information
-     * @param filePath the file path where the QR code should be saved
+     * @return a Base64 string of the generated EPC-QR code
      * @throws Exception if an error occurs during QR code generation
      */
-    public void generateEpcQrCode(PayableInvoiceDTO payableInvoiceDTO, String filePath) throws Exception {
+    public String generateEpcQrCode(PayableInvoiceDTO payableInvoiceDTO) throws Exception {
         StringBuilder sb = new StringBuilder();
         Formatter formatter = new Formatter(sb);
 
@@ -59,16 +60,22 @@ public class QRCodeGenerator {
             throw new RuntimeException("Error generating QR code: " + e.getMessage(), e);
         }
 
-        Path path = FileSystems.getDefault().getPath(filePath);
+        // Write the QR code to a ByteArrayOutputStream
+        ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
         try {
-            MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
+            MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
         } catch (IOException e) {
-            throw new RuntimeException("Error saving QR code to file: " + e.getMessage(), e);
+            throw new RuntimeException("Error writing QR code to output stream: " + e.getMessage(), e);
         }
+
+        // Convert the ByteArrayOutputStream to a Base64 string
+        byte[] pngData = pngOutputStream.toByteArray();
+        return "data:image/png;base64," + Base64.getEncoder().encodeToString(pngData);
     }
 }
 /**
  * End
+ *
  * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
+ * @author 2 Zohal Mohammadi, Moritz Baur
  */
