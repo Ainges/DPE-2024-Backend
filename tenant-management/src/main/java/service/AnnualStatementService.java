@@ -70,6 +70,9 @@ public class AnnualStatementService {
      * @throws ParseException if the date parsing fails
      */
     public AnnualStatement generateAnnualStatementWholeYear(RentalAgreement rentalAgreement, String annualStatementPeriod) throws ParseException {
+        if (annualStatementPeriod == null || annualStatementPeriod.isEmpty()) {
+            throw new IllegalArgumentException("annualStatementPeriod must not be null or empty");
+        }
 
         // 1. Create Annual Statement
         String periodStart = (annualStatementPeriod + "-01-01").split("T")[0];
