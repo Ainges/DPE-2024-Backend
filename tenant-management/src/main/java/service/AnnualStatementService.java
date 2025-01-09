@@ -190,37 +190,65 @@ public class AnnualStatementService {
             document.addPage(page);
 
             try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                float margin = 50; // Margin for the page
+                float yStart = 750; // Starting Y position
+                float yPosition = yStart;
+                float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
+                float rowHeight = 15; // Reduce row height to fit more rows
+                float[] columnWidths = {tableWidth * 0.7f, tableWidth * 0.3f}; // Column proportions
+
+                // Header text
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
-                contentStream.newLineAtOffset(50, 750);
+                contentStream.newLineAtOffset(margin, yPosition);
                 contentStream.showText("Annual Statement");
-                contentStream.newLineAtOffset(0, -20);
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.endText();
+                yPosition -= 30; // Space after the header
 
+                // Rental Agreement details
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.newLineAtOffset(margin, yPosition);
                 contentStream.showText("Rental Agreement ID: " + rentalAgreement.getRentalAgreementId());
                 contentStream.newLineAtOffset(0, -15);
                 contentStream.showText("Period Start: " + annualStatement.getPeriodStart());
                 contentStream.newLineAtOffset(0, -15);
                 contentStream.showText("Period End: " + annualStatement.getPeriodEnd());
-                contentStream.newLineAtOffset(0, -15);
+                contentStream.endText();
+                yPosition -= 45; // Space after the details
 
+                // Draw table headers
+                drawTableHeaders(contentStream, new String[]{"Statement Entry", "Amount Payable"}, columnWidths, margin, yPosition);
+                yPosition -= rowHeight;
+
+                // Draw table rows
                 float totalCost = 0.0f;
-                for (StatementEntry statementEntry : statementEntries) {
-                    contentStream.showText("Statement Entry: " + statementEntry.getName());
-                    contentStream.newLineAtOffset(0, -15);
-                    contentStream.showText("Amount Payable: " + statementEntry.getAmountPayable());
-                    contentStream.newLineAtOffset(0, -15);
-                    totalCost += statementEntry.getAmountPayable();
+                for (StatementEntry entry : statementEntries) {
+                    // Check if we are running out of space
+                    if (yPosition < margin + 3 * rowHeight) { // Reserve space for totals
+                        break; // Prevent drawing further rows and leave room for totals
+                    }
+
+                    // Draw the current row
+                    drawTableRow(contentStream, new String[]{
+                            entry.getName(),
+                            String.format("%.2f", entry.getAmountPayable())
+                    }, columnWidths, margin, yPosition);
+
+                    // Sum up the total cost
+                    totalCost += entry.getAmountPayable();
+                    yPosition -= rowHeight; // Move to the next row position
                 }
 
-                contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Total Cost: " + totalCost);
-                contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Total Prepayments: " + annualStatement.getTotalPrepayments());
-                contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Difference: " + annualStatement.getDifference());
+                // Draw the totals
+                yPosition -= rowHeight; // Space before totals
+                drawTableRow(contentStream, new String[]{"Total Cost", String.format("%.2f", totalCost)}, columnWidths, margin, yPosition);
+                yPosition -= rowHeight;
+                drawTableRow(contentStream, new String[]{"Total Prepayments", String.format("%.2f", annualStatement.getTotalPrepayments())}, columnWidths, margin, yPosition);
+                yPosition -= rowHeight;
+                drawTableRow(contentStream, new String[]{"Difference", String.format("%.2f", annualStatement.getDifference())}, columnWidths, margin, yPosition);
 
-                contentStream.endText();
+                contentStream.close(); // Close the final content stream
             }
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -228,6 +256,35 @@ public class AnnualStatementService {
             return out.toByteArray();
         }
     }
+
+    // Helper method to draw table headers
+    private void drawTableHeaders(PDPageContentStream contentStream, String[] headers, float[] columnWidths, float margin, float yPosition) throws IOException {
+        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+        float xPosition = margin;
+        for (int i = 0; i < headers.length; i++) {
+            contentStream.beginText();
+            contentStream.newLineAtOffset(xPosition, yPosition);
+            contentStream.showText(headers[i]);
+            contentStream.endText();
+            xPosition += columnWidths[i];
+        }
+    }
+
+    // Helper method to draw a single table row
+    private void drawTableRow(PDPageContentStream contentStream, String[] values, float[] columnWidths, float margin, float yPosition) throws IOException {
+        contentStream.setFont(PDType1Font.HELVETICA, 12);
+        float xPosition = margin;
+        for (int i = 0; i < values.length; i++) {
+            contentStream.beginText();
+            contentStream.newLineAtOffset(xPosition, yPosition);
+            contentStream.showText(values[i]);
+            contentStream.endText();
+            xPosition += columnWidths[i];
+        }
+    }
+
+
+
 }
 /**
  * End
