@@ -41,7 +41,7 @@ public class ReceiveEdiRoute extends RouteBuilder {
 
 
         // Inform ProcessEngine about received Invoice
-        from("activemq:queue:received-invoice")
+        from("activemq:queue:invoice_received")
                 .routeId("receive-Invoice-Route")
                 .log("Received invoice from ActiveMQ: ${body}")
                 .unmarshal().jacksonXml(NewInvoiceReceivedDto.class)

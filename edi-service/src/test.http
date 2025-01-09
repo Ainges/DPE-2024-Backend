@@ -1,5 +1,5 @@
 ### Inform ProcessEngine about new Invoice
-POST http://localhost:8161/api/message/received-invoice?type=queue
+POST http://localhost:8161/api/message/invoice_received?type=queue
 Content-Type: application/xml
 Authorization: Basic YWRtaW46YWRtaW4=
 
@@ -11,7 +11,7 @@ Authorization: Basic YWRtaW46YWRtaW4=
 
 
 ### Mock inform ProcessEngine with EDI Invoice
-POST http://localhost:8161/api/message/invoice?type=queue
+POST http://localhost:8161/api/message/digital-invoice-received?type=queue
 Content-Type: application/xml
 Authorization: Basic YWRtaW46YWRtaW4=
 
