@@ -3,6 +3,7 @@ package service;
 import entity.AnnualStatement;
 import entity.RentalAgreement;
 import entity.StatementEntry;
+import entity.Tenant;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -10,10 +11,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import repository.AnnualStatementRepository;
-import repository.ApartmentRepository;
-import repository.RentalAgreementRepository;
-import repository.StatementEntryRepository;
+import repository.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -30,6 +28,9 @@ import java.util.List;
 public class AnnualStatementService {
     @Inject
     StatementEntryRepository statementEntryRepository;
+    @Inject
+    TenantRepository    tenantRepository;
+
 
     @Inject
     RentalAgreementRepository rentalAgreementRepository;
@@ -218,11 +219,9 @@ public class AnnualStatementService {
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.newLineAtOffset(margin, yPosition);
-                contentStream.showText("Rental Agreement ID: " + rentalAgreement.getRentalAgreementId());
+                contentStream.showText("Period Start: " + new SimpleDateFormat("dd-MM-yyyy").format(annualStatement.getPeriodStart()));
                 contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Period Start: " + annualStatement.getPeriodStart());
-                contentStream.newLineAtOffset(0, -15);
-                contentStream.showText("Period End: " + annualStatement.getPeriodEnd());
+                contentStream.showText("Period End: " + new SimpleDateFormat("dd-MM-yyyy").format(annualStatement.getPeriodEnd()));
                 contentStream.endText();
                 yPosition -= 45; // Space after the details
 
@@ -230,32 +229,41 @@ public class AnnualStatementService {
                 drawTableHeaders(contentStream, new String[]{"Statement Entry", "Amount Payable"}, columnWidths, margin, yPosition);
                 yPosition -= rowHeight;
 
+                // Draw horizontal line below headers
+                drawHorizontalLine(contentStream, margin, yPosition + rowHeight - 5, tableWidth);
+                yPosition -= 5;
+
                 // Draw table rows
                 float totalCost = 0.0f;
                 for (StatementEntry entry : statementEntries) {
-                    // Check if we are running out of space
-                    if (yPosition < margin + 3 * rowHeight) { // Reserve space for totals
-                        break; // Prevent drawing further rows and leave room for totals
-                    }
-
                     // Draw the current row
                     drawTableRow(contentStream, new String[]{
                             entry.getName(),
                             String.format("%.2f", entry.getAmountPayable())
                     }, columnWidths, margin, yPosition);
 
+                    // Draw horizontal line for each row
+                    yPosition -= rowHeight;
+                    drawHorizontalLine(contentStream, margin, yPosition, tableWidth);
+
                     // Sum up the total cost
                     totalCost += entry.getAmountPayable();
-                    yPosition -= rowHeight; // Move to the next row position
                 }
 
+
+
+                // Space before totals
+                yPosition -= rowHeight;
+
                 // Draw the totals
-                yPosition -= rowHeight; // Space before totals
                 drawTableRow(contentStream, new String[]{"Total Cost", String.format("%.2f", totalCost)}, columnWidths, margin, yPosition);
                 yPosition -= rowHeight;
                 drawTableRow(contentStream, new String[]{"Total Prepayments", String.format("%.2f", annualStatement.getTotalPrepayments())}, columnWidths, margin, yPosition);
                 yPosition -= rowHeight;
                 drawTableRow(contentStream, new String[]{"Difference", String.format("%.2f", annualStatement.getDifference())}, columnWidths, margin, yPosition);
+
+                // Final horizontal line below totals
+                drawHorizontalLine(contentStream, margin, yPosition - 5, tableWidth);
 
                 contentStream.close(); // Close the final content stream
             }
@@ -264,6 +272,13 @@ public class AnnualStatementService {
             document.save(out);
             return out.toByteArray();
         }
+    }
+
+    // Helper method to draw a horizontal line
+    private void drawHorizontalLine(PDPageContentStream contentStream, float startX, float startY, float width) throws IOException {
+        contentStream.moveTo(startX, startY);
+        contentStream.lineTo(startX + width, startY);
+        contentStream.stroke();
     }
 
     // Helper method to draw table headers
@@ -291,8 +306,6 @@ public class AnnualStatementService {
             xPosition += columnWidths[i];
         }
     }
-
-
 
 }
 /**
