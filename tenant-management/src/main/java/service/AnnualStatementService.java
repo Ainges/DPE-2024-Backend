@@ -19,6 +19,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
@@ -143,7 +145,11 @@ public class AnnualStatementService {
             statementEntryRepository.persist(statementEntry);   // Aktualisierung des StatementEntry
         }
         // Vorauszahlungen berechnen (proportional zur Mietdauer)
-        long months = (annualStatement.getPeriodEnd().getTime() - annualStatement.getPeriodStart().getTime()) / (1000 * 60 * 60 * 24 * 30);
+
+        long months = ChronoUnit.MONTHS.between(
+                annualStatement.getPeriodStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                annualStatement.getPeriodEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+        );
         float heatingCostPrepayment = rentalAgreement.getApartment().getHeatingCostPrepayment();
         float additionalCostPrepayment = rentalAgreement.getApartment().getAdditionalCostPrepayment();
         float totalPrepayments = (heatingCostPrepayment + additionalCostPrepayment) * months;
