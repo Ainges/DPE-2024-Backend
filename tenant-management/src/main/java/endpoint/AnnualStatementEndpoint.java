@@ -1,5 +1,6 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -83,7 +84,7 @@ public class AnnualStatementEndpoint {
     @Path("/midYear")
     @Transactional
     public Response generateAnnualStatementMidYear(AnnualStatementDTO dto) throws ParseException {
-        AnnualStatement createdAnnualStatement = annualStatementService.generateAnnualStatementMidYear(dto.getRentalAgreement(), dto.getPeriodStart(), dto.getPeriodEnd());
+        AnnualStatement createdAnnualStatement = annualStatementService.generateAnnualStatementMidYear(dto.getRentalAgreement(), dto.getAnnualStatementPeriod());
         return Response.status(Response.Status.CREATED).entity(createdAnnualStatement).build();
     }
 

@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class AnnualStatementService {
     @Inject
     StatementEntryRepository statementEntryRepository;
     @Inject
-    TenantRepository    tenantRepository;
+    TenantRepository tenantRepository;
 
 
     @Inject
@@ -65,7 +66,7 @@ public class AnnualStatementService {
     /**
      * Generates an annual statement for a whole year based on a rental agreement and a statement period.
      *
-     * @param rentalAgreement the rental agreement
+     * @param rentalAgreement       the rental agreement
      * @param annualStatementPeriod the statement period
      * @return the generated annual statement
      * @throws ParseException if the date parsing fails
@@ -76,13 +77,14 @@ public class AnnualStatementService {
         }
 
         // 1. Create Annual Statement
-        String periodStart = (annualStatementPeriod + "-01-01").split("T")[0];
-        String periodEnd = (annualStatementPeriod + "-12-31").split("T")[0];
+        Date periodStart = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-01-01");
+        Date periodEnd = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-12-31");
+
         // Parsing und Zuweisung
         AnnualStatement annualStatement = new AnnualStatement();
         annualStatement.setRentalAgreement(rentalAgreement);
-        annualStatement.setPeriodStart(new SimpleDateFormat("yyyy-MM-dd").parse(periodStart));
-        annualStatement.setPeriodEnd(new SimpleDateFormat("yyyy-MM-dd").parse(periodEnd));
+        annualStatement.setPeriodStart(periodStart);
+        annualStatement.setPeriodEnd(periodEnd);
 
         // Save the Annual Statement initially
         annualStatementRepository.persist(annualStatement);
@@ -122,21 +124,33 @@ public class AnnualStatementService {
     /**
      * Generates an annual statement for a mid-year period based on a rental agreement and a start and end date of the statement period.
      *
-     * @param rentalAgreement the rental agreement
-     * @param periodStart the start date of the period
-     * @param periodEnd the end date of the period
+     * @param rentalAgreement       the rental agreement
+     * @param annualStatementPeriod the statement period
      * @return the generated annual statement
      * @throws ParseException if the date parsing fails
      */
-    public AnnualStatement generateAnnualStatementMidYear(RentalAgreement rentalAgreement, String periodStart, String periodEnd) throws ParseException {
+    public AnnualStatement generateAnnualStatementMidYear(RentalAgreement rentalAgreement, String annualStatementPeriod) throws ParseException {
         // 1. Create MidYearAnnual Statement
         // Entfernen des Zeitstempels, falls vorhanden
-        periodStart = periodStart.split("T")[0]; // Nur das Datum vor "T" wird verwendet
-        periodEnd = periodEnd.split("T")[0];     // Nur das Datum vor "T" wird verwende
         AnnualStatement annualStatement = new AnnualStatement();
         annualStatement.setRentalAgreement(rentalAgreement);
-        annualStatement.setPeriodStart(new SimpleDateFormat("yyyy-MM-dd").parse(periodStart));
-        annualStatement.setPeriodEnd(new SimpleDateFormat("yyyy-MM-dd").parse(periodEnd));
+
+        Date periodStart = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-01-01");
+        Date periodEnd = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-12-31");
+
+        Date rentalStartDate = rentalAgreement.getStartDate();
+        Date rentalEndDate = rentalAgreement.getEndDate();
+
+        if (rentalStartDate.after(periodStart) && rentalStartDate.before(periodEnd)) {
+            periodStart = rentalStartDate;
+        }
+
+        if (rentalEndDate.after(periodStart) && rentalEndDate.before(periodEnd)) {
+            periodEnd = rentalEndDate;
+        }
+
+        annualStatement.setPeriodStart(periodStart);
+        annualStatement.setPeriodEnd(periodEnd);
 
         // Save the Annual Statement initially
         annualStatementRepository.persist(annualStatement);
@@ -249,7 +263,6 @@ public class AnnualStatementService {
                     // Sum up the total cost
                     totalCost += entry.getAmountPayable();
                 }
-
 
 
                 // Space before totals
