@@ -72,10 +72,13 @@ public class AnnualStatementService {
     public AnnualStatement generateAnnualStatementWholeYear(RentalAgreement rentalAgreement, String annualStatementPeriod) throws ParseException {
 
         // 1. Create Annual Statement
+        String periodStart = (annualStatementPeriod + "-01-01").split("T")[0];
+        String periodEnd = (annualStatementPeriod + "-12-31").split("T")[0];
+        // Parsing und Zuweisung
         AnnualStatement annualStatement = new AnnualStatement();
         annualStatement.setRentalAgreement(rentalAgreement);
-        annualStatement.setPeriodStart(new SimpleDateFormat("dd.MM.yyyy").parse("01.01." + annualStatementPeriod));
-        annualStatement.setPeriodEnd(new SimpleDateFormat("dd.MM.yyyy").parse("31.12." + annualStatementPeriod));
+        annualStatement.setPeriodStart(new SimpleDateFormat("yyyy-MM-dd").parse(periodStart));
+        annualStatement.setPeriodEnd(new SimpleDateFormat("yyyy-MM-dd").parse(periodEnd));
 
         // Save the Annual Statement initially
         annualStatementRepository.persist(annualStatement);
@@ -123,15 +126,18 @@ public class AnnualStatementService {
      */
     public AnnualStatement generateAnnualStatementMidYear(RentalAgreement rentalAgreement, String periodStart, String periodEnd) throws ParseException {
         // 1. Create MidYearAnnual Statement
+        // Entfernen des Zeitstempels, falls vorhanden
+        periodStart = periodStart.split("T")[0]; // Nur das Datum vor "T" wird verwendet
+        periodEnd = periodEnd.split("T")[0];     // Nur das Datum vor "T" wird verwende
         AnnualStatement annualStatement = new AnnualStatement();
         annualStatement.setRentalAgreement(rentalAgreement);
-        annualStatement.setPeriodStart(new SimpleDateFormat("dd.MM.yyyy").parse(periodStart));
-        annualStatement.setPeriodEnd(new SimpleDateFormat("dd.MM.yyyy").parse(periodEnd));
+        annualStatement.setPeriodStart(new SimpleDateFormat("yyyy-MM-dd").parse(periodStart));
+        annualStatement.setPeriodEnd(new SimpleDateFormat("yyyy-MM-dd").parse(periodEnd));
 
         // Save the Annual Statement initially
         annualStatementRepository.persist(annualStatement);
         List<StatementEntry> statementEntries = statementEntryRepository
-                .find("rentalAgreement.rentalAgreementId = ?1 and periodStart >= ?2 and periodEnd <= ?3",
+                .find("rentalAgreement.rentalAgreementId = ?1 and annualStatement.periodStart >= ?2 and annualStatement.periodEnd <= ?3",
                         rentalAgreement.getRentalAgreementId(),
                         annualStatement.getPeriodStart(),
                         annualStatement.getPeriodEnd())
