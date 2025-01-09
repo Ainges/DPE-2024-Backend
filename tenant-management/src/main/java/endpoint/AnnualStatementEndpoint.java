@@ -6,6 +6,7 @@
 
 package endpoint;
 
+import dto.AnnualStatementDTO;
 import entity.AnnualStatement;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -19,6 +20,7 @@ import repository.InvoiceCategoryRepository;
 import service.AnnualStatementService;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 @ApplicationScoped
@@ -56,7 +58,7 @@ public class AnnualStatementEndpoint {
     }
 
     /**
-     * Creates a new annual statement.
+     * Creates a new annual statement entry in the database.
      *
      * @param annualStatement the annual statement to create
      * @return a Response containing the created annual statement
@@ -64,9 +66,18 @@ public class AnnualStatementEndpoint {
     @POST
     @Transactional
     public Response createAnnualStatement(AnnualStatement annualStatement) {
-        annualStatementRepository.persist(annualStatement);
-        return Response.status(Response.Status.CREATED).entity(annualStatement).build();
+        AnnualStatement createdAnnualStatement = annualStatementService.createAnnualStatement(annualStatement);
+        return Response.status(Response.Status.CREATED).entity(createdAnnualStatement).build();
     }
+
+    @POST
+    @Path("/wholeYear")
+    @Transactional
+    public Response generateAnnualStatementWholeYear(AnnualStatementDTO dto) throws ParseException {
+        AnnualStatement createdAnnualStatement = annualStatementService.generateAnnualStatementWholeYear(dto.getRentalAgreement(), dto.getAnnualStatementPeriod());
+        return Response.status(Response.Status.CREATED).entity(createdAnnualStatement).build();
+    }
+
     @POST
     @Path("/{id}/pdf")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)

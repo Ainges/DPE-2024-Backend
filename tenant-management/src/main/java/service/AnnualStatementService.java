@@ -18,6 +18,8 @@ import repository.StatementEntryRepository;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -50,73 +52,58 @@ public class AnnualStatementService {
      * @return a Response containing the created annual statement
      */
     @Transactional
-    public Response createAnnualStatement(AnnualStatement annualStatement) {
-        // Check if the ID already exists
-        if (annualStatementRepository.findById(annualStatement.getAnnualStatementId()) != null) {
-            return Response.status(Response.Status.CONFLICT)
-                    .entity("An AnnualStatement with ID " + annualStatement.getAnnualStatementId() + " already exists.")
-                    .build();
-        }
+    public AnnualStatement createAnnualStatement(AnnualStatement annualStatement) {
+
         // Save the AnnualStatement
         annualStatementRepository.persist(annualStatement);
         // Return success response
-        return Response.status(Response.Status.CREATED)
-                .entity(annualStatement)
-                .build();
+        return annualStatement;
     }
 
     /**
-     * Generates annual statements for all rental agreements.
+     * Generate an annual statements for a rental agreement.
      */
-    public void generateAnnualStatements() {
-        List<RentalAgreement> rentalAgreements = rentalAgreementRepository.findAll().list();
-        for (RentalAgreement rentalAgreement : rentalAgreements) {
-            // 1. Create Annual Statement
-            AnnualStatement annualStatement = new AnnualStatement();
-            annualStatement.setRentalAgreement(rentalAgreement);
-            annualStatement.setPeriodStart(rentalAgreement.getStartDate());
-            annualStatement.setPeriodEnd(rentalAgreement.getEndDate());
+    public AnnualStatement generateAnnualStatementWholeYear(RentalAgreement rentalAgreement, String annualStatementPeriod) throws ParseException {
 
-            List<StatementEntry> statementEntries = statementEntryRepository
-                    .find("rentalAgreement.rentalAgreementId = ?1",
-                            rentalAgreement.getRentalAgreementId())
-                    .list();
+        // 1. Create Annual Statement
+        AnnualStatement annualStatement = new AnnualStatement();
+        annualStatement.setRentalAgreement(rentalAgreement);
+        annualStatement.setPeriodStart(new SimpleDateFormat("dd.MM.yyyy").parse("01.01." + annualStatementPeriod));
+        annualStatement.setPeriodEnd(new SimpleDateFormat("dd.MM.yyyy").parse("31.12." + annualStatementPeriod));
 
-            String annualStatementPeriod = "";
-            for (StatementEntry statementEntry : statementEntries) {
-                annualStatementPeriod = statementEntry.getAnnualStatementPeriod();
-            }
+        // Save the Annual Statement initially
+        annualStatementRepository.persist(annualStatement);
 
-            statementEntries = statementEntryRepository
-                    .find("rentalAgreement.rentalAgreementId = ?1 and annualStatementPeriod = ?2",
-                            rentalAgreement.getRentalAgreementId(),
-                            annualStatementPeriod)
-                    .list();
+        List<StatementEntry> statementEntries = statementEntryRepository
+                .find("rentalAgreement.rentalAgreementId = ?1 and annualStatementPeriod = ?2",
+                        rentalAgreement.getRentalAgreementId(),
+                        annualStatementPeriod)
+                .list();
 
-            // Calculate prepayments
-            float heatingCostPrepayment = rentalAgreement.getApartment().getHeatingCostPrepayment();
-            float additionalCostPrepayment = rentalAgreement.getApartment().getAdditionalCostPrepayment();
-            float totalPrepayments = heatingCostPrepayment + additionalCostPrepayment;
+        // Calculate prepayments
+        float heatingCostPrepayment = rentalAgreement.getApartment().getHeatingCostPrepayment();
+        float additionalCostPrepayment = rentalAgreement.getApartment().getAdditionalCostPrepayment();
+        float totalPrepayments = (heatingCostPrepayment + additionalCostPrepayment) * 12;
 
-            // 3. Sum the costs from the StatementEntries
-            float totalCost = 0.0f;
-            for (StatementEntry statementEntry : statementEntries) {
-                totalCost += statementEntry.getAmountPayable();
-                statementEntry.setAnnualStatement(annualStatement); // Link with Annual Statement
-                statementEntryRepository.persist(statementEntry);   // Update StatementEntry
-            }
-
-            // 4. Calculate the difference (overallAmountPayable)
-            float difference = totalCost - totalPrepayments;
-
-            // 5. Update Annual Statement
-            annualStatement.setTotalCost(totalCost);
-            annualStatement.setTotalPrepayments(totalPrepayments);
-            annualStatement.setDifference(difference);
-
-            // Save the Annual Statement
-            annualStatementRepository.persist(annualStatement);
+        // 3. Sum the costs from the StatementEntries
+        float totalCost = 0.0f;
+        for (StatementEntry statementEntry : statementEntries) {
+            totalCost += statementEntry.getAmountPayable();
+            statementEntry.setAnnualStatement(annualStatement); // Link with Annual Statement
+            statementEntryRepository.persist(statementEntry);   // Update StatementEntry
         }
+
+        // 4. Calculate the difference (overallAmountPayable)
+        float difference = totalCost - totalPrepayments;
+
+        // 5. Update Annual Statement
+        annualStatement.setTotalCost(totalCost);
+        annualStatement.setTotalPrepayments(totalPrepayments);
+        annualStatement.setDifference(difference);
+
+        // Save the Updated Annual Statement
+        annualStatementRepository.persist(annualStatement);
+        return annualStatement;
     }
 
 
@@ -174,10 +161,11 @@ public class AnnualStatementService {
             document.save(out);
             return out.toByteArray();
         }
-}
+    }
 }
 /**
  * End
+ *
  * @author 1 GitHub Copilot
  * @author 2 Zohal Mohammadi
  */
