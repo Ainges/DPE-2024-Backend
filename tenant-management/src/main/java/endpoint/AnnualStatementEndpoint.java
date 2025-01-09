@@ -7,6 +7,7 @@
 package endpoint;
 
 import dto.AnnualStatementDTO;
+import dto.CreateStatementEntryServiceDTO;
 import entity.AnnualStatement;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -77,6 +78,15 @@ public class AnnualStatementEndpoint {
         AnnualStatement createdAnnualStatement = annualStatementService.generateAnnualStatementWholeYear(dto.getRentalAgreement(), dto.getAnnualStatementPeriod());
         return Response.status(Response.Status.CREATED).entity(createdAnnualStatement).build();
     }
+
+    @POST
+    @Path("/midYear")
+    @Transactional
+    public Response generateAnnualStatementMidYear(AnnualStatementDTO dto) throws ParseException {
+        AnnualStatement createdAnnualStatement = annualStatementService.generateAnnualStatementMidYear(dto.getRentalAgreement(), dto.getPeriodStart(), dto.getPeriodEnd());
+        return Response.status(Response.Status.CREATED).entity(createdAnnualStatement).build();
+    }
+
 
     @POST
     @Path("/{id}/pdf")
