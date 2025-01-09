@@ -154,11 +154,11 @@ public class AnnualStatementService {
 
         // Save the Annual Statement initially
         annualStatementRepository.persist(annualStatement);
+
         List<StatementEntry> statementEntries = statementEntryRepository
-                .find("rentalAgreement.rentalAgreementId = ?1 and annualStatement.periodStart >= ?2 and annualStatement.periodEnd <= ?3",
+                .find("rentalAgreement.rentalAgreementId = ?1 and annualStatementPeriod = ?2",
                         rentalAgreement.getRentalAgreementId(),
-                        annualStatement.getPeriodStart(),
-                        annualStatement.getPeriodEnd())
+                        annualStatementPeriod)
                 .list();
 
         // Berechnung der Gesamtkosten
@@ -171,9 +171,10 @@ public class AnnualStatementService {
         // Vorauszahlungen berechnen (proportional zur Mietdauer)
 
         long months = ChronoUnit.MONTHS.between(
-                annualStatement.getPeriodStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-                annualStatement.getPeriodEnd().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                periodStart.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                periodEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
         );
+
         float heatingCostPrepayment = rentalAgreement.getApartment().getHeatingCostPrepayment();
         float additionalCostPrepayment = rentalAgreement.getApartment().getAdditionalCostPrepayment();
         float totalPrepayments = (heatingCostPrepayment + additionalCostPrepayment) * months;
