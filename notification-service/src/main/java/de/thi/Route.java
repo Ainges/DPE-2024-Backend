@@ -1,3 +1,5 @@
+package de.thi;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
@@ -63,7 +65,7 @@ public class Route extends RouteBuilder {
 
         // Message from the ActiveMQ queue
         from("activemq:queue:notification")
-                .routeId("notification-from-Queue-Route")
+                .routeId("notification-from-Queue-de.thi.Route")
                 .log("Notification received")
                 .to("direct:notificationSort");
 
@@ -71,7 +73,7 @@ public class Route extends RouteBuilder {
         // ### -------------- ###
         // ### Internal Routes ###
 
-        // Route for sorting the notification
+        // de.thi.Route for sorting the notification
         from("direct:notificationSort")
                 .choice()
                 //
@@ -87,7 +89,7 @@ public class Route extends RouteBuilder {
 
 
         from("direct:route1")
-                .routeId("route1-Route")
+                .routeId("route1-de.thi.Route")
                 // write json body to xml in fs
                 .to("direct:toxml")
                 .setBody(simple("route1 received"))
@@ -95,32 +97,32 @@ public class Route extends RouteBuilder {
                 .to("direct:sendMail");
 
         from("direct:route2")
-                .routeId("route2-Route")
+                .routeId("route2-de.thi.Route")
                 .setBody(simple("route2 received"))
                 .log("route2")
                 .to("direct:sendMail");
 
         from("direct:route3")
-                .routeId("route3-Route")
+                .routeId("route3-de.thi.Route")
                 .setBody(simple("route3 received"))
                 .log("route3")
                 .to("direct:sendMail");
 
         from("direct:route4")
-                .routeId("route4-Route")
+                .routeId("route4-de.thi.Route")
                 .setBody(simple("route4 received"))
                 .log("route4")
                 .to("direct:sendMail");
 
         from("direct:route5")
-                .routeId("route5-Route")
+                .routeId("route5-de.thi.Route")
                 .setBody(simple("route5 received"))
                 .log("route5")
                 .to("direct:sendMail");
 
 
         from("direct:toxml")
-                .routeId("toxml-Route")
+                .routeId("toxml-de.thi.Route")
                 .unmarshal().json(JsonLibrary.Jackson)
                 // Konvertierung der Map in XML
                 .marshal().jacksonXml()
@@ -130,7 +132,7 @@ public class Route extends RouteBuilder {
         // ### -------------- ###
         // ### Egress Routes ###
 
-        // Route for sending the mail
+        // de.thi.Route for sending the mail
         from("direct:sendMail")
                 //TODO: Remove this part after testing
                 .process(exchange -> {

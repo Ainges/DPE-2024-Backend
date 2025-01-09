@@ -1,5 +1,4 @@
-import jakarta.enterprise.context.ApplicationScoped;
-
+package de.thi;
 
 public class NotificationDto {
     private String type;
