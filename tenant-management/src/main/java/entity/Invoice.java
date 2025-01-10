@@ -1,9 +1,9 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
-
 package entity;
 
 import jakarta.persistence.*;
@@ -25,6 +25,7 @@ public class Invoice {
     private String receiver;
     private String receiverIban;
     private String receiverBic;
+    private String externalInvoiceNumber; // New attribute
 
     @ManyToOne
     @JoinColumn(name = "invoiceCategoryId")
@@ -34,26 +35,12 @@ public class Invoice {
     @JoinColumn(name = "housingObjectId")
     private HousingObject housingObject;
 
-    /**
-     * Default constructor.
-     */
+    // Default constructor
     public Invoice() {
     }
 
-    /**
-     * Parameterized constructor.
-     *
-     * @param invoiceDate     the date of the invoice
-     * @param invoiceAmount   the amount of the invoice
-     * @param description     the description of the invoice
-     * @param status          the status of the invoice e.g. paid, unpaid
-     * @param receiver        the receiver of the invoice
-     * @param receiverIban    the IBAN of the receiver
-     * @param receiverBic     the BIC of the receiver
-     * @param invoiceCategory the category of the invoice
-     * @param housingObject   the housing object associated with the invoice
-     */
-    public Invoice(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, InvoiceCategory invoiceCategory, HousingObject housingObject) {
+    // Parameterized constructor
+    public Invoice(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, InvoiceCategory invoiceCategory, HousingObject housingObject) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
         this.description = description;
@@ -61,61 +48,60 @@ public class Invoice {
         this.receiver = receiver;
         this.receiverIban = receiverIban;
         this.receiverBic = receiverBic;
+        this.externalInvoiceNumber = externalInvoiceNumber;
         this.invoiceCategory = invoiceCategory;
         this.housingObject = housingObject;
     }
 
-    // Getters and Setters
-
     /**
-     * Gets the ID of the invoice.
+     * Gets the invoice ID.
      *
-     * @return the ID of the invoice
+     * @return the invoice ID
      */
     public long getInvoiceId() {
         return invoiceId;
     }
 
     /**
-     * Sets the ID of the invoice.
+     * Sets the invoice ID.
      *
-     * @param invoiceId the ID of the invoice
+     * @param invoiceId the invoice ID
      */
     public void setInvoiceId(long invoiceId) {
         this.invoiceId = invoiceId;
     }
 
     /**
-     * Gets the date of the invoice.
+     * Gets the invoice date.
      *
-     * @return the date of the invoice
+     * @return the invoice date
      */
     public Date getInvoiceDate() {
         return invoiceDate;
     }
 
     /**
-     * Sets the date of the invoice.
+     * Sets the invoice date.
      *
-     * @param invoiceDate the date of the invoice
+     * @param invoiceDate the invoice date
      */
     public void setInvoiceDate(Date invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
 
     /**
-     * Gets the amount of the invoice.
+     * Gets the invoice amount.
      *
-     * @return the amount of the invoice
+     * @return the invoice amount
      */
     public float getInvoiceAmount() {
         return invoiceAmount;
     }
 
     /**
-     * Sets the amount of the invoice.
+     * Sets the invoice amount.
      *
-     * @param invoiceAmount the amount of the invoice
+     * @param invoiceAmount the invoice amount
      */
     public void setInvoiceAmount(float invoiceAmount) {
         this.invoiceAmount = invoiceAmount;
@@ -158,45 +144,9 @@ public class Invoice {
     }
 
     /**
-     * Gets the category of the invoice.
-     *
-     * @return the category of the invoice
-     */
-    public InvoiceCategory getInvoiceCategory() {
-        return invoiceCategory;
-    }
-
-    /**
-     * Sets the category of the invoice.
-     *
-     * @param invoiceCategory the category of the invoice
-     */
-    public void setInvoiceCategory(InvoiceCategory invoiceCategory) {
-        this.invoiceCategory = invoiceCategory;
-    }
-
-    /**
-     * Gets the housing object associated with the invoice.
-     *
-     * @return the housing object associated with the invoice
-     */
-    public HousingObject getHousingObject() {
-        return housingObject;
-    }
-
-    /**
-     * Sets the housing object associated with the invoice.
-     *
-     * @param housingObject the housing object associated with the invoice
-     */
-    public void setHousingObject(HousingObject housingObject) {
-        this.housingObject = housingObject;
-    }
-
-    /**
      * Gets the receiver of the invoice.
      *
-     * @return the receiver
+     * @return the receiver of the invoice
      */
     public String getReceiver() {
         return receiver;
@@ -205,7 +155,7 @@ public class Invoice {
     /**
      * Sets the receiver of the invoice.
      *
-     * @param receiver the receiver
+     * @param receiver the receiver of the invoice
      */
     public void setReceiver(String receiver) {
         this.receiver = receiver;
@@ -246,7 +196,62 @@ public class Invoice {
     public void setReceiverBic(String receiverBic) {
         this.receiverBic = receiverBic;
     }
+
+    /**
+     * Gets the external invoice number.
+     *
+     * @return the external invoice number
+     */
+    public String getExternalInvoiceNumber() {
+        return externalInvoiceNumber;
+    }
+
+    /**
+     * Sets the external invoice number.
+     *
+     * @param externalInvoiceNumber the external invoice number
+     */
+    public void setExternalInvoiceNumber(String externalInvoiceNumber) {
+        this.externalInvoiceNumber = externalInvoiceNumber;
+    }
+
+    /**
+     * Gets the invoice category.
+     *
+     * @return the invoice category
+     */
+    public InvoiceCategory getInvoiceCategory() {
+        return invoiceCategory;
+    }
+
+    /**
+     * Sets the invoice category.
+     *
+     * @param invoiceCategory the invoice category
+     */
+    public void setInvoiceCategory(InvoiceCategory invoiceCategory) {
+        this.invoiceCategory = invoiceCategory;
+    }
+
+    /**
+     * Gets the housing object.
+     *
+     * @return the housing object
+     */
+    public HousingObject getHousingObject() {
+        return housingObject;
+    }
+
+    /**
+     * Sets the housing object.
+     *
+     * @param housingObject the housing object
+     */
+    public void setHousingObject(HousingObject housingObject) {
+        this.housingObject = housingObject;
+    }
 }
+
 /**
  * End
  * @author 1 GitHub Copilot

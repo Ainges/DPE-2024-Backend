@@ -1,5 +1,6 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -47,7 +48,7 @@ public class InvoiceEndpoint {
     }
 
     /**
-     * Retrieves a specific invoice by its ID.
+     * Retrieves an invoice by its ID.
      *
      * @param id the ID of the invoice
      * @return the invoice with the specified ID
@@ -59,11 +60,10 @@ public class InvoiceEndpoint {
     }
 
     /**
-     * Retrieves all invoices associated with a specific category.
+     * Retrieves invoices by their category ID.
      *
-     * @param categoryId the ID of the category
-     * @return a Response containing the list of invoices for the specified category,
-     * or a 404 Not Found status if the category does not exist
+     * @param categoryId the ID of the invoice category
+     * @return a response containing the list of invoices in the specified category
      */
     @GET
     @Path("/category/{categoryId}")
@@ -77,11 +77,10 @@ public class InvoiceEndpoint {
     }
 
     /**
-     * Retrieves all invoices associated with a specific housing object.
+     * Retrieves invoices by their housing object ID.
      *
      * @param housingObjectId the ID of the housing object
-     * @return a Response containing the list of invoices for the specified housing object,
-     * or a 404 Not Found status if the housing object does not exist
+     * @return a response containing the list of invoices for the specified housing object
      */
     @GET
     @Path("/housing-object/{housingObjectId}")
@@ -98,7 +97,7 @@ public class InvoiceEndpoint {
      * Creates a new invoice.
      *
      * @param invoice the invoice to create
-     * @return a Response containing the created invoice
+     * @return a response containing the created invoice
      */
     @POST
     @Transactional
@@ -112,8 +111,7 @@ public class InvoiceEndpoint {
      *
      * @param id      the ID of the invoice to update
      * @param invoice the updated invoice data
-     * @return a Response containing the updated invoice,
-     * or a 404 Not Found status if the invoice does not exist
+     * @return a response containing the updated invoice
      */
     @PUT
     @Path("/{id}")
@@ -150,16 +148,18 @@ public class InvoiceEndpoint {
         if (invoice.getReceiverBic() != null) {
             existingInvoice.setReceiverBic(invoice.getReceiverBic());
         }
+        if (invoice.getExternalInvoiceNumber() != null) {
+            existingInvoice.setExternalInvoiceNumber(invoice.getExternalInvoiceNumber());
+        }
         invoiceRepository.persist(existingInvoice);
         return Response.ok(existingInvoice).build();
     }
 
     /**
-     * Deletes an existing invoice.
+     * Deletes an invoice by its ID.
      *
      * @param id the ID of the invoice to delete
-     * @return a Response with no content if the deletion was successful,
-     * or a 404 Not Found status if the invoice does not exist
+     * @return a response indicating the result of the deletion
      */
     @DELETE
     @Path("/{id}")
@@ -173,9 +173,9 @@ public class InvoiceEndpoint {
         return Response.noContent().build();
     }
 }
-
 /**
  * End
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
