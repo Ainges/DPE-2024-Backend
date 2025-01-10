@@ -102,6 +102,11 @@ public class InvoiceEndpoint {
     @POST
     @Transactional
     public Response createInvoice(Invoice invoice) {
+        // Check if an invoice with the same externalInvoiceNumber and receiver already exists
+        List<Invoice> existingInvoices = invoiceRepository.find("externalInvoiceNumber = ?1 and receiver = ?2", invoice.getExternalInvoiceNumber(), invoice.getReceiver()).list();
+        if (!existingInvoices.isEmpty()) {
+            return Response.status(Response.Status.CONFLICT).entity("Invoice with the same externalInvoiceNumber and receiver already exists").build();
+        }
         invoiceRepository.persist(invoice);
         return Response.status(Response.Status.CREATED).entity(invoice).build();
     }
