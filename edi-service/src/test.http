@@ -1,0 +1,27 @@
+### Inform ProcessEngine about new Invoice
+POST http://localhost:8161/api/message/invoice_received?type=queue
+Content-Type: application/xml
+Authorization: Basic YWRtaW46YWRtaW4=
+
+<invoice>
+    <invoiceId>12345</invoiceId>
+    <digitalInvoice>True</digitalInvoice>
+</invoice>
+
+
+
+### Mock inform ProcessEngine with EDI Invoice
+POST http://localhost:8161/api/message/digital-invoice-received?type=queue
+Content-Type: application/xml
+Authorization: Basic YWRtaW46YWRtaW4=
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice>
+    <InvoiceDate>2025-01-09</InvoiceDate>
+    <InvoiceAmount>1234.56</InvoiceAmount>
+    <Description>Payment for services rendered</Description>
+    <Status>Pending</Status>
+    <Receiver>John Doe</Receiver>
+    <ReceiverIBAN>DE89370400440532013000</ReceiverIBAN>
+    <ReceiverBIC>COBADEFFXXX</ReceiverBIC>
+</Invoice>
