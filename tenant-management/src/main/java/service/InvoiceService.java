@@ -8,6 +8,7 @@ import exception.InvoiceServiceException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
+import org.hibernate.Hibernate;
 import repository.HousingObjectRepository;
 import repository.InvoiceCategoryRepository;
 import repository.InvoiceRepository;
@@ -38,8 +39,19 @@ public class InvoiceService {
 
         InvoiceCategory invoiceCategory = invoiceCategoryRepository.findById(Long.parseLong(invoiceCreateDto.getInvoiceCategoryId()));
         HousingObject housingObject = housingObjectRepository.findById(Long.parseLong(invoiceCreateDto.getHousingObjectId()));
+
+        if(invoiceCategory == null) {
+            throw new InvoiceServiceException("The invoice category with the ID " + invoiceCreateDto.getInvoiceCategoryId() + " does not exist.");
+        }
+        if(housingObject == null) {
+            throw new InvoiceServiceException("The housing object with the ID " + invoiceCreateDto.getHousingObjectId() + " does not exist.");
+        }
+
         Invoice invoice = new Invoice(invoiceCreateDto.getInvoiceDate(), invoiceCreateDto.getInvoiceAmount(), invoiceCreateDto.getDescription(), invoiceCreateDto.getStatus(), invoiceCreateDto.getReceiver(), invoiceCreateDto.getReceiverIban(), invoiceCreateDto.getReceiverBic(), invoiceCreateDto.getExternalInvoiceNumber(), invoiceCategory, housingObject);
         invoiceRepository.persist(invoice);
+
+
+
         return invoice;
     }
 
