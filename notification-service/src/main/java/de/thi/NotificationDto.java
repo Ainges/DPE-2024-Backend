@@ -1,23 +1,23 @@
 package de.thi;
 
 public class NotificationDto {
-    private String type;
+    private String mailType;
     private String payload;
 
     public NotificationDto() {
     }
 
     public NotificationDto(String type, String payload) {
-        this.type = type;
+        this.mailType = type;
         this.payload = payload;
     }
 
-    public String getType() {
-        return type;
+    public String getMailType() {
+        return mailType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setMailType(String mailType) {
+        this.mailType = mailType;
     }
 
     public String getPayload() {

@@ -2,6 +2,7 @@ package de.thi;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -49,6 +50,9 @@ public class Route extends RouteBuilder {
     @ConfigProperty(name = "smtp.config.password", defaultValue = "password")
     String password;
 
+    @Inject
+    AnnualStatementPreparationReminderProcessor annualStatementPreparationReminderProcessor;
+
     @Override
     public void configure() throws Exception {
 
@@ -87,17 +91,18 @@ public class Route extends RouteBuilder {
                     .otherwise().to("activemq:queue:deadLetterQueue");
 
 
-
         from("direct:route1")
                 .routeId("route1-de.thi.Route")
                 // write json body to xml in fs
-                .to("direct:toxml")
-                .setBody(simple("route1 received"))
+                .to("direct:print-raw-notification-to-xml")
+                //TODO: implement Processor for Building the Mail
+                .process(annualStatementPreparationReminderProcessor)
                 .log("route1")
                 .to("direct:sendMail");
 
         from("direct:route2")
                 .routeId("route2-de.thi.Route")
+                .to("direct:print-raw-notification-to-xml")
                 .setBody(simple("route2 received"))
                 .log("route2")
                 .to("direct:sendMail");
@@ -121,13 +126,18 @@ public class Route extends RouteBuilder {
                 .to("direct:sendMail");
 
 
-        from("direct:toxml")
+        from("direct:print-raw-notification-to-xml")
                 .routeId("toxml-de.thi.Route")
                 .unmarshal().json(JsonLibrary.Jackson)
-                // Konvertierung der Map in XML
+                // Convert the JSON body to XML
                 .marshal().jacksonXml()
-                .log("to XML")
-                .to("file:target/output?fileName=notification.xml");
+                // get the mailType from the xml body and set it as a header | analog to the jsonpath in the choice
+                .setHeader("mailType", xpath("/LinkedHashMap/mailType/text()"))
+                .log("mailType: ${header.mailType}")
+                .log("printing raw notification to xml: ${body}")
+                // toD: dynamic to;
+                // Needed to set the file directory dynamically, would not be necessary if the file directory is static, the file name could be dynamic with .to()
+                .toD("file:target/output/notifications/${header.mailType}?fileName=notification-${date:now:dd-MM-yyyy--HH-mm-ss}.xml");
 
         // ### -------------- ###
         // ### Egress Routes ###
