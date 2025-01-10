@@ -43,6 +43,7 @@ public class CreateStatementEntryService {
 
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
+        float amountPayable = 0.0f;
         List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
         switch (distributionKey) {
             case "Area":
@@ -50,19 +51,27 @@ public class CreateStatementEntryService {
                     divisor += apartment.getAreaInM2();
                 }
                 amountPerUnit = invoiceCategorySum / divisor;
-                createStatementEntry(amountPerUnit * currentRentalAgreement.getApartment().getAreaInM2(), currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
+
+                //Round for two decimal places
+                amountPayable = Math.round(amountPerUnit * currentRentalAgreement.getApartment().getAreaInM2() * 100.0) / 100.0f;
+                createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 break;
             case "Tenants":
                 for (RentalAgreement ra : allRentalAgreements) {
                     divisor += ra.getTenants().size();
                 }
                 amountPerUnit = invoiceCategorySum / divisor;
-                createStatementEntry(amountPerUnit * currentRentalAgreement.getTenants().size(), currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
+
+                //Round for two decimal places
+                amountPayable = Math.round(amountPerUnit * currentRentalAgreement.getTenants().size() * 100.0) / 100.0f;
+                createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 break;
             case "Apartments":
                 divisor = apartments.size();
                 amountPerUnit = invoiceCategorySum / divisor;
-                createStatementEntry(amountPerUnit, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
+                //Round for two decimal places
+                amountPayable = Math.round(amountPerUnit * 100.0) / 100.0f;
+                createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid distribution key: " + distributionKey);
@@ -92,7 +101,8 @@ public class CreateStatementEntryService {
                 for (RentalAgreement ra : rentalAgreements) {
 
                     float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
-                    float amountPayable = (amountPerUnit * ra.getApartment().getAreaInM2()) / 365;
+                    //Round for two decimal places
+                    float amountPayable = Math.round((amountPerUnit * ra.getApartment().getAreaInM2()) / 365 * 100.0) / 100.0f;
                     createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 }
                 break;
@@ -105,7 +115,8 @@ public class CreateStatementEntryService {
                 for (RentalAgreement ra : rentalAgreements) {
 
                     float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
-                    float amountPayable = (amountPerUnit * ra.getTenants().size()) / 365;
+                    //Round for two decimal places
+                    float amountPayable = Math.round((amountPerUnit * ra.getTenants().size()) / 365 * 100.0) / 100.0f;
                     createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 }
 
@@ -117,7 +128,8 @@ public class CreateStatementEntryService {
                 for (RentalAgreement ra : rentalAgreements) {
 
                     float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
-                    float amountPayable = amountPerUnit / 365;
+                    //Round for two decimal places
+                    float amountPayable = Math.round(amountPerUnit / 365 * 100.0) / 100.0f;
                     createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 }
 
