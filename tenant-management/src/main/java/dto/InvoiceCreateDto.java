@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class InvoiceCreateDto {
 
-    private long invoiceId;
     private Date invoiceDate;
     private float invoiceAmount;
     private String description;
@@ -20,8 +19,7 @@ public class InvoiceCreateDto {
         // no Args
     }
 
-    public InvoiceCreateDto(long invoiceId, Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String invoiceCategoryId, String housingObjectId) {
-        this.invoiceId = invoiceId;
+    public InvoiceCreateDto(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String invoiceCategoryId, String housingObjectId) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
         this.description = description;
@@ -32,14 +30,6 @@ public class InvoiceCreateDto {
         this.externalInvoiceNumber = externalInvoiceNumber;
         this.invoiceCategoryId = invoiceCategoryId;
         this.housingObjectId = housingObjectId;
-    }
-
-    public long getInvoiceId() {
-        return invoiceId;
-    }
-
-    public void setInvoiceId(long invoiceId) {
-        this.invoiceId = invoiceId;
     }
 
     public Date getInvoiceDate() {

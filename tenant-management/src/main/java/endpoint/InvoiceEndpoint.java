@@ -107,7 +107,7 @@ public class InvoiceEndpoint {
     @POST
     @Transactional
     public Response createInvoice(InvoiceCreateDto invoiceCreateDto) {
-        Invoice invoice = new Invoice();
+        Invoice invoice;
         try {
              invoice = invoiceService.createInvoice(invoiceCreateDto);
             return Response.status(Response.Status.CREATED).entity(invoice).build();
