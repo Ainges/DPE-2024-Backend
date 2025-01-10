@@ -26,11 +26,11 @@ public class InvoiceCategorySumService {
        // List<Invoice> invoices = invoiceRepository.find("invoiceCategory.invoiceCategoryId", categoryId).list();
         //return invoices.stream().mapToDouble(Invoice::getInvoiceAmount).sum();
    // }
-    public Map<Long, Double> getCategoryTotalSumByHousingObjectAndYear(long housingObjectId, long categoryId, int year) {
+    public Map<Long, Double> getCategoryTotalSumByHousingObjectAndYear(long housingObjectId, long invoiceCategoryId, int year) {
         // Finde alle Rechnungen basierend auf HousingObjectId, CategoryId und Jahr
         List<Invoice> invoices = invoiceRepository.find(
                 "housingObject.housingObjectId = ?1 AND invoiceCategory.invoiceCategoryId = ?2 AND EXTRACT(YEAR FROM invoiceDate) = ?3",
-                housingObjectId, categoryId, year
+                housingObjectId, invoiceCategoryId, year
         ).list();
 
         return invoices.stream()
