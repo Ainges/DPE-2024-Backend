@@ -7,6 +7,7 @@
 
 package endpoint;
 
+import dto.InvoiceCreateDto;
 import entity.Invoice;
 import entity.InvoiceCategory;
 import entity.HousingObject;
@@ -19,6 +20,7 @@ import jakarta.ws.rs.core.Response;
 import repository.HousingObjectRepository;
 import repository.InvoiceRepository;
 import repository.InvoiceCategoryRepository;
+import service.InvoiceService;
 
 import java.util.List;
 
@@ -36,6 +38,9 @@ public class InvoiceEndpoint {
 
     @Inject
     HousingObjectRepository housingObjectRepository;
+
+    @Inject
+    InvoiceService invoiceService;
 
     /**
      * Retrieves all invoices.
@@ -96,19 +101,19 @@ public class InvoiceEndpoint {
     /**
      * Creates a new invoice.
      *
-     * @param invoice the invoice to create
+     * @param invoiceCreateDto the data for the new invoice
      * @return a response containing the created invoice
      */
     @POST
     @Transactional
-    public Response createInvoice(Invoice invoice) {
-        // Check if an invoice with the same externalInvoiceNumber and receiver already exists
-        List<Invoice> existingInvoices = invoiceRepository.find("externalInvoiceNumber = ?1 and receiver = ?2", invoice.getExternalInvoiceNumber(), invoice.getReceiver()).list();
-        if (!existingInvoices.isEmpty()) {
-            return Response.status(Response.Status.CONFLICT).entity("Invoice with the same externalInvoiceNumber and receiver already exists").build();
+    public Response createInvoice(InvoiceCreateDto invoiceCreateDto) {
+        Invoice invoice = new Invoice();
+        try {
+             invoice = invoiceService.createInvoice(invoiceCreateDto);
+            return Response.status(Response.Status.CREATED).entity(invoice).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-        invoiceRepository.persist(invoice);
-        return Response.status(Response.Status.CREATED).entity(invoice).build();
     }
 
     /**
