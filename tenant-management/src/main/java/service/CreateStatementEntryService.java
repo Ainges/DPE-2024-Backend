@@ -27,8 +27,6 @@ public class CreateStatementEntryService {
     @Inject
     ApartmentRepository apartmentRepository;
 
-    @Inject
-    InvoiceCategorySumService invoiceCategorySumService;
 
     private String distributionKey;
     private String invoiceCategoryName;
@@ -36,7 +34,6 @@ public class CreateStatementEntryService {
     private HousingObject housingObject;
     private List<RentalAgreement> rentalAgreements;
     private String annualStatementPeriod;
-
     /**
      * Default constructor.
      */
@@ -165,11 +162,9 @@ public class CreateStatementEntryService {
         statementEntryRepository.persist(new StatementEntry(this.invoiceCategoryName, this.invoiceCategorySum, amountPayable, this.distributionKey, rentalAgreementRepository.findById(rentalAgreementId), this.annualStatementPeriod));
     }
 
-    /**
-     * Calculates the invoice category sum using the InvoiceCategorySumService.
-     */
+
     public void calculateInvoiceCategorySum() {
-        this.invoiceCategorySum = (float) invoiceCategorySumService.getCategoryTotalSumById(this.housingObject.getHousingObjectId());
+        this.invoiceCategorySum = 0.0f;
     }
     // Getters and Setters
 

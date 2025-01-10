@@ -5,11 +5,9 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.Map;
 
-/**
- * REST endpoint for retrieving the total sum of invoices for a given category.
- */
-@Path("/invoice-category-sum")
+@Path("/invoices")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class InvoiceCategorySumEndpoint {
@@ -17,17 +15,11 @@ public class InvoiceCategorySumEndpoint {
     @Inject
     InvoiceCategorySumService invoiceCategorySumService;
 
-    /**
-     * Endpoint to get the total sum of invoices for a given category by ID.
-     *
-     * @param categoryId the ID of the invoice category
-     * @return a Response containing the total sum of invoice amounts for the given category
-     */
     @GET
-    @Path("/totalById")
-    public Response getCategoryTotalSumById(@QueryParam("categoryId") long categoryId) {
-        double totalSum = invoiceCategorySumService.getCategoryTotalSumById(categoryId);
-        return Response.ok(totalSum).build();
+    @Path("/sum/{housingObjectId}/{categoryId}/{year}")
+    public Response getCategoryTotalSumByHousingObjectAndYear(@PathParam("housingObjectId") long housingObjectId, @PathParam("categoryId") long categoryId, @PathParam("year") int year) {
+        Map<Long, Double> result = invoiceCategorySumService.getCategoryTotalSumByHousingObjectAndYear(housingObjectId, categoryId, year);
+        return Response.ok(result).build();
     }
 }
 /**
