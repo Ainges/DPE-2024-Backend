@@ -27,44 +27,20 @@ public class CreateStatementEntryService {
     @Inject
     ApartmentRepository apartmentRepository;
 
-
-    private String distributionKey;
-    private String invoiceCategoryName;
-    private float invoiceCategorySum;
-    private HousingObject housingObject;
-    private List<RentalAgreement> rentalAgreements;
-    private String annualStatementPeriod;
     /**
      * Default constructor.
      */
     public CreateStatementEntryService() {
     }
 
-    /**
-     * Constructor with parameters.
-     *
-     * @param distributionKey     the distribution key used for dividing the invoice category sum
-     * @param invoiceCategoryName the name of the invoice category
-     * @param invoiceCategorySum  the total sum of the invoice category
-     * @param housingObject       the housing object associated with the statement entries
-     * @param rentalAgreements    the list of rental agreements associated with the housing object
-     */
-    public CreateStatementEntryService(String distributionKey, String invoiceCategoryName, float invoiceCategorySum, HousingObject housingObject, List<RentalAgreement> rentalAgreements, String annualStatementPeriod) {
-        this.distributionKey = distributionKey;
-        this.invoiceCategoryName = invoiceCategoryName;
-        this.invoiceCategorySum = invoiceCategorySum;
-        this.housingObject = housingObject;
-        this.rentalAgreements = rentalAgreements;
-        this.annualStatementPeriod = annualStatementPeriod;
-    }
 
     /**
      * Divides the invoice category sum for the whole year based on the given distribution key.
      *
-     * @param rentalAgreement the rental agreement for which the sum is being divided
+     * @param currentRentalAgreement the rental agreement for which the sum is being divided
      */
-    public void divideInvoiceCategorySumWholeYear(RentalAgreement rentalAgreement) {
-        calculateInvoiceCategorySum();
+    public void divideInvoiceCategorySumWholeYear(RentalAgreement currentRentalAgreement, List<RentalAgreement> allRentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) {
+
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
         List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
@@ -74,19 +50,19 @@ public class CreateStatementEntryService {
                     divisor += apartment.getAreaInM2();
                 }
                 amountPerUnit = invoiceCategorySum / divisor;
-                createStatementEntry(amountPerUnit * rentalAgreement.getApartment().getAreaInM2(), rentalAgreement.getRentalAgreementId());
+                createStatementEntry(amountPerUnit * currentRentalAgreement.getApartment().getAreaInM2(), currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 break;
             case "Tenants":
-                for (RentalAgreement ra : rentalAgreements) {
+                for (RentalAgreement ra : allRentalAgreements) {
                     divisor += ra.getTenants().size();
                 }
                 amountPerUnit = invoiceCategorySum / divisor;
-                createStatementEntry(amountPerUnit * rentalAgreement.getTenants().size(), rentalAgreement.getRentalAgreementId());
+                createStatementEntry(amountPerUnit * currentRentalAgreement.getTenants().size(), currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 break;
             case "Apartments":
                 divisor = apartments.size();
                 amountPerUnit = invoiceCategorySum / divisor;
-                createStatementEntry(amountPerUnit, rentalAgreement.getRentalAgreementId());
+                createStatementEntry(amountPerUnit, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid distribution key: " + distributionKey);
@@ -100,8 +76,8 @@ public class CreateStatementEntryService {
      *
      * @param rentalAgreements the list of rental agreements to process
      */
-    public void divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements) {
-        calculateInvoiceCategorySum();
+    public void divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) {
+
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
         List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
@@ -117,7 +93,7 @@ public class CreateStatementEntryService {
 
                     float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
                     float amountPayable = (amountPerUnit * ra.getApartment().getAreaInM2()) / 365;
-                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId());
+                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 }
                 break;
             case "Tenants":
@@ -130,7 +106,7 @@ public class CreateStatementEntryService {
 
                     float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
                     float amountPayable = (amountPerUnit * ra.getTenants().size()) / 365;
-                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId());
+                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 }
 
                 break;
@@ -142,7 +118,7 @@ public class CreateStatementEntryService {
 
                     float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
                     float amountPayable = amountPerUnit / 365;
-                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId());
+                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
                 }
 
                 break;
@@ -158,54 +134,8 @@ public class CreateStatementEntryService {
      * @param rentalAgreementId the ID of the rental agreement associated with the statement entry
      */
     @Transactional
-    public void createStatementEntry(float amountPayable, long rentalAgreementId) {
-        statementEntryRepository.persist(new StatementEntry(this.invoiceCategoryName, this.invoiceCategorySum, amountPayable, this.distributionKey, rentalAgreementRepository.findById(rentalAgreementId), this.annualStatementPeriod));
-    }
-
-
-    public void calculateInvoiceCategorySum() {
-        this.invoiceCategorySum = 0.0f;
-    }
-    // Getters and Setters
-
-    public String getDistributionKey() {
-        return distributionKey;
-    }
-
-    public void setDistributionKey(String distributionKey) {
-        this.distributionKey = distributionKey;
-    }
-
-    public String getInvoiceCategoryName() {
-        return invoiceCategoryName;
-    }
-
-    public void setInvoiceCategoryName(String invoiceCategoryName) {
-        this.invoiceCategoryName = invoiceCategoryName;
-    }
-
-    public float getInvoiceCategorySum() {
-        return invoiceCategorySum;
-    }
-
-    public void setInvoiceCategorySum(float invoiceCategorySum) {
-        this.invoiceCategorySum = invoiceCategorySum;
-    }
-
-    public HousingObject getHousingObject() {
-        return housingObject;
-    }
-
-    public void setHousingObject(HousingObject housingObject) {
-        this.housingObject = housingObject;
-    }
-
-    public List<RentalAgreement> getRentalAgreements() {
-        return rentalAgreements;
-    }
-
-    public void setRentalAgreements(List<RentalAgreement> rentalAgreements) {
-        this.rentalAgreements = rentalAgreements;
+    public void createStatementEntry(float amountPayable, long rentalAgreementId, String invoiceCategoryName, float invoiceCategorySum, String distributionKey, String annualStatementPeriod) {
+        statementEntryRepository.persist(new StatementEntry(invoiceCategoryName, invoiceCategorySum, amountPayable, distributionKey, rentalAgreementRepository.findById(rentalAgreementId), annualStatementPeriod));
     }
 }
 

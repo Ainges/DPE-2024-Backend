@@ -22,51 +22,6 @@ public class CreateStatementEntryServiceDTO {
     private HousingObject housingObject;
     private List<RentalAgreement> rentalAgreements;
     private String annualStatementPeriod;
-    private String periodStart;
-    private String periodEnd;
-    private float totalCost;
-    private float totalPrepayments;
-    private float difference;
-
-    public String getPeriodStart() {
-        return periodStart;
-    }
-
-    public void setPeriodStart(String periodStart) {
-        this.periodStart = periodStart;
-    }
-
-    public String getPeriodEnd() {
-        return periodEnd;
-    }
-
-    public void setPeriodEnd(String periodEnd) {
-        this.periodEnd = periodEnd;
-    }
-
-    public float getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(float totalCost) {
-        this.totalCost = totalCost;
-    }
-
-    public float getTotalPrepayments() {
-        return totalPrepayments;
-    }
-
-    public void setTotalPrepayments(float totalPrepayments) {
-        this.totalPrepayments = totalPrepayments;
-    }
-
-    public float getDifference() {
-        return difference;
-    }
-
-    public void setDifference(float difference) {
-        this.difference = difference;
-    }
 
     /**
      * Gets the distribution key.

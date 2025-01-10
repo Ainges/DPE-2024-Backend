@@ -42,14 +42,9 @@ public class CreateStatementEntryServiceEndpoint {
     @Path("/no-tenant-change")
     @Transactional
     public Response createStatementEntryNoChange(CreateStatementEntryServiceDTO dto) {
-        createStatementEntryService.setDistributionKey(dto.getDistributionKey());
-        createStatementEntryService.setInvoiceCategoryName(dto.getInvoiceCategoryName());
-        createStatementEntryService.setInvoiceCategorySum(dto.getInvoiceCategorySum());
-        createStatementEntryService.setHousingObject(dto.getHousingObject());
-        createStatementEntryService.setRentalAgreements(dto.getRentalAgreements());
 
         for (RentalAgreement rentalAgreement : dto.getRentalAgreements()) {
-            createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement);
+            createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement, dto.getRentalAgreements(), dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
         }
         return Response.status(Response.Status.ACCEPTED).build();
     }
@@ -65,11 +60,6 @@ public class CreateStatementEntryServiceEndpoint {
     @Path("/tenant-change")
     @Transactional
     public Response createStatementEntryChange(CreateStatementEntryServiceDTO dto) {
-        createStatementEntryService.setDistributionKey(dto.getDistributionKey());
-        createStatementEntryService.setInvoiceCategoryName(dto.getInvoiceCategoryName());
-        createStatementEntryService.setInvoiceCategorySum(dto.getInvoiceCategorySum());
-        createStatementEntryService.setHousingObject(dto.getHousingObject());
-        createStatementEntryService.setRentalAgreements(dto.getRentalAgreements());
 
         List<RentalAgreement> rentalAgreementsWithoutChanges = dto.getRentalAgreements();
         List<RentalAgreement> rentalAgreementsWithChanges = null;
@@ -86,10 +76,10 @@ public class CreateStatementEntryServiceEndpoint {
         rentalAgreementsWithoutChanges.removeAll(rentalAgreementsWithChanges);
 
         for (RentalAgreement rentalAgreement : rentalAgreementsWithoutChanges) {
-            createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement);
+            createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement, dto.getRentalAgreements(), dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
         }
 
-        createStatementEntryService.divideInvoiceCategorySumMidYear(rentalAgreementsWithChanges);
+        createStatementEntryService.divideInvoiceCategorySumMidYear(rentalAgreementsWithChanges, dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
 
 
         return Response.status(Response.Status.ACCEPTED).build();
