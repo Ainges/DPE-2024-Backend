@@ -74,8 +74,19 @@
         <h1>Erinnerung an Vorbereitung der Jahresabrechnung</h1>
     </div>
     <div class="content">
-        <h2>Guten Tag {name},</h2>
-        <p>hiermit möchten wir sie freundlich daran erinnern, dass Schritte zu Vorbereitung der Jahresabrechnung für ihr(e) Objekt(e) notwendig sind.</p>
+        <h2>Guten Tag {receiver_name},</h2>
+        <p>hiermit möchten wir sie freundlich daran erinnern, dass Schritte zu Vorbereitung der Jahresabrechnung für das im folgenden aufgezeigte Objekt notwendig sind.</p>
+        <div class="center">
+        <h3>Objektdetails</h3>
+        <div class="address-info">
+            <div><span>Name:</span> {name}</div>
+            <div><span>Straße:</span> {street}</div>
+            <div><span>Stadt:</span> {city}</div>
+            <div><span>Bundesland:</span> {state}</div>
+            <div><span>Postleitzahl:</span> {zipCode}</div>
+            <div><span>Anzahl der Wohnungen:</span> {numberOfApartments}</div>
+        </div>
+        </div>
         <p>Hier finden Sie alle wichtigen Informationen, um loszulegen:</p>
         <ul>
             <li>Zugriff auf Ihr Konto: <strong>[Objekt Verwaltung]</strong></li>

@@ -1,5 +1,6 @@
 package de.thi;
 
+import de.thi.dto.AnnualStatementPreparationReminderDto;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.camel.Processor;
@@ -71,18 +72,18 @@ public class Route extends RouteBuilder {
         from("activemq:queue:notification")
                 .routeId("notification-from-Queue-de.thi.Route")
                 .log("Notification received")
-                .to("direct:notificationSort");
+                .to("direct:notification");
 
 
         // ### -------------- ###
         // ### Internal Routes ###
 
         // de.thi.Route for sorting the notification
-        from("direct:notificationSort")
+        from("direct:notification")
                 .choice()
                 //
-                    .when(jsonpath("$.mailType").isEqualTo("type1")).to("direct:route1")
-                    .when(jsonpath("$.mailType").isEqualTo("type2")).to("direct:route2")
+                    .when(jsonpath("$.mailType").isEqualTo("annualStatementPreperationReminder")).to("direct:annualStatementPreperationReminder")
+                    .when(jsonpath("$.mailType").isEqualTo("delayedAnnualStatement")).to("direct:delayedAnnualStatement")
                     .when(jsonpath("$.mailType").isEqualTo("type3")).to("direct:route3")
                     .when(jsonpath("$.mailType").isEqualTo("type4")).to("direct:route4")
                     .when(jsonpath("$.mailType").isEqualTo("type5")).to("direct:route5")
@@ -91,16 +92,18 @@ public class Route extends RouteBuilder {
                     .otherwise().to("activemq:queue:deadLetterQueue");
 
 
-        from("direct:route1")
+        from("direct:annualStatementPreperationReminder")
                 .routeId("route1-de.thi.Route")
+                .setProperty("receivedBody", body())
                 // write json body to xml in fs
                 .to("direct:print-raw-notification-to-xml")
-                //TODO: implement Processor for Building the Mail
+                .setBody(exchangeProperty("receivedBody"))
+                .unmarshal().json(JsonLibrary.Jackson, AnnualStatementPreparationReminderDto.class)
                 .process(annualStatementPreparationReminderProcessor)
                 .log("route1")
                 .to("direct:sendMail");
 
-        from("direct:route2")
+        from("direct:delayedAnnualStatement")
                 .routeId("route2-de.thi.Route")
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(simple("route2 received"))

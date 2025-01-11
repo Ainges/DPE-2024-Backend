@@ -1,5 +1,6 @@
 package de.thi;
 
+import de.thi.dto.AnnualStatementPreparationReminderDto;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.runtime.TemplateProducer;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -16,10 +17,19 @@ public class AnnualStatementPreparationReminderProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
 
+        AnnualStatementPreparationReminderDto annualStatementPreparationReminderDto = exchange.getMessage().getBody(AnnualStatementPreparationReminderDto.class);
+
         String mailTempalte = "annual-statement-preparation-reminder.html";
 
         TemplateInstance templateInstance = templateProducer.getInjectableTemplate(mailTempalte)
-                .data("name", "Max Mustermann");
+                .data("receiver_name", "Max Mustermann")
+                .data("name", annualStatementPreparationReminderDto.getData().getName())
+                .data("street", annualStatementPreparationReminderDto.getData().getStreet())
+                .data("city", annualStatementPreparationReminderDto.getData().getCity())
+                .data("state", annualStatementPreparationReminderDto.getData().getState())
+                .data("zipCode", annualStatementPreparationReminderDto.getData().getZipCode())
+                .data("numberOfApartments", annualStatementPreparationReminderDto.getData().getNumberOfApartments())
+                ;
 
         String htmlTemplate = templateInstance.render();
 
