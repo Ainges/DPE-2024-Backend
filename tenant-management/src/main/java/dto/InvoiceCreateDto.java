@@ -14,12 +14,13 @@ public class InvoiceCreateDto {
     private String externalInvoiceNumber;
     private String invoiceCategoryId;
     private String housingObjectId;
+    private String currency; // New attribute
 
     public InvoiceCreateDto() {
         // no Args
     }
 
-    public InvoiceCreateDto(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String invoiceCategoryId, String housingObjectId) {
+    public InvoiceCreateDto(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String invoiceCategoryId, String housingObjectId, String currency) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
         this.description = description;
@@ -30,8 +31,10 @@ public class InvoiceCreateDto {
         this.externalInvoiceNumber = externalInvoiceNumber;
         this.invoiceCategoryId = invoiceCategoryId;
         this.housingObjectId = housingObjectId;
+        this.currency = currency;
     }
 
+    // Getters and Setters
     public Date getInvoiceDate() {
         return invoiceDate;
     }
@@ -110,5 +113,13 @@ public class InvoiceCreateDto {
 
     public void setHousingObjectId(String housingObjectId) {
         this.housingObjectId = housingObjectId;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

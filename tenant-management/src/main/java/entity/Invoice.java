@@ -25,7 +25,8 @@ public class Invoice {
     private String receiver;
     private String receiverIban;
     private String receiverBic;
-    private String externalInvoiceNumber; // New attribute
+    private String externalInvoiceNumber;
+    private String currency; // New attribute
 
     @ManyToOne
     @JoinColumn(name = "invoiceCategoryId")
@@ -35,12 +36,28 @@ public class Invoice {
     @JoinColumn(name = "housingObjectId")
     private HousingObject housingObject;
 
-    // Default constructor
+    /**
+     * Default constructor.
+     */
     public Invoice() {
     }
 
-    // Parameterized constructor
-    public Invoice(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, InvoiceCategory invoiceCategory, HousingObject housingObject) {
+    /**
+     * Parameterized constructor.
+     *
+     * @param invoiceDate the date of the invoice
+     * @param invoiceAmount the amount of the invoice
+     * @param description the description of the invoice
+     * @param status the status of the invoice
+     * @param receiver the receiver of the invoice
+     * @param receiverIban the IBAN of the receiver
+     * @param receiverBic the BIC of the receiver
+     * @param externalInvoiceNumber the external invoice number
+     * @param currency the currency of the invoice
+     * @param invoiceCategory the category of the invoice
+     * @param housingObject the housing object associated with the invoice
+     */
+    public Invoice(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String currency, InvoiceCategory invoiceCategory, HousingObject housingObject) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
         this.description = description;
@@ -49,9 +66,12 @@ public class Invoice {
         this.receiverIban = receiverIban;
         this.receiverBic = receiverBic;
         this.externalInvoiceNumber = externalInvoiceNumber;
+        this.currency = currency;
         this.invoiceCategory = invoiceCategory;
         this.housingObject = housingObject;
     }
+
+    // Getters and Setters
 
     /**
      * Gets the invoice ID.
@@ -216,6 +236,24 @@ public class Invoice {
     }
 
     /**
+     * Gets the currency of the invoice.
+     *
+     * @return the currency of the invoice
+     */
+    public String getCurrency() {
+        return currency;
+    }
+
+    /**
+     * Sets the currency of the invoice.
+     *
+     * @param currency the currency of the invoice
+     */
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    /**
      * Gets the invoice category.
      *
      * @return the invoice category
@@ -234,24 +272,23 @@ public class Invoice {
     }
 
     /**
-     * Gets the housing object.
+     * Gets the housing object associated with the invoice.
      *
-     * @return the housing object
+     * @return the housing object associated with the invoice
      */
     public HousingObject getHousingObject() {
         return housingObject;
     }
 
     /**
-     * Sets the housing object.
+     * Sets the housing object associated with the invoice.
      *
-     * @param housingObject the housing object
+     * @param housingObject the housing object associated with the invoice
      */
     public void setHousingObject(HousingObject housingObject) {
         this.housingObject = housingObject;
     }
 }
-
 /**
  * End
  * @author 1 GitHub Copilot

@@ -7,8 +7,6 @@ import entity.InvoiceCategory;
 import exception.InvoiceServiceException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.core.Response;
-import org.hibernate.Hibernate;
 import repository.HousingObjectRepository;
 import repository.InvoiceCategoryRepository;
 import repository.InvoiceRepository;
@@ -17,7 +15,6 @@ import java.util.List;
 
 @ApplicationScoped
 public class InvoiceService {
-
 
     @Inject
     InvoiceRepository invoiceRepository;
@@ -47,15 +44,9 @@ public class InvoiceService {
             throw new InvoiceServiceException("The housing object with the ID " + invoiceCreateDto.getHousingObjectId() + " does not exist.");
         }
 
-        Invoice invoice = new Invoice(invoiceCreateDto.getInvoiceDate(), invoiceCreateDto.getInvoiceAmount(), invoiceCreateDto.getDescription(), invoiceCreateDto.getStatus(), invoiceCreateDto.getReceiver(), invoiceCreateDto.getReceiverIban(), invoiceCreateDto.getReceiverBic(), invoiceCreateDto.getExternalInvoiceNumber(), invoiceCategory, housingObject);
+        Invoice invoice = new Invoice(invoiceCreateDto.getInvoiceDate(), invoiceCreateDto.getInvoiceAmount(), invoiceCreateDto.getDescription(), invoiceCreateDto.getStatus(), invoiceCreateDto.getReceiver(), invoiceCreateDto.getReceiverIban(), invoiceCreateDto.getReceiverBic(), invoiceCreateDto.getExternalInvoiceNumber(), invoiceCreateDto.getCurrency(), invoiceCategory, housingObject);
         invoiceRepository.persist(invoice);
-
-
 
         return invoice;
     }
-
-
-
-
 }

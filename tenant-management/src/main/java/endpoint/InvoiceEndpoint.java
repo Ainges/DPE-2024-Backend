@@ -1,10 +1,8 @@
 /**
  * Start
- *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
-
 package endpoint;
 
 import dto.InvoiceCreateDto;
@@ -109,7 +107,7 @@ public class InvoiceEndpoint {
     public Response createInvoice(InvoiceCreateDto invoiceCreateDto) {
         Invoice invoice;
         try {
-             invoice = invoiceService.createInvoice(invoiceCreateDto);
+            invoice = invoiceService.createInvoice(invoiceCreateDto);
             return Response.status(Response.Status.CREATED).entity(invoice).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -161,6 +159,9 @@ public class InvoiceEndpoint {
         if (invoice.getExternalInvoiceNumber() != null) {
             existingInvoice.setExternalInvoiceNumber(invoice.getExternalInvoiceNumber());
         }
+        if (invoice.getCurrency() != null) {
+            existingInvoice.setCurrency(invoice.getCurrency());
+        }
         invoiceRepository.persist(existingInvoice);
         return Response.ok(existingInvoice).build();
     }
@@ -185,7 +186,6 @@ public class InvoiceEndpoint {
 }
 /**
  * End
- *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
