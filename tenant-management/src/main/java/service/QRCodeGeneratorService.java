@@ -29,9 +29,8 @@ public class QRCodeGeneratorService {
      *
      * @param payableInvoiceDTO the invoice data transfer object containing the necessary information
      * @return a Base64 string of the generated EPC-QR code
-     * @throws Exception if an error occurs during QR code generation
      */
-    public String generateEpcQrCode(PayableInvoiceDTO payableInvoiceDTO) throws Exception {
+    public String generateEpcQrCode(PayableInvoiceDTO payableInvoiceDTO){
         StringBuilder sb = new StringBuilder();
         Formatter formatter = new Formatter(sb);
 
