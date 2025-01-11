@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 
 import java.time.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,12 +40,13 @@ public class CreateStatementEntryService {
      *
      * @param currentRentalAgreement the rental agreement for which the sum is being divided
      */
-    public void divideInvoiceCategorySumWholeYear(RentalAgreement currentRentalAgreement, List<RentalAgreement> allRentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) {
+    public List<StatementEntry> divideInvoiceCategorySumWholeYear(RentalAgreement currentRentalAgreement, List<RentalAgreement> allRentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) {
 
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
         float amountPayable = 0.0f;
         List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
+        List<StatementEntry> statementEntries = new ArrayList<>();
         switch (distributionKey) {
             case "Area":
                 for (Apartment apartment : apartments) {
@@ -54,7 +56,7 @@ public class CreateStatementEntryService {
 
                 //Round for two decimal places
                 amountPayable = Math.round(amountPerUnit * currentRentalAgreement.getApartment().getAreaInM2() * 100.0) / 100.0f;
-                createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
+                statementEntries.add(createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 break;
             case "Tenants":
                 for (RentalAgreement ra : allRentalAgreements) {
@@ -64,18 +66,19 @@ public class CreateStatementEntryService {
 
                 //Round for two decimal places
                 amountPayable = Math.round(amountPerUnit * currentRentalAgreement.getTenants().size() * 100.0) / 100.0f;
-                createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
+                statementEntries.add(createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 break;
             case "Apartments":
                 divisor = apartments.size();
                 amountPerUnit = invoiceCategorySum / divisor;
                 //Round for two decimal places
                 amountPayable = Math.round(amountPerUnit * 100.0) / 100.0f;
-                createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
+                statementEntries.add(createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 break;
             default:
                 throw new IllegalArgumentException("Invalid distribution key: " + distributionKey);
         }
+        return statementEntries;
     }
 
     /**
@@ -85,11 +88,12 @@ public class CreateStatementEntryService {
      *
      * @param rentalAgreements the list of rental agreements to process
      */
-    public void divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) {
+    public List<StatementEntry> divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) {
 
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
         List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
+        List<StatementEntry> statementEntries = new ArrayList<>();
 
         switch (distributionKey) {
             case "Area":
@@ -103,7 +107,7 @@ public class CreateStatementEntryService {
                     float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
                     //Round for two decimal places
                     float amountPayable = Math.round((amountPerUnit * ra.getApartment().getAreaInM2()) / 365 * 100.0) / 100.0f;
-                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
+                    statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 }
                 break;
             case "Tenants":
@@ -117,7 +121,7 @@ public class CreateStatementEntryService {
                     float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
                     //Round for two decimal places
                     float amountPayable = Math.round((amountPerUnit * ra.getTenants().size()) / 365 * 100.0) / 100.0f;
-                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
+                    statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 }
 
                 break;
@@ -130,13 +134,14 @@ public class CreateStatementEntryService {
                     float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
                     //Round for two decimal places
                     float amountPayable = Math.round(amountPerUnit / 365 * 100.0) / 100.0f;
-                    createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod);
+                    statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 }
 
                 break;
             default:
                 throw new IllegalArgumentException("Invalid distribution key: " + distributionKey);
         }
+        return statementEntries;
     }
 
     /**
@@ -146,8 +151,11 @@ public class CreateStatementEntryService {
      * @param rentalAgreementId the ID of the rental agreement associated with the statement entry
      */
     @Transactional
-    public void createStatementEntry(float amountPayable, long rentalAgreementId, String invoiceCategoryName, float invoiceCategorySum, String distributionKey, String annualStatementPeriod) {
-        statementEntryRepository.persist(new StatementEntry(invoiceCategoryName, invoiceCategorySum, amountPayable, distributionKey, rentalAgreementRepository.findById(rentalAgreementId), annualStatementPeriod));
+    public StatementEntry createStatementEntry(float amountPayable, long rentalAgreementId, String invoiceCategoryName, float invoiceCategorySum, String distributionKey, String annualStatementPeriod) {
+
+        StatementEntry statementEntry = new StatementEntry(invoiceCategoryName, invoiceCategorySum, amountPayable, distributionKey, rentalAgreementRepository.findById(rentalAgreementId), annualStatementPeriod);
+        statementEntryRepository.persist(statementEntry);
+        return statementEntry;
     }
 }
 

@@ -9,6 +9,7 @@ package endpoint;
 
 import dto.CreateStatementEntryServiceDTO;
 import entity.RentalAgreement;
+import entity.StatementEntry;
 import service.CreateStatementEntryService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -17,6 +18,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,15 +44,17 @@ public class CreateStatementEntryServiceEndpoint {
     @Path("/no-tenant-change")
     @Transactional
     public Response createStatementEntryNoChange(CreateStatementEntryServiceDTO dto) {
-
+        List<StatementEntry> statementEntries = new ArrayList<>();
         for (RentalAgreement rentalAgreement : dto.getRentalAgreements()) {
-            createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement, dto.getRentalAgreements(), dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
+            List<StatementEntry> createdStatementEntries = createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement, dto.getRentalAgreements(), dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
+            for (StatementEntry statementEntry : createdStatementEntries) {
+                statementEntries.add(statementEntry);
+            }
         }
-        return Response.status(Response.Status.ACCEPTED).build();
+        return Response.status(Response.Status.CREATED).entity(statementEntries).build();
     }
 
     /**
-     * MUST BE IMPLEMENTED
      * Creates statement entries for rental agreements with tenant change.
      *
      * @param dto the data transfer object containing the necessary attributes
@@ -62,7 +66,8 @@ public class CreateStatementEntryServiceEndpoint {
     public Response createStatementEntryChange(CreateStatementEntryServiceDTO dto) {
 
         List<RentalAgreement> rentalAgreementsWithoutChanges = dto.getRentalAgreements();
-        List<RentalAgreement> rentalAgreementsWithChanges = null;
+        List<RentalAgreement> rentalAgreementsWithChanges = new ArrayList<>();
+        List<StatementEntry> statementEntries = new ArrayList<>();
 
         //Get all rental agreements with the same apartment id
         for (RentalAgreement rentalAgreement : rentalAgreementsWithoutChanges) {
@@ -75,14 +80,20 @@ public class CreateStatementEntryServiceEndpoint {
         //Remove from rental agreements without changes
         rentalAgreementsWithoutChanges.removeAll(rentalAgreementsWithChanges);
 
+        //Handle Rental Agreements without tenant changes
         for (RentalAgreement rentalAgreement : rentalAgreementsWithoutChanges) {
-            createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement, dto.getRentalAgreements(), dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
+            List<StatementEntry> createdStatementEntries = createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement, dto.getRentalAgreements(), dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
+            for (StatementEntry statementEntry : createdStatementEntries) {
+                statementEntries.add(statementEntry);
+            }
         }
 
-        createStatementEntryService.divideInvoiceCategorySumMidYear(rentalAgreementsWithChanges, dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
+        List<StatementEntry> createdStatementEntries = createStatementEntryService.divideInvoiceCategorySumMidYear(rentalAgreementsWithChanges, dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
+        for (StatementEntry statementEntry : createdStatementEntries) {
+            statementEntries.add(statementEntry);
+        }
 
-
-        return Response.status(Response.Status.ACCEPTED).build();
+        return Response.status(Response.Status.CREATED).entity(statementEntries).build();
     }
 }
 /**
