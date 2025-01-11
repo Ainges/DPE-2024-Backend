@@ -1,6 +1,6 @@
 
 ### Inform ProcessEngine about new Invoice | manual
-POST http://localhost:8161/api/message/invoice-received?type=queue
+POST http://localhost:8161/api/message/external-invoice-received?type=queue
 Content-Type: application/xml
 Authorization: Basic YWRtaW46YWRtaW4=
 
@@ -12,7 +12,7 @@ Authorization: Basic YWRtaW46YWRtaW4=
 
 
 ### Inform ProcessEngine about new Invoice | EDI
-POST http://localhost:8161/api/message/invoice-received?type=queue
+POST http://localhost:8161/api/message/external-invoice-received?type=queue
 Content-Type: application/xml
 Authorization: Basic YWRtaW46YWRtaW4=
 

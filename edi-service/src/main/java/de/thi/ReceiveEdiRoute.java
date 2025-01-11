@@ -39,7 +39,7 @@ public class ReceiveEdiRoute extends RouteBuilder {
 
 
         // Inform ProcessEngine about received Invoice
-        from("activemq:queue:invoice-received")
+        from("activemq:queue:external-invoice-received")
                 .routeId("receive-Invoice-Route")
                 .log("Received invoice from ActiveMQ: ${body}")
                 .unmarshal().jacksonXml(DocumentDto.class)
@@ -56,7 +56,7 @@ public class ReceiveEdiRoute extends RouteBuilder {
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))
                 .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
                 .setHeader("Spiffworkflow-Api-Key", simple("ee48a2bd-6825-4baf-ac70-536a11ba0022"))
-                .to("http://localhost:8000/v1.0/messages/invoice-received");
+                .to("http://localhost:8000/v1.0/messages/external-invoice-received");
 
         // Send digital invoice to ProcessEngine
 //        from("activemq:queue:invoice-edi-received")
