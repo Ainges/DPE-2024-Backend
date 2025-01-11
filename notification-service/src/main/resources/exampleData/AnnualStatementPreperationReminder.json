@@ -1,0 +1,11 @@
+{
+  "mailType": "annualStatementPreperationReminder",
+  "data": {
+    "name": "Haus1",
+    "street": "Stra\u00dfe 1",
+    "city": "Stadt 1",
+    "state": "Bayern",
+    "zipCode": "86551",
+    "numberOfApartments": 2
+  }
+}
