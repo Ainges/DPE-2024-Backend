@@ -26,6 +26,7 @@ Authorization: Basic YWRtaW46YWRtaW4=
         <Receiver>John Doe</Receiver>
         <ReceiverIBAN>DE89370400440532013000</ReceiverIBAN>
         <ReceiverBIC>COBADEFFXXX</ReceiverBIC>
+        <Currency>EUR</Currency>
         <ExternalInvoiceNumber>123456</ExternalInvoiceNumber>
     </Invoice>
     <digitalInvoice>True</digitalInvoice>

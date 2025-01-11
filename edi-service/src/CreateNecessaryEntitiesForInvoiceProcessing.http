@@ -4,7 +4,6 @@ Accept: */*
 Content-Type: application/json
 
 {
-  "invoiceCategoryId": 0,
   "name": "BeispielKategorie"
 }
 
@@ -14,7 +13,6 @@ Accept: */*
 Content-Type: application/json
 
 {
-  "housingObjectId": 0,
   "name": "Sunset Apartments",
   "street": "123 Main St",
   "city": "Springfield",

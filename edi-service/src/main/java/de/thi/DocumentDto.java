@@ -52,6 +52,9 @@ public class DocumentDto {
         @JacksonXmlProperty(localName = "ReceiverBIC")
         private String receiverBIC;
 
+        @JacksonXmlProperty(localName = "Currency")
+        private String currency;
+
         @JacksonXmlProperty(localName = "ExternalInvoiceNumber")
         private String externalInvoiceNumber;
 
@@ -112,6 +115,14 @@ public class DocumentDto {
 
         public void setReceiverBIC(String receiverBIC) {
             this.receiverBIC = receiverBIC;
+        }
+
+        public String getCurrency() {
+            return currency;
+        }
+
+        public void setCurrency(String currency) {
+            this.currency = currency;
         }
 
         public String getExternalInvoiceNumber() {
