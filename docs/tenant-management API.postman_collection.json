@@ -4144,7 +4144,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 1500,\n    \"status\": \"unpaid\",\n    \"description\": \"Hausmeisterdienste\",\n    \"receiver\": \"John Doe\",\n    \"receiverIban\": \"DE123457784367437643\",\n    \"receiverBic\": \"XYZ12ABC3\",\n    \"housingObject\": {\n        \"housingObjectId\": 1,\n        \"name\": \"Sunset Apartments\",\n        \"street\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zipCode\": \"62704\",\n        \"numberOfApartments\": 20\n    },\n    \"invoiceCategory\": {\n        \"invoiceCategoryId\": 1,\n        \"name\": \"Maintenance\"\n    }\n}",
+							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 1500,\n    \"currency\": \"EUR\",\n    \"status\": \"unpaid\",\n    \"description\": \"Hausmeisterdienste\",\n    \"receiver\": \"John Doe\",\n    \"receiverIban\": \"DE123457784367437643\",\n    \"receiverBic\": \"XYZ12ABC3\",\n    \"housingObject\": {\n        \"housingObjectId\": 1,\n        \"name\": \"Sunset Apartments\",\n        \"street\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zipCode\": \"62704\",\n        \"numberOfApartments\": 20\n    },\n    \"invoiceCategory\": {\n        \"invoiceCategoryId\": 1,\n        \"name\": \"Maintenance\"\n    }\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -4427,7 +4427,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"receiver\": \"Moritz Baur\",\n  \"receiverIban\": \"DE75512108001245126199\",\n  \"invoiceAmount\": 123455555555.56,\n  \"description\": \"INV56789\",\n  \"country\": \"Germany\",\n  \"currency\": \"EUR\",\n  \"bic\": \"COBADEFFXXX\"\n}",
+							"raw": "{\n  \"receiver\": \"Moritz Baur\",\n  \"receiverIban\": \"DE75512108001245126199\",\n  \"invoiceAmount\": 123455555555.56,\n  \"description\": \"INV56789\",\n  \"currency\": \"EUR\",\n  \"bic\": \"COBADEFFXXX\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
