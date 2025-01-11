@@ -53,7 +53,7 @@ public class Invoice {
      * @param receiverIban the IBAN of the receiver
      * @param receiverBic the BIC of the receiver
      * @param externalInvoiceNumber the external invoice number
-     * @param currency the currency of the invoice
+     * @param currency the currency of the invoice in ISO 4217 format
      * @param invoiceCategory the category of the invoice
      * @param housingObject the housing object associated with the invoice
      */
