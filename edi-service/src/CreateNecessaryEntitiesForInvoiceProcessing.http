@@ -1,0 +1,24 @@
+### Create Invoice Category
+POST http://localhost:8080/invoice-categories
+Accept: */*
+Content-Type: application/json
+
+{
+  "invoiceCategoryId": 0,
+  "name": "BeispielKategorie"
+}
+
+### Create Housing Object
+POST http://localhost:8080/housing-objects
+Accept: */*
+Content-Type: application/json
+
+{
+  "housingObjectId": 0,
+  "name": "Sunset Apartments",
+  "street": "123 Main St",
+  "city": "Springfield",
+  "state": "IL",
+  "zipCode": "62704",
+  "numberOfApartments": 2
+}
