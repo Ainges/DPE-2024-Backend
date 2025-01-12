@@ -1,9 +1,11 @@
 package de.thi;
 
 import de.thi.dto.AnnualStatementPreparationReminderDto;
+import de.thi.dto.NotificationDto;
+import de.thi.processor.AnnualStatementPreparationReminderProcessor;
+import de.thi.processor.DelayedAnnualStatementReminderProcessor;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -54,6 +56,9 @@ public class Route extends RouteBuilder {
     @Inject
     AnnualStatementPreparationReminderProcessor annualStatementPreparationReminderProcessor;
 
+    @Inject
+    DelayedAnnualStatementReminderProcessor delayedAnnualStatementReminderProcessor;
+
     @Override
     public void configure() throws Exception {
 
@@ -82,9 +87,9 @@ public class Route extends RouteBuilder {
         from("direct:notification")
                 .choice()
                 //
-                    .when(jsonpath("$.mailType").isEqualTo("annualStatementPreperationReminder")).to("direct:annualStatementPreperationReminder")
+                    .when(jsonpath("$.mailType").isEqualTo("annualStatementPreparationReminder")).to("direct:annualStatementPreparationReminder")
                     .when(jsonpath("$.mailType").isEqualTo("delayedAnnualStatement")).to("direct:delayedAnnualStatement")
-                    .when(jsonpath("$.mailType").isEqualTo("type3")).to("direct:route3")
+                    .when(jsonpath("$.mailType").isEqualTo("sendPaymentReminder")).to("direct:sendPaymentReminder")
                     .when(jsonpath("$.mailType").isEqualTo("type4")).to("direct:route4")
                     .when(jsonpath("$.mailType").isEqualTo("type5")).to("direct:route5")
 
@@ -92,26 +97,33 @@ public class Route extends RouteBuilder {
                     .otherwise().to("activemq:queue:deadLetterQueue");
 
 
-        from("direct:annualStatementPreperationReminder")
-                .routeId("route1-de.thi.Route")
+        from("direct:annualStatementPreparationReminder")
+                .routeId("annualStatementPreparationReminder-Route")
+                // set the received body as a property to access it later
                 .setProperty("receivedBody", body())
                 // write json body to xml in fs
                 .to("direct:print-raw-notification-to-xml")
+                // Craft the mail
                 .setBody(exchangeProperty("receivedBody"))
+                // Set the mail subject
+                .setHeader("Subject", simple("Erinnerung zur Erstellung der Jahresabrechnung"))
                 .unmarshal().json(JsonLibrary.Jackson, AnnualStatementPreparationReminderDto.class)
                 .process(annualStatementPreparationReminderProcessor)
-                .log("route1")
                 .to("direct:sendMail");
 
         from("direct:delayedAnnualStatement")
-                .routeId("route2-de.thi.Route")
+                .routeId("delayedAnnualStatement-Route")
+                .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
-                .setBody(simple("route2 received"))
-                .log("route2")
+                .setBody(exchangeProperty("receivedBody"))
+                // Set the mail subject
+                .setHeader("Subject", simple("Verzögerung bei der Erstellung der Jahresabrechnung"))
+                .unmarshal().json(JsonLibrary.Jackson, AnnualStatementPreparationReminderDto.class)
+                .process(delayedAnnualStatementReminderProcessor)
                 .to("direct:sendMail");
 
-        from("direct:route3")
-                .routeId("route3-de.thi.Route")
+        from("direct:sendPaymentReminder")
+                .routeId("sendPaymentReminder-Route")
                 .setBody(simple("route3 received"))
                 .log("route3")
                 .to("direct:sendMail");
@@ -145,11 +157,16 @@ public class Route extends RouteBuilder {
         // ### -------------- ###
         // ### Egress Routes ###
 
-        // de.thi.Route for sending the mail
+        //for sending the mail
         from("direct:sendMail")
                 //TODO: Remove this part after testing
                 .process(exchange -> {
-                    exchange.getIn().setHeader("Subject", "DPE-2024 Notification");
+
+                    if(exchange.getIn().getHeader("Subject") == null) {
+                        throw new NotificationRouteException("Could not send mail. Subject is missing.");
+                    }
+
+                    // Set the remaining mail headers to static values for this demo
                     exchange.getIn().setHeader("To", "info@test.de");
                     exchange.getIn().setHeader("From", "info.dpe2024@gmail.com");
                     exchange.getIn().setHeader("Content-Type", "text/html");

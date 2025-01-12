@@ -1,4 +1,4 @@
-package de.thi;
+package de.thi.processor;
 
 import de.thi.dto.AnnualStatementPreparationReminderDto;
 import io.quarkus.qute.TemplateInstance;
@@ -17,11 +17,12 @@ public class AnnualStatementPreparationReminderProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
 
+        // Indeed Duplicate to DelayedAnnualStatementReminderProcessor. But it remains here to be flexible for future changes.
         AnnualStatementPreparationReminderDto annualStatementPreparationReminderDto = exchange.getMessage().getBody(AnnualStatementPreparationReminderDto.class);
 
-        String mailTempalte = "annual-statement-preparation-reminder.html";
+        String mailTemplate = "annual-statement-preparation-reminder.html";
 
-        TemplateInstance templateInstance = templateProducer.getInjectableTemplate(mailTempalte)
+        TemplateInstance templateInstance = templateProducer.getInjectableTemplate(mailTemplate)
                 .data("receiver_name", "Max Mustermann")
                 .data("name", annualStatementPreparationReminderDto.getData().getName())
                 .data("street", annualStatementPreparationReminderDto.getData().getStreet())
@@ -35,10 +36,6 @@ public class AnnualStatementPreparationReminderProcessor implements Processor {
 
         // create mail
         //TODO: Make Subject dynamic
-        exchange.getIn().setHeader("Subject", "Eine Nachricht von equipli.de!");
-        exchange.getIn().setHeader("To", "example@example.org");
-        exchange.getIn().setHeader("From", "equipli <info.equipli@gmail.com>");
-        exchange.getIn().setHeader("Content-Type", "text/html");
         exchange.getIn().setBody(htmlTemplate);
 
 

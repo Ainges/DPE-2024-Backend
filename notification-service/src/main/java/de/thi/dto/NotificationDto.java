@@ -1,4 +1,4 @@
-package de.thi;
+package de.thi.dto;
 
 public class NotificationDto {
     private String mailType;
