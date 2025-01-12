@@ -72,6 +72,13 @@ public class AnnualStatementEndpoint {
         return Response.status(Response.Status.CREATED).entity(createdAnnualStatement).build();
     }
 
+    /**
+     * Generates an annual statement for the whole year.
+     *
+     * @param dto the data transfer object containing rental agreement and annual statement period
+     * @return a Response containing the created annual statement
+     * @throws ParseException if there is an error parsing the date
+     */
     @POST
     @Path("/wholeYear")
     @Transactional
@@ -80,6 +87,13 @@ public class AnnualStatementEndpoint {
         return Response.status(Response.Status.CREATED).entity(createdAnnualStatement).build();
     }
 
+    /**
+     * Generates an annual statement for mid-year tenant changes.
+     *
+     * @param dto the data transfer object containing rental agreement and annual statement period
+     * @return a Response containing the created annual statement
+     * @throws ParseException if there is an error parsing the date
+     */
     @POST
     @Path("/midYear")
     @Transactional
@@ -88,16 +102,19 @@ public class AnnualStatementEndpoint {
         return Response.status(Response.Status.CREATED).entity(createdAnnualStatement).build();
     }
 
-
+    /**
+     * Generates a PDF for the specified annual statement and returns it as a Base64 string.
+     *
+     * @param id the ID of the annual statement
+     * @return a Response containing the Base64 string of the generated PDF
+     */
     @POST
     @Path("/{id}/pdf")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.TEXT_PLAIN)
     public Response createPDF(@PathParam("id") long id) {
         try {
-            byte[] pdfData = annualStatementService.createPDF(id);
-            return Response.ok(pdfData)
-                    .header("Content-Disposition", "attachment; filename=AnnualStatement.pdf")
-                    .build();
+            String base64Pdf = annualStatementService.createPDF(id);
+            return Response.ok(base64Pdf).build();
         } catch (IOException e) {
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

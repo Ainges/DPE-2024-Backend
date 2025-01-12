@@ -15,10 +15,14 @@ import repository.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -198,7 +202,7 @@ public class AnnualStatementService {
      * @return the PDF document as a byte array
      * @throws IOException if an I/O error occurs
      */
-    public byte[] createPDF(long annualStatementId) throws IOException {
+    public String createPDF(long annualStatementId) throws IOException {
         AnnualStatement annualStatement = annualStatementRepository.findById(annualStatementId);
         if (annualStatement == null) {
             throw new IllegalArgumentException("AnnualStatement with ID " + annualStatementId + " not found.");
@@ -284,7 +288,13 @@ public class AnnualStatementService {
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             document.save(out);
-            return out.toByteArray();
+
+            // Save the PDF to the file system
+            Path pdfPath = Paths.get("AnnualStatement_" + annualStatementId + ".pdf");
+            Files.write(pdfPath, out.toByteArray());
+
+            // Convert the PDF to a Base64 string with annotation
+            return "data:application/pdf;base64," + Base64.getEncoder().encodeToString(out.toByteArray());
         }
     }
 
