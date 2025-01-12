@@ -18,7 +18,7 @@ public class InvoiceCategorySumEndpoint {
     @GET
     @Path("/sum/{housingObjectId}/{invoiceCategoryId}/{year}")
     public Response getCategoryTotalSumByHousingObjectAndYear(@PathParam("housingObjectId") long housingObjectId, @PathParam("invoiceCategoryId") long categoryId, @PathParam("year") int year) {
-        Map<Long, Double> result = invoiceCategorySumService.getCategoryTotalSumByHousingObjectAndYear(housingObjectId, categoryId, year);
+        Double result = Math.round(invoiceCategorySumService.getCategoryTotalSumByHousingObjectAndYear(housingObjectId, categoryId, year)*100)/100.0;
         return Response.ok(result).build();
     }
 }
