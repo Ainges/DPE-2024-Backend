@@ -3765,13 +3765,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{SpiffBaseUrl}}/messages/invoice_received",
+							"raw": "{{SpiffBaseUrl}}/messages/invoice-received",
 							"host": [
 								"{{SpiffBaseUrl}}"
 							],
 							"path": [
 								"messages",
-								"invoice_received"
+								"invoice-received"
 							]
 						}
 					},
@@ -4004,7 +4004,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"tenants\": [{\n        \"tenantId\": 1,\n        \"firstName\": \"Alice\",\n        \"lastName\": \"Johnson\",\n        \"email\": \"alice.johnson@example.com\",\n        \"phoneNumber\": \"555-7890\",\n        \"active\": true,\n        \"rentalAgreements\": null\n    }],\n    \"apartment\": {\n        \"apartmentId\": 1,\n        \"housingObject\": {\n            \"housingObjectId\": 1,\n            \"name\": \"Sunset Apartments\",\n            \"street\": \"123 Main St\",\n            \"city\": \"Springfield\",\n            \"state\": \"IL\",\n            \"zipCode\": \"62704\",\n            \"numberOfApartments\": 20\n        },\n        \"areaInM2\": 75.0,\n        \"numberOfRooms\": 3,\n        \"coldRent\": 1200.0,\n        \"heatingCostPrepayment\": 150.0,\n        \"additionalCostPrepayment\": 100.0\n    },\n    \"startDate\": \"2024-01-01\",\n    \"endDate\": \"2024-12-31\"\n}",
+							"raw": "{\n    \"tenants\": [{\n        \"tenantId\": 1,\n        \"firstName\": \"Alice\",\n        \"lastName\": \"Johnson\",\n        \"email\": \"alice.johnson@example.com\",\n        \"phoneNumber\": \"555-7890\",\n        \"active\": true,\n        \"rentalAgreements\": null\n    }],\n    \"apartment\": {\n        \"apartmentId\": 1,\n        \"housingObject\": {\n            \"housingObjectId\": 1,\n            \"name\": \"Sunset Apartments\",\n            \"street\": \"123 Main St\",\n            \"city\": \"Springfield\",\n            \"state\": \"IL\",\n            \"zipCode\": \"62704\",\n            \"numberOfApartments\": 20\n        },\n        \"areaInM2\": 75.0,\n        \"numberOfRooms\": 3,\n        \"coldRent\": 1200.0,\n        \"heatingCostPrepayment\": 150.0,\n        \"additionalCostPrepayment\": 100.0\n    },\n    \"startDate\": \"2024-01-01\",\n    \"endDate\": null\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -4144,7 +4144,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 1500,\n    \"currency\": \"EUR\",\n    \"status\": \"unpaid\",\n    \"description\": \"Hausmeisterdienste\",\n    \"receiver\": \"John Doe\",\n    \"receiverIban\": \"DE123457784367437643\",\n    \"receiverBic\": \"XYZ12ABC3\",\n    \"housingObject\": {\n        \"housingObjectId\": 1,\n        \"name\": \"Sunset Apartments\",\n        \"street\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zipCode\": \"62704\",\n        \"numberOfApartments\": 20\n    },\n    \"invoiceCategory\": {\n        \"invoiceCategoryId\": 1,\n        \"name\": \"Maintenance\"\n    }\n}",
+							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 1500,\n    \"currency\": \"EUR\",\n    \"status\": \"unpaid\",\n    \"description\": \"Hausmeisterdienste\",\n    \"receiver\": \"John Doe\",\n    \"receiverIban\": \"DE123457784367437643\",\n    \"receiverBic\": \"XYZ12ABC3\",\n    \"externalInvoiceNumber\": \"RN123\",\n    \"invoiceCategoryId\": \"1\",\n    \"housingObjectId\": \"1\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -4474,6 +4474,851 @@
 									"path": [
 										"qrCodePayment",
 										"generateEpcQrCode"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Demo",
+			"item": [
+				{
+					"name": "Demo Create Apartment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"housingObject\": {\n    \"housingObjectId\": 1,\n    \"name\": \"Sunset Apartments\",\n    \"street\": \"123 Main St\",\n    \"city\": \"Springfield\",\n    \"state\": \"IL\",\n    \"zipCode\": \"62704\",\n    \"numberOfApartments\": 20\n  },\n  \"areaInM2\": 100,\n  \"numberOfRooms\": 4,\n  \"coldRent\": 1500,\n  \"heatingCostPrepayment\": 200,\n  \"additionalCostPrepayment\": 150\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/apartments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"apartments"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"apartmentId\": \"<long>\",\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  },\n  \"areaInM2\": \"<float>\",\n  \"numberOfRooms\": \"<integer>\",\n  \"coldRent\": \"<float>\",\n  \"heatingCostPrepayment\": \"<float>\",\n  \"additionalCostPrepayment\": \"<float>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/apartments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"apartments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Tenant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"Ali\",\n  \"lastName\": \"Johnson\",\n  \"email\": \"ali.johnson@example.com\",\n  \"phoneNumber\": \"555-7890\",\n  \"active\": true\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tenants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tenants"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"tenantId\": \"<long>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"phoneNumber\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"rentalAgreements\": [\n    {\n      \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n    },\n    {\n      \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/tenants",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"tenants"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Rental Agreement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tenants\": [{\n    \"tenantId\": 2,\n    \"firstName\": \"Ali\",\n    \"lastName\": \"Johnson\",\n    \"email\": \"ali.johnson@example.com\",\n    \"phoneNumber\": \"555-7890\",\n    \"active\": true\n}],\n    \"apartment\": {\n    \"apartmentId\": 2,\n    \"housingObject\": {\n        \"housingObjectId\": 1,\n        \"name\": \"Sunset Apartments\",\n        \"street\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zipCode\": \"62704\",\n        \"numberOfApartments\": 20\n    },\n    \"areaInM2\": 100.0,\n    \"numberOfRooms\": 4,\n    \"coldRent\": 1500.0,\n    \"heatingCostPrepayment\": 200.0,\n    \"additionalCostPrepayment\": 150.0\n},\n    \"startDate\": \"2023-01-01\",\n    \"endDate\": \"\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/rental-agreements",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rental-agreements"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"rentalAgreementId\": \"<long>\",\n  \"tenants\": [\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"rentalAgreements\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n        }\n      ]\n    },\n    {\n      \"tenantId\": \"<long>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phoneNumber\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"rentalAgreements\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/RentalAgreement detected>\"\n        }\n      ]\n    }\n  ],\n  \"apartment\": {\n    \"apartmentId\": \"<long>\",\n    \"housingObject\": {\n      \"housingObjectId\": \"<long>\",\n      \"name\": \"<string>\",\n      \"street\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"numberOfApartments\": \"<integer>\"\n    },\n    \"areaInM2\": \"<float>\",\n    \"numberOfRooms\": \"<integer>\",\n    \"coldRent\": \"<float>\",\n    \"heatingCostPrepayment\": \"<float>\",\n    \"additionalCostPrepayment\": \"<float>\"\n  },\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/rental-agreements",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"rental-agreements"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Invoice Category Heating",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Heating\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoice-categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoice-categories"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceCategoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"unit\": \"<string>\",\n  \"distributionKey\": \"<string>\",\n  \"annualStatements\": [\n    {\n      \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n    },\n    {\n      \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoice-categories",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoice-categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Invoice Category Maintenance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Maintenance\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoice-categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoice-categories"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceCategoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"unit\": \"<string>\",\n  \"distributionKey\": \"<string>\",\n  \"annualStatements\": [\n    {\n      \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n    },\n    {\n      \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoice-categories",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoice-categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Invoice Category Electricity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Electricity\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoice-categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoice-categories"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceCategoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"unit\": \"<string>\",\n  \"distributionKey\": \"<string>\",\n  \"annualStatements\": [\n    {\n      \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n    },\n    {\n      \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoice-categories",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoice-categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Invoice Category Facility",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Facility\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoice-categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoice-categories"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceCategoryId\": \"<long>\",\n  \"name\": \"<string>\",\n  \"unit\": \"<string>\",\n  \"distributionKey\": \"<string>\",\n  \"annualStatements\": [\n    {\n      \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n    },\n    {\n      \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoice-categories",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoice-categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Invoice Heizung",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 500,\n    \"currency\": \"EUR\",\n    \"status\": \"paid\",\n    \"description\": \"Heizung\",\n    \"receiver\": \"John Doe\",\n    \"receiverIban\": \"DE123457784367437643\",\n    \"receiverBic\": \"XYZ12ABC3\",\n    \"externalInvoiceNumber\": \"RN123\",\n    \"invoiceCategoryId\": \"1\",\n    \"housingObjectId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoices"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\",\n    \"annualStatements\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      }\n    ]\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoices",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Invoice Hausmeister",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 200,\n    \"currency\": \"EUR\",\n    \"status\": \"paid\",\n    \"description\": \"Heizung\",\n    \"receiver\": \"John Doe\",\n    \"receiverIban\": \"DE123457784367437643\",\n    \"receiverBic\": \"XYZ12ABC3\",\n    \"externalInvoiceNumber\": \"RN12332\",\n    \"invoiceCategoryId\": \"4\",\n    \"housingObjectId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoices"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\",\n    \"annualStatements\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      }\n    ]\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoices",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Invoice Winterdienst",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 350,\n    \"currency\": \"EUR\",\n    \"status\": \"paid\",\n    \"description\": \"Winterdienst\",\n    \"receiver\": \"John Doe\",\n    \"receiverIban\": \"DE123457784367437643\",\n    \"receiverBic\": \"XYZ12ABC3\",\n    \"externalInvoiceNumber\": \"RN12332\",\n    \"invoiceCategoryId\": \"4\",\n    \"housingObjectId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoices"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\",\n    \"annualStatements\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      }\n    ]\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoices",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Invoice Strom1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 420,\n    \"currency\": \"EUR\",\n    \"status\": \"paid\",\n    \"description\": \"Strom\",\n    \"receiver\": \"John Doe\",\n    \"receiverIban\": \"DE123457784367437643\",\n    \"receiverBic\": \"XYZ12ABC3\",\n    \"externalInvoiceNumber\": \"RN12332\",\n    \"invoiceCategoryId\": \"3\",\n    \"housingObjectId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoices"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\",\n    \"annualStatements\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      }\n    ]\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoices",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Demo Create Invoice Strom 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"invoiceDate\": \"2024-12-01\",\n    \"invoiceAmount\": 70,\n    \"currency\": \"EUR\",\n    \"status\": \"paid\",\n    \"description\": \"Strom\",\n    \"receiver\": \"John Doe\",\n    \"receiverIban\": \"DE123457784367437643\",\n    \"receiverBic\": \"XYZ12ABC3\",\n    \"externalInvoiceNumber\": \"RN12332\",\n    \"invoiceCategoryId\": \"3\",\n    \"housingObjectId\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/invoices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"invoices"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"distributionKey\": \"<string>\",\n    \"annualStatements\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/AnnualStatement detected>\"\n      }\n    ]\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/invoices",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"invoices"
 									]
 								}
 							},
