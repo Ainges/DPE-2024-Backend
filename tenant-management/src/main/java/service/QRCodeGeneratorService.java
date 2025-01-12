@@ -14,7 +14,10 @@ import dto.PayableInvoiceDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Formatter;
 
@@ -30,7 +33,7 @@ public class QRCodeGeneratorService {
      * @param payableInvoiceDTO the invoice data transfer object containing the necessary information
      * @return a Base64 string of the generated EPC-QR code
      */
-    public String generateEpcQrCode(PayableInvoiceDTO payableInvoiceDTO){
+    public String generateEpcQrCode(PayableInvoiceDTO payableInvoiceDTO) {
         StringBuilder sb = new StringBuilder();
         Formatter formatter = new Formatter(sb);
 
@@ -65,6 +68,14 @@ public class QRCodeGeneratorService {
             MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
         } catch (IOException e) {
             throw new RuntimeException("Error writing QR code to output stream: " + e.getMessage(), e);
+        }
+
+        // Save the QR code to the file system
+        Path qrCodePath = Paths.get("QRCode_" + payableInvoiceDTO.getReceiverIban() +"_"+payableInvoiceDTO.getInvoiceAmount() + ".png");
+        try (FileOutputStream fos = new FileOutputStream(qrCodePath.toFile())) {
+            fos.write(pngOutputStream.toByteArray());
+        } catch (IOException e) {
+            throw new RuntimeException("Error saving QR code to file system: " + e.getMessage(), e);
         }
 
         // Convert the ByteArrayOutputStream to a Base64 string
