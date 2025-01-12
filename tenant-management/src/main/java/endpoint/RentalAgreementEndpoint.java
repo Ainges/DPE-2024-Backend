@@ -130,7 +130,7 @@ public class RentalAgreementEndpoint {
         Date endDate = calendar.getTime();
 
         List<RentalAgreement> rentalAgreements = rentalAgreementRepository.find(
-                "apartment.housingObject.housingObjectId = :housingObjectId AND startDate <= :endDate AND endDate >= :startDate",
+                "apartment.housingObject.housingObjectId = :housingObjectId AND (endDate IS NULL OR endDate >= :startDate) AND startDate <= :endDate",
                 Parameters.with("housingObjectId", housingObjectId).and("endDate", endDate).and("startDate", startDate)).list();
         return Response.ok(rentalAgreements).build();
     }
