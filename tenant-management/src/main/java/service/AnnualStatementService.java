@@ -1,9 +1,14 @@
+/**
+ * Start
+ *
+ * @author 1 GitHub Copilot
+ * @author 2 Zohal Mohammadi, Moritz Baur
+ */
 package service;
 
 import entity.AnnualStatement;
 import entity.RentalAgreement;
 import entity.StatementEntry;
-import entity.Tenant;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
