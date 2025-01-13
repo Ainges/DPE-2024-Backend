@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background-color: #003366;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .content h2 {
+            color: #003366;
+            font-size: 20px;
+            margin-top: 0;
+        }
+        .content p {
+            margin: 10px 0;
+        }
+        .center {
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            background-color: #003366;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .footer {
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #666666;
+        }
+        .footer a {
+            color: #003366;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Sie haben eine ausstehende Rechnung</h1>
+    </div>
+    <div class="content">
+        <h2>Guten Tag Max Mustermann,</h2>
+        <p>hiermit möchten wir sie freundlich daran erinnern, dass noch eine Rechnung zu begleichen ist.</p>
+        <p>Durch Scannen des QR-Codes können sie bequem die Überweisung anstoßen.</p>
+        <div class="center">
+            <h3>QR-Code</h3>
+            <img
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIAQAAAACFI5MzAAACCklEQVR4Xu2WW2rsMBAFBdqWQFsXaFsNvlXt8SQ3kL8WJBDNhNiqAfXjnLbb9d1qXzfe64/8eLJa63uv0WOufm0u2ThANt8YgL7ahOTGCbK6h46+5o42Y7pxiox5xSRp0t0HifmZ7Rpt/B9BIfG7o19GMv2+K1pKboV8Wl+0U0XutQngMoDR34qvJeiPgnLszNLSxKeiteRGq40xWpYVOb5iKyVrBq5Ch2KViMXmAYLwound6NYTtQjqyep8KCPm4joUYry0U0r4F/jJ1tk/roQnCKUkirBxXuLlJ4JKwp1/Ct66UtBmCOUkDcv+ZvaFg9bSHiCX41u176CYJh6Ps0pJ+hYd5qZS/PBCKSFDj88nhu1TIXcEtUSNkOlL8g2bmWg9sYQjNYja1UdzbNQTBgOHa1rPJsmcG/XENqV9qa3X6asTpGFfsrSQOfTs3gGSXaN301oiSK6ezpUSJLg83NPVfErxACFTMeoIteEot431hCHUcig5/HgA+tZ1gESmaR1T8wyLobXKiUf2/MFy24Tn3blakvVbKYxwjFvQO4JaEqbovYFsTfY4uJa48s0kfCoJ/dQT5cHm5j4s7XYqHSDb5jkocBYZs20cB8hyPmx1wY8cTsZxhuBi53fkJiPqI4Ja4jTyUavF7OERIuTRNPM1SHM9k6KWWEHriExmDltcdoJ8s/7IbyX/AEcOdlDlxxXhAAAAAElFTkSuQmCC"
+                    width="200"
+                    height="200"
+                    alt="QR-Code">
+
+        </div>
+        <p>Hier finden Sie alle wichtigen Informationen, um loszulegen:</p>
+        <ul>
+            <li>Zugriff auf Ihr Konto: <strong>[Objekt Verwaltung]</strong></li>
+            <li>Support-Team: <strong>[Support-Kontakt]</strong></li>
+        </ul>
+        <p>Falls Sie Fragen haben, zögern Sie nicht, uns zu kontaktieren. Wir sind hier, um Ihnen zu helfen.</p>
+        <div class="center">
+            <a href="[example.com]" class="button">Jetzt starten</a>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2025 [Unternehmen]. Alle Rechte vorbehalten.</p>
+        <p><a href="[Datenschutz-Link]">Datenschutz</a> | <a href="[Abmelden-Link]">Abmelden</a></p>
+    </div>
+</div>
+</body>
+</html>
+<!-- @author: [Chat-GPT] -->
+<!-- second author: [Hubertus Seitz] -->

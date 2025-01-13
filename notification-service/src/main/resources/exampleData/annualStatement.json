@@ -1,0 +1,40 @@
+{
+  "annualStatementId": 1,
+  "rentalAgreement": {
+    "rentalAgreementId": 1,
+    "tenants": [
+      {
+        "tenantId": 1,
+        "firstName": "Alice",
+        "lastName": "Johnson",
+        "email": "alice.johnson@example.com",
+        "phoneNumber": "555-7890",
+        "active": true
+      }
+    ],
+    "apartment": {
+      "apartmentId": 1,
+      "housingObject": {
+        "housingObjectId": 1,
+        "name": "Sunset Apartments",
+        "street": "123 Main St",
+        "city": "Springfield",
+        "state": "TL",
+        "zipCode": "62704",
+        "numberOfApartments": 20
+      },
+      "areaInM2": 75,
+      "numberOfRooms": 3,
+      "coldRent": 1200,
+      "heatingCostPrepayment": 150,
+      "additionalCostPrepayment": 100
+    },
+    "startDate": "2024-01-01T00:00:00.000+00:00",
+    "endDate": "2024-12-31T00:00:00.000+00:00"
+  },
+  "periodStart": "2023-12-31T23:00:00.000+00:00",
+  "periodEnd": "2024-12-30T23:00:00.000+00:00",
+  "totalCost": 8079.1,
+  "totalPrepayments": 3000,
+  "difference": 5079.1
+}
