@@ -229,7 +229,7 @@ public class AnnualStatementService {
                 float yPosition = yStart;
                 float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
                 float rowHeight = 15; // Reduce row height to fit more rows
-                float[] columnWidths = {tableWidth * 0.7f, tableWidth * 0.3f}; // Column proportions
+                float[] columnWidths = {tableWidth * 0.5f, tableWidth * 0.25f, tableWidth * 0.25f}; // Column proportions
 
                 // Header text
                 contentStream.beginText();
@@ -243,14 +243,20 @@ public class AnnualStatementService {
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.newLineAtOffset(margin, yPosition);
+                contentStream.showText("Houseing Object: " + annualStatement.getRentalAgreement().getApartment().getHousingObject().getName());
+                contentStream.newLineAtOffset(0, -15);
+                contentStream.showText("Apartment: " + annualStatement.getRentalAgreement().getApartment().getApartmentId());
+                contentStream.newLineAtOffset(0, -15);
+                contentStream.showText("Apartment Area in m²: " + annualStatement.getRentalAgreement().getApartment().getAreaInM2());
+                contentStream.newLineAtOffset(0, -15);
                 contentStream.showText("Period Start: " + new SimpleDateFormat("dd-MM-yyyy").format(annualStatement.getPeriodStart()));
                 contentStream.newLineAtOffset(0, -15);
                 contentStream.showText("Period End: " + new SimpleDateFormat("dd-MM-yyyy").format(annualStatement.getPeriodEnd()));
                 contentStream.endText();
-                yPosition -= 45; // Space after the details
+                yPosition -= 75; // Space after the details
 
                 // Draw table headers
-                drawTableHeaders(contentStream, new String[]{"Statement Entry", "Amount Payable"}, columnWidths, margin, yPosition);
+                drawTableHeaders(contentStream, new String[]{"Statement Entry","Overall Amount", "Amount Payable"}, columnWidths, margin, yPosition);
                 yPosition -= rowHeight;
 
                 // Draw horizontal line below headers
@@ -258,11 +264,11 @@ public class AnnualStatementService {
                 yPosition -= 5;
 
                 // Draw table rows
-                float totalCost = 0.0f;
                 for (StatementEntry entry : statementEntries) {
                     // Draw the current row
                     drawTableRow(contentStream, new String[]{
                             entry.getName(),
+                            String.format("%.2f", entry.getOverallAmount()),
                             String.format("%.2f", entry.getAmountPayable())
                     }, columnWidths, margin, yPosition);
 
@@ -270,8 +276,6 @@ public class AnnualStatementService {
                     yPosition -= rowHeight;
                     drawHorizontalLine(contentStream, margin, yPosition, tableWidth);
 
-                    // Sum up the total cost
-                    totalCost += entry.getAmountPayable();
                 }
 
 
@@ -279,7 +283,7 @@ public class AnnualStatementService {
                 yPosition -= rowHeight;
 
                 // Draw the totals
-                drawTableRow(contentStream, new String[]{"Total Cost", String.format("%.2f", totalCost)}, columnWidths, margin, yPosition);
+                drawTableRow(contentStream, new String[]{"Total Cost", String.format("%.2f", annualStatement.getTotalCost())}, columnWidths, margin, yPosition);
                 yPosition -= rowHeight;
                 drawTableRow(contentStream, new String[]{"Total Prepayments", String.format("%.2f", annualStatement.getTotalPrepayments())}, columnWidths, margin, yPosition);
                 yPosition -= rowHeight;
