@@ -46,17 +46,18 @@ public class Invoice {
     /**
      * Parameterized constructor.
      *
-     * @param invoiceDate           the date of the invoice
-     * @param invoiceAmount         the amount of the invoice
-     * @param description           the description of the invoice
-     * @param status                the status of the invoice
-     * @param receiver              the receiver of the invoice
-     * @param receiverIban          the IBAN of the receiver
-     * @param receiverBic           the BIC of the receiver
-     * @param externalInvoiceNumber the external invoice number
-     * @param currency              the currency of the invoice in ISO 4217 format
-     * @param invoiceCategory       the category of the invoice
-     * @param housingObject         the housing object associated with the invoice
+     * @param invoiceDate                the date of the invoice
+     * @param invoiceAmount              the amount of the invoice
+     * @param description                the description of the invoice
+     * @param status                     the status of the invoice
+     * @param receiver                   the receiver of the invoice
+     * @param receiverIban               the IBAN of the receiver
+     * @param receiverBic                the BIC of the receiver
+     * @param externalInvoiceNumber      the external invoice number
+     * @param currency                   the currency of the invoice in ISO 4217 format
+     * @param relevantForAnnualStatement indicates if the invoice is relevant for the annual statement
+     * @param invoiceCategory            the category of the invoice
+     * @param housingObject              the housing object associated with the invoice
      */
     public Invoice(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String currency, boolean relevantForAnnualStatement, InvoiceCategory invoiceCategory, HousingObject housingObject) {
         this.invoiceDate = invoiceDate;
@@ -291,10 +292,20 @@ public class Invoice {
         this.housingObject = housingObject;
     }
 
+    /**
+     * Gets the relevance of the invoice for the annual statement.
+     *
+     * @return true if the invoice is relevant for the annual statement, false otherwise
+     */
     public boolean isRelevantForAnnualStatement() {
         return relevantForAnnualStatement;
     }
 
+    /**
+     * Sets the relevance of the invoice for the annual statement.
+     *
+     * @param relevantForAnnualStatement true if the invoice is relevant for the annual statement, false otherwise
+     */
     public void setRelevantForAnnualStatement(boolean relevantForAnnualStatement) {
         this.relevantForAnnualStatement = relevantForAnnualStatement;
     }
