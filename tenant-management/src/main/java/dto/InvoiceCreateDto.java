@@ -15,12 +15,13 @@ public class InvoiceCreateDto {
     private String invoiceCategoryId;
     private String housingObjectId;
     private String currency; // New attribute
+    private boolean relevantForAnnualStatement;
 
     public InvoiceCreateDto() {
         // no Args
     }
 
-    public InvoiceCreateDto(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String invoiceCategoryId, String housingObjectId, String currency) {
+    public InvoiceCreateDto(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String invoiceCategoryId, String housingObjectId, String currency, boolean relevantForAnnualStatement) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
         this.description = description;
@@ -32,6 +33,7 @@ public class InvoiceCreateDto {
         this.invoiceCategoryId = invoiceCategoryId;
         this.housingObjectId = housingObjectId;
         this.currency = currency;
+        this.relevantForAnnualStatement = relevantForAnnualStatement;
     }
 
     // Getters and Setters
@@ -121,5 +123,13 @@ public class InvoiceCreateDto {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public boolean isRelevantForAnnualStatement() {
+        return relevantForAnnualStatement;
+    }
+
+    public void setRelevantForAnnualStatement(boolean relevantForAnnualStatement) {
+        this.relevantForAnnualStatement = relevantForAnnualStatement;
     }
 }

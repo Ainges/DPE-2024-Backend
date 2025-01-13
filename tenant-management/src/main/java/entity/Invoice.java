@@ -26,7 +26,8 @@ public class Invoice {
     private String receiverIban;
     private String receiverBic;
     private String externalInvoiceNumber;
-    private String currency; // New attribute
+    private String currency;
+    private boolean relevantForAnnualStatement;
 
     @ManyToOne
     @JoinColumn(name = "invoiceCategoryId")
@@ -45,19 +46,19 @@ public class Invoice {
     /**
      * Parameterized constructor.
      *
-     * @param invoiceDate the date of the invoice
-     * @param invoiceAmount the amount of the invoice
-     * @param description the description of the invoice
-     * @param status the status of the invoice
-     * @param receiver the receiver of the invoice
-     * @param receiverIban the IBAN of the receiver
-     * @param receiverBic the BIC of the receiver
+     * @param invoiceDate           the date of the invoice
+     * @param invoiceAmount         the amount of the invoice
+     * @param description           the description of the invoice
+     * @param status                the status of the invoice
+     * @param receiver              the receiver of the invoice
+     * @param receiverIban          the IBAN of the receiver
+     * @param receiverBic           the BIC of the receiver
      * @param externalInvoiceNumber the external invoice number
-     * @param currency the currency of the invoice in ISO 4217 format
-     * @param invoiceCategory the category of the invoice
-     * @param housingObject the housing object associated with the invoice
+     * @param currency              the currency of the invoice in ISO 4217 format
+     * @param invoiceCategory       the category of the invoice
+     * @param housingObject         the housing object associated with the invoice
      */
-    public Invoice(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String currency, InvoiceCategory invoiceCategory, HousingObject housingObject) {
+    public Invoice(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String currency, boolean relevantForAnnualStatement, InvoiceCategory invoiceCategory, HousingObject housingObject) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
         this.description = description;
@@ -67,6 +68,7 @@ public class Invoice {
         this.receiverBic = receiverBic;
         this.externalInvoiceNumber = externalInvoiceNumber;
         this.currency = currency;
+        this.relevantForAnnualStatement = relevantForAnnualStatement;
         this.invoiceCategory = invoiceCategory;
         this.housingObject = housingObject;
     }
@@ -288,9 +290,18 @@ public class Invoice {
     public void setHousingObject(HousingObject housingObject) {
         this.housingObject = housingObject;
     }
+
+    public boolean isRelevantForAnnualStatement() {
+        return relevantForAnnualStatement;
+    }
+
+    public void setRelevantForAnnualStatement(boolean relevantForAnnualStatement) {
+        this.relevantForAnnualStatement = relevantForAnnualStatement;
+    }
 }
 /**
  * End
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */

@@ -162,6 +162,7 @@ public class InvoiceEndpoint {
         if (invoice.getCurrency() != null) {
             existingInvoice.setCurrency(invoice.getCurrency());
         }
+        existingInvoice.setRelevantForAnnualStatement(invoice.isRelevantForAnnualStatement());
         invoiceRepository.persist(existingInvoice);
         return Response.ok(existingInvoice).build();
     }

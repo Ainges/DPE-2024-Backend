@@ -44,7 +44,7 @@ public class InvoiceService {
             throw new InvoiceServiceException("The housing object with the ID " + invoiceCreateDto.getHousingObjectId() + " does not exist.");
         }
 
-        Invoice invoice = new Invoice(invoiceCreateDto.getInvoiceDate(), invoiceCreateDto.getInvoiceAmount(), invoiceCreateDto.getDescription(), invoiceCreateDto.getStatus(), invoiceCreateDto.getReceiver(), invoiceCreateDto.getReceiverIban(), invoiceCreateDto.getReceiverBic(), invoiceCreateDto.getExternalInvoiceNumber(), invoiceCreateDto.getCurrency(), invoiceCategory, housingObject);
+        Invoice invoice = new Invoice(invoiceCreateDto.getInvoiceDate(), invoiceCreateDto.getInvoiceAmount(), invoiceCreateDto.getDescription(), invoiceCreateDto.getStatus(), invoiceCreateDto.getReceiver(), invoiceCreateDto.getReceiverIban(), invoiceCreateDto.getReceiverBic(), invoiceCreateDto.getExternalInvoiceNumber(), invoiceCreateDto.getCurrency(), invoiceCreateDto.isRelevantForAnnualStatement(), invoiceCategory, housingObject);
         invoiceRepository.persist(invoice);
 
         return invoice;
