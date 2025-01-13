@@ -21,13 +21,17 @@ public class SendQRCodeProcessor implements Processor {
 
         QRCodePaymentDTO qrCodePaymentDTO = exchange.getMessage().getBody(QRCodePaymentDTO.class);
 
-        System.out.println("Sending QR Code to: " + qrCodePaymentDTO.toString());
-
         String mailTemplate = "send-qrcode.html";
 
         TemplateInstance templateInstance = templateProducer.getInjectableTemplate(mailTemplate)
                 .data("receiver_name", "Max Mustermann")
+                .data("receiver", qrCodePaymentDTO.getData().getObjPaymentDetails().getReceiver())
+                .data("amount", qrCodePaymentDTO.getData().getObjPaymentDetails().getInvoiceAmount())
+                .data("iban", qrCodePaymentDTO.getData().getObjPaymentDetails().getReceiverIban())
+                .data("currency", qrCodePaymentDTO.getData().getObjPaymentDetails().getCurrency())
+                .data("description", qrCodePaymentDTO.getData().getObjPaymentDetails().getDescription())
                 .data("qrcode", qrCodePaymentDTO.getData().getBase64QR())
+
                 ;
 
         String htmlTemplate = templateInstance.render();

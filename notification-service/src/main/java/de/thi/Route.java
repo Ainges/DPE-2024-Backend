@@ -105,9 +105,19 @@ public class Route extends RouteBuilder {
                     .when(jsonpath("$.mailType").isEqualTo("delayedAnnualStatement")).to("direct:delayedAnnualStatement")
                     .when(jsonpath("$.mailType").isEqualTo("sendPaymentReminder")).to("direct:sendPaymentReminder")
                     .when(jsonpath("$.mailType").isEqualTo("sendQRCode")).to("direct:sendQRCode")
-                    .when(jsonpath("$.mailType").isEqualTo("anhangTest")).to("direct:anhangTest")
 
-                    //Send to DLQ (Dead-Letter-Queue) if the notification type is not supported
+                    // Tenant paid too much and gets a refund
+                    .when(jsonpath("$.mailType").isEqualTo("annualStatementPaymentInformationRequest")).to("direct:annualStatementPaymentInformationRequest")
+
+                    // Tenant paid less than actually due
+                    .when(jsonpath("$.mailType").isEqualTo("annualStatementPaymentInformation")).to("direct:annualStatementPaymentInformation")
+
+                    // Tenant paid exactly the amount due
+                    .when(jsonpath("$.mailType").isEqualTo("annualStatement")).to("direct:annualStatement")
+
+
+
+                //Send to DLQ (Dead-Letter-Queue) if the notification type is not supported
                     .otherwise().to("activemq:queue:deadLetterQueue");
 
 
@@ -149,8 +159,6 @@ public class Route extends RouteBuilder {
                 .process(sendPaymentReminderProcessor)
                 .to("direct:sendMail");
 
-
-
         from("direct:sendQRCode")
                 .routeId("sendQRCode-Route")
                 .log("sendQRCode")
@@ -160,6 +168,41 @@ public class Route extends RouteBuilder {
                 .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
                 .process(sendQRCodeProcessor)
                 .to("direct:sendMail");
+
+
+        //TODO: Implement the annualStatementPaymentInformationRequest route
+        from("direct:annualStatementPaymentInformationRequest")
+                .routeId("annualStatementPaymentInformationRequest-Route")
+                .setProperty("receivedBody", body())
+                .to("direct:print-raw-notification-to-xml")
+                .setBody(exchangeProperty("receivedBody"))
+                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
+                .process(sendQRCodeProcessor)
+                .to("direct:sendMail");
+
+
+        //TODO: implement the annualStatementPaymentInformation route
+        from("direct:annualStatementPaymentInformation")
+                .routeId("annualStatementPaymentInformation-Route")
+                .setProperty("receivedBody", body())
+                .to("direct:print-raw-notification-to-xml")
+                .setBody(exchangeProperty("receivedBody"))
+                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
+                .process(sendQRCodeProcessor)
+                .to("direct:sendMail");
+
+        //TODO: Implement the annualStatement route
+        from("direct:annualStatement")
+                .routeId("annualStatement-Route")
+                .log("sendQRCode")
+                .setProperty("receivedBody", body())
+                .to("direct:print-raw-notification-to-xml")
+                .setBody(exchangeProperty("receivedBody"))
+                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
+                .process(sendQRCodeProcessor)
+                .to("direct:sendMail");
+
+
 
         from("direct:anhangTest")
                 .routeId("route5-de.thi.Route")
