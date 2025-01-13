@@ -45,5 +45,5 @@ nb-configuration.xml
 .certs/
 
 # Ignore generated QR Codes and PDFs
-.pdf
-.png
+*.pdf
+*.png
