@@ -1,5 +1,6 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -83,16 +84,22 @@ public class InvoiceEndpoint {
      * Retrieves invoices by their housing object ID.
      *
      * @param housingObjectId the ID of the housing object
+     * @param relevantForAnnualStatement optional query parameter to filter invoices relevant for the annual statement
      * @return a response containing the list of invoices for the specified housing object
      */
     @GET
     @Path("/housing-object/{housingObjectId}")
-    public Response getInvoicesByHousingObject(@PathParam("housingObjectId") long housingObjectId) {
+    public Response getInvoicesByHousingObject(@PathParam("housingObjectId") long housingObjectId, @QueryParam("relevantForAnnualStatement") Boolean relevantForAnnualStatement) {
         HousingObject housingObject = housingObjectRepository.findById(housingObjectId);
         if (housingObject == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        List<Invoice> invoices = invoiceRepository.find("housingObject", housingObject).list();
+        List<Invoice> invoices;
+        if (relevantForAnnualStatement != null) {
+            invoices = invoiceRepository.find("housingObject = ?1 and relevantForAnnualStatement = ?2", housingObject, relevantForAnnualStatement).list();
+        } else {
+            invoices = invoiceRepository.find("housingObject", housingObject).list();
+        }
         return Response.ok(invoices).build();
     }
 

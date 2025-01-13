@@ -1759,6 +1759,113 @@
 			]
 		},
 		{
+			"name": "invoice-category-sum",
+			"item": [
+				{
+					"name": "{housingObjectId}",
+					"item": [
+						{
+							"name": "{invoiceCategoryId}",
+							"item": [
+								{
+									"name": "{year}",
+									"item": [
+										{
+											"name": "Get Category Total Sum By Housing Object And Year",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/invoice-category-sum/:housingObjectId/:invoiceCategoryId/:year?relevantForAnnualStatement=<boolean>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"invoice-category-sum",
+														":housingObjectId",
+														":invoiceCategoryId",
+														":year"
+													],
+													"query": [
+														{
+															"key": "relevantForAnnualStatement",
+															"value": "<boolean>"
+														}
+													],
+													"variable": [
+														{
+															"key": "housingObjectId",
+															"value": "<long>",
+															"description": "(Required) "
+														},
+														{
+															"key": "invoiceCategoryId",
+															"value": "<long>",
+															"description": "(Required) "
+														},
+														{
+															"key": "year",
+															"value": "<integer>",
+															"description": "(Required) "
+														}
+													]
+												},
+												"description": "Get Category Total Sum By Housing Object And Year"
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/invoice-category-sum/:housingObjectId/:invoiceCategoryId/:year?relevantForAnnualStatement=<boolean>",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"invoice-category-sum",
+																":housingObjectId",
+																":invoiceCategoryId",
+																":year"
+															],
+															"query": [
+																{
+																	"key": "relevantForAnnualStatement",
+																	"value": "<boolean>"
+																}
+															],
+															"variable": [
+																{
+																	"key": "housingObjectId"
+																},
+																{
+																	"key": "invoiceCategoryId"
+																},
+																{
+																	"key": "year"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "invoices",
 			"item": [
 				{
@@ -1840,7 +1947,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrl}}/invoices/housing-object/:housingObjectId",
+											"raw": "{{baseUrl}}/invoices/housing-object/:housingObjectId?relevantForAnnualStatement=<boolean>",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -1848,6 +1955,12 @@
 												"invoices",
 												"housing-object",
 												":housingObjectId"
+											],
+											"query": [
+												{
+													"key": "relevantForAnnualStatement",
+													"value": "<boolean>"
+												}
 											],
 											"variable": [
 												{
@@ -1866,7 +1979,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{baseUrl}}/invoices/housing-object/:housingObjectId",
+													"raw": "{{baseUrl}}/invoices/housing-object/:housingObjectId?relevantForAnnualStatement=<boolean>",
 													"host": [
 														"{{baseUrl}}"
 													],
@@ -1874,6 +1987,12 @@
 														"invoices",
 														"housing-object",
 														":housingObjectId"
+													],
+													"query": [
+														{
+															"key": "relevantForAnnualStatement",
+															"value": "<boolean>"
+														}
 													],
 													"variable": [
 														{
@@ -1888,103 +2007,6 @@
 											"header": [],
 											"cookie": [],
 											"body": ""
-										}
-									]
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "sum",
-					"item": [
-						{
-							"name": "{housingObjectId}",
-							"item": [
-								{
-									"name": "{invoiceCategoryId}",
-									"item": [
-										{
-											"name": "{year}",
-											"item": [
-												{
-													"name": "Get Category Total Sum By Housing Object And Year",
-													"request": {
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{baseUrl}}/invoices/sum/:housingObjectId/:invoiceCategoryId/:year",
-															"host": [
-																"{{baseUrl}}"
-															],
-															"path": [
-																"invoices",
-																"sum",
-																":housingObjectId",
-																":invoiceCategoryId",
-																":year"
-															],
-															"variable": [
-																{
-																	"key": "housingObjectId",
-																	"value": "<long>",
-																	"description": "(Required) "
-																},
-																{
-																	"key": "invoiceCategoryId",
-																	"value": "<long>",
-																	"description": "(Required) "
-																},
-																{
-																	"key": "year",
-																	"value": "<integer>",
-																	"description": "(Required) "
-																}
-															]
-														},
-														"description": "Get Category Total Sum By Housing Object And Year"
-													},
-													"response": [
-														{
-															"name": "OK",
-															"originalRequest": {
-																"method": "GET",
-																"header": [],
-																"url": {
-																	"raw": "{{baseUrl}}/invoices/sum/:housingObjectId/:invoiceCategoryId/:year",
-																	"host": [
-																		"{{baseUrl}}"
-																	],
-																	"path": [
-																		"invoices",
-																		"sum",
-																		":housingObjectId",
-																		":invoiceCategoryId",
-																		":year"
-																	],
-																	"variable": [
-																		{
-																			"key": "housingObjectId"
-																		},
-																		{
-																			"key": "invoiceCategoryId"
-																		},
-																		{
-																			"key": "year"
-																		}
-																	]
-																}
-															},
-															"status": "OK",
-															"code": 200,
-															"_postman_previewlanguage": "text",
-															"header": [],
-															"cookie": [],
-															"body": ""
-														}
-													]
-												}
-											]
 										}
 									]
 								}
