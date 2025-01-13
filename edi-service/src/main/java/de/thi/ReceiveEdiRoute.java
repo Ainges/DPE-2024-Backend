@@ -13,30 +13,49 @@ public class ReceiveEdiRoute extends RouteBuilder {
     public void configure() throws Exception {
 
 
+        // ## Ingress
         rest("/edi/")
-            .post("test")
+            .post("payment-received")
             .type(String.class)
             .consumes("text/plain")
             .produces("text/plain")
-            .to("direct:receiveEdi");
+            .to("direct:payment-received");
 
-        from("activemq:queue:ediJsonToXML")
-            .log("Received EDI message from ActiveMQ: ${body}")
-            .unmarshal().json()
-            .marshal().jacksonXml()
-            .to("file:target/output?fileName=edi.xml")
-            .log("Saved it as edi.xml")
-            .end();
 
-        // Conversion without conversion to Java object, because without a explicit class, the conversion is inaccurate -> root element is missing
-        from("activemq:queue:ediXMLToJson")
-            .log("Received EDI message from ActiveMQ: ${body}")
-            .unmarshal().jacksonXml()
-            .marshal().json()
-            .to("file:target/output?fileName=edi.json")
-            .log("Saved it as edi.json")
-            .end();
+        // Currently not used, but could be used to used to convert EDI messages to JSON and XML
+//        from("activemq:queue:ediJsonToXML")
+//            .log("Received EDI message from ActiveMQ: ${body}")
+//            .unmarshal().json()
+//            .marshal().jacksonXml()
+//            .to("file:target/output?fileName=edi.xml")
+//            .log("Saved it as edi.xml")
+//            .end();
+//
+//        // Conversion without conversion to Java object, because without a explicit class, the conversion is inaccurate -> root element is missing
+//        from("activemq:queue:ediXMLToJson")
+//            .log("Received EDI message from ActiveMQ: ${body}")
+//            .unmarshal().jacksonXml()
+//            .marshal().json()
+//            .to("file:target/output?fileName=edi.json")
+//            .log("Saved it as edi.json")
+//            .end();
 
+
+        // ## Egress
+
+        from("direct:payment-received")
+            .routeId("Receive-Payment-Route")
+            .log("Received Payment! Informing ProcessEngine...")
+            .setBody(simple("Payment received!"))
+            .marshal().json(JsonLibrary.Jackson)
+                // Remove all headers to avoid problems with the following HTTP request
+                .removeHeaders("*")
+            .setHeader(Exchange.HTTP_METHOD, constant("POST"))
+            .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+            .setHeader("Spiffworkflow-Api-Key", simple("ee48a2bd-6825-4baf-ac70-536a11ba0022"))
+            //TODO: Change back to external-invoice-received | only done to not have to deal with the absurdly long delay of the ProcessEngine
+            .to("http://localhost:8000/v1.0/messages/external-monthly-rent-received")
+            .log("Successfully informed ProcessEngine!");
 
         // Inform ProcessEngine about received Invoice
         from("activemq:queue:external-invoice-received")
