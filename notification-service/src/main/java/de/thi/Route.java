@@ -1,14 +1,21 @@
 package de.thi;
 
-import de.thi.dto.AnnualStatementPreparationReminderDto;
-import de.thi.dto.NotificationDto;
+import de.thi.dto.*;
 import de.thi.processor.AnnualStatementPreparationReminderProcessor;
 import de.thi.processor.DelayedAnnualStatementReminderProcessor;
+import de.thi.processor.SendPaymentReminderProcessor;
+import de.thi.processor.SendQRCodeProcessor;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import java.io.File;
 
 /**
  * This class defines the routes for the notification service.
@@ -59,6 +66,13 @@ public class Route extends RouteBuilder {
     @Inject
     DelayedAnnualStatementReminderProcessor delayedAnnualStatementReminderProcessor;
 
+    @Inject
+    SendPaymentReminderProcessor sendPaymentReminderProcessor;
+
+    @Inject
+    SendQRCodeProcessor sendQRCodeProcessor;
+
+
     @Override
     public void configure() throws Exception {
 
@@ -90,8 +104,8 @@ public class Route extends RouteBuilder {
                     .when(jsonpath("$.mailType").isEqualTo("annualStatementPreparationReminder")).to("direct:annualStatementPreparationReminder")
                     .when(jsonpath("$.mailType").isEqualTo("delayedAnnualStatement")).to("direct:delayedAnnualStatement")
                     .when(jsonpath("$.mailType").isEqualTo("sendPaymentReminder")).to("direct:sendPaymentReminder")
-                    .when(jsonpath("$.mailType").isEqualTo("type4")).to("direct:route4")
-                    .when(jsonpath("$.mailType").isEqualTo("type5")).to("direct:route5")
+                    .when(jsonpath("$.mailType").isEqualTo("sendQRCode")).to("direct:sendQRCode")
+                    .when(jsonpath("$.mailType").isEqualTo("anhangTest")).to("direct:anhangTest")
 
                     //Send to DLQ (Dead-Letter-Queue) if the notification type is not supported
                     .otherwise().to("activemq:queue:deadLetterQueue");
@@ -107,6 +121,7 @@ public class Route extends RouteBuilder {
                 .setBody(exchangeProperty("receivedBody"))
                 // Set the mail subject
                 .setHeader("Subject", simple("Erinnerung zur Erstellung der Jahresabrechnung"))
+                .setHeader("To", simple("landlord@dpe2024.de"))
                 .unmarshal().json(JsonLibrary.Jackson, AnnualStatementPreparationReminderDto.class)
                 .process(annualStatementPreparationReminderProcessor)
                 .to("direct:sendMail");
@@ -118,25 +133,50 @@ public class Route extends RouteBuilder {
                 .setBody(exchangeProperty("receivedBody"))
                 // Set the mail subject
                 .setHeader("Subject", simple("Verzögerung bei der Erstellung der Jahresabrechnung"))
-                .unmarshal().json(JsonLibrary.Jackson, AnnualStatementPreparationReminderDto.class)
+                .setHeader("To", simple("landlord@dpe2024.de"))
+                .unmarshal().json(JsonLibrary.Jackson, DelayedAnnualStatementReminderDto.class)
                 .process(delayedAnnualStatementReminderProcessor)
                 .to("direct:sendMail");
 
         from("direct:sendPaymentReminder")
                 .routeId("sendPaymentReminder-Route")
-                .setBody(simple("route3 received"))
-                .log("route3")
+                .setProperty("receivedBody", body())
+                .to("direct:print-raw-notification-to-xml")
+                .setBody(exchangeProperty("receivedBody"))
+                // Set the mail subject
+                .setHeader("Subject", simple("Erinnerung an ausstehende Zahlung"))
+                .unmarshal().json(JsonLibrary.Jackson, SendPaymentReminderDto.class)
+                .process(sendPaymentReminderProcessor)
                 .to("direct:sendMail");
 
-        from("direct:route4")
-                .routeId("route4-de.thi.Route")
-                .setBody(simple("route4 received"))
-                .log("route4")
+
+
+        from("direct:sendQRCode")
+                .routeId("sendQRCode-Route")
+                .log("sendQRCode")
+                .setProperty("receivedBody", body())
+                .to("direct:print-raw-notification-to-xml")
+                .setBody(exchangeProperty("receivedBody"))
+                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
+                .process(sendQRCodeProcessor)
                 .to("direct:sendMail");
 
-        from("direct:route5")
+        from("direct:anhangTest")
                 .routeId("route5-de.thi.Route")
                 .setBody(simple("route5 received"))
+                .process(exchange -> {
+                    // Datei als Anhang hinzufügen
+                    String filePath = "/Users/hubertus/Developer/DPE-2024/DPE-2024-Backend/tenant-management/AnnualStatement_1.pdf"; // Der Pfad zur Datei
+                    File file = new File(filePath);
+                    DataSource dataSource = new FileDataSource(file);
+
+                    AttachmentMessage attMsg = exchange.getIn(AttachmentMessage.class);
+                    attMsg.addAttachment("AnnualStatement.pdf", new DataHandler(dataSource));
+
+                    exchange.getIn().setHeader("Subject", "Anhang Test");
+                    exchange.getIn().setHeader("To", "example@example.org");
+
+                })
                 .log("route5")
                 .to("direct:sendMail");
 

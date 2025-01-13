@@ -56,29 +56,10 @@ public class ReceiveEdiRoute extends RouteBuilder {
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))
                 .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
                 .setHeader("Spiffworkflow-Api-Key", simple("ee48a2bd-6825-4baf-ac70-536a11ba0022"))
-                .to("http://localhost:8000/v1.0/messages/external-invoice-received");
+                //TODO: Change back to external-invoice-received | only done to not have to deal with the absurdly long delay of the ProcessEngine
+                .to("http://localhost:8000/v1.0/messages/invoice-received")
+                .log("Sent invoice to ProcessEngine!");
 
-        // Send digital invoice to ProcessEngine
-//        from("activemq:queue:invoice-edi-received")
-//                .routeId("receiveEdi-Route")
-//                .log("Received EDI message from ActiveMQ: ${body}")
-//                .to("file:target/output/receivedInvoices/?fileName=invoice.xml")
-//                .log("Original invoice saved as: 'invoice.xml'")
-//                .unmarshal().jacksonXml(InvoiceCreateDto.class)
-//                .process(exchange -> {
-//                            InvoiceCreateDto invoice = exchange.getMessage().getBody(InvoiceCreateDto.class);
-//                            System.out.println("Received invoice with receiver: " + invoice.getReceiver());
-//                            exchange.getMessage().setBody(invoice);
-//                        }
-//                )
-//                .marshal().json(JsonLibrary.Jackson)
-//                .log("Converted invoice to JSON: ${body}")
-//                .log("Sending Invoice as JSON to ProcessEngine...")
-//                // Prepare for sending to ProcessEngine
-//                .setHeader(Exchange.HTTP_METHOD, constant("POST"))
-//                .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
-//                .setHeader("Spiffworkflow-Api-Key", simple("ee48a2bd-6825-4baf-ac70-536a11ba0022"))
-//                .to("http://localhost:8000/v1.0/messages/invoice-edi-received");
 
     }
 }

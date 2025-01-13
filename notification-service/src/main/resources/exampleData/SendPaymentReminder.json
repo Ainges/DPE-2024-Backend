@@ -1,0 +1,12 @@
+{
+  "mailType": "sendPaymentReminder",
+  "data": {
+    "receiver": "John Doe",
+    "receiverIban": "DE89370400440532013000",
+    "invoiceAmount": 1234.56,
+    "description": "Payment for services rendered",
+    "country": "DE",
+    "currency": "EUR",
+    "bic": "COBADEFFXXX"
+  }
+}
