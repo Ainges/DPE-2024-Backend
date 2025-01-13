@@ -7,10 +7,10 @@ Authorization: Basic YWRtaW46YWRtaW4=
   "mailType": "sendQRCode",
   "data": {
     "objPaymentDetails": {
-      "receiver": "John Doe",
+      "receiver": "Hans Hausmeister",
       "receiverIban": "DE89370400440532013000",
-      "invoiceAmount": 1234.56,
-      "description": "Payment for services rendered",
+      "invoiceAmount": 500,
+      "description": "Hausmeister Sachen",
       "country": "DE",
       "currency": "EUR",
       "bic": "COBADEFFXXX"
