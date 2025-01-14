@@ -82,8 +82,6 @@ public class CreateStatementEntryService {
     }
 
     /**
-     * Only for Mid-Year Tenant Changes! - to be implemented
-     * /**
      * Divides the invoice category sum for mid-year tenant changes based on the given distribution key.
      *
      * @param rentalAgreements the list of rental agreements to process
@@ -104,7 +102,7 @@ public class CreateStatementEntryService {
 
                 for (RentalAgreement ra : rentalAgreements) {
 
-                    float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
+                    float daysPayable = Duration.between(ra.getStartDate().toInstant(), (ra.getEndDate() != null ? ra.getEndDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 12, 31).atStartOfDay(ZoneId.systemDefault()).toInstant())).toDays();
                     //Round for two decimal places
                     float amountPayable = Math.round((amountPerUnit * ra.getApartment().getAreaInM2()) / 365 * 100.0) / 100.0f;
                     statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
@@ -118,7 +116,7 @@ public class CreateStatementEntryService {
 
                 for (RentalAgreement ra : rentalAgreements) {
 
-                    float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
+                    float daysPayable = Duration.between(ra.getStartDate().toInstant(), (ra.getEndDate() != null ? ra.getEndDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 12, 31).atStartOfDay(ZoneId.systemDefault()).toInstant())).toDays();
                     //Round for two decimal places
                     float amountPayable = Math.round((amountPerUnit * ra.getTenants().size()) / 365 * 100.0) / 100.0f;
                     statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
@@ -131,7 +129,7 @@ public class CreateStatementEntryService {
 
                 for (RentalAgreement ra : rentalAgreements) {
 
-                    float daysPayable = Duration.between(ra.getStartDate().toInstant(), ra.getEndDate().toInstant()).toDays();
+                    float daysPayable = Duration.between(ra.getStartDate().toInstant(), (ra.getEndDate() != null ? ra.getEndDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 12, 31).atStartOfDay(ZoneId.systemDefault()).toInstant())).toDays();
                     //Round for two decimal places
                     float amountPayable = Math.round(amountPerUnit / 365 * 100.0) / 100.0f;
                     statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));

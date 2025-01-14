@@ -87,7 +87,7 @@ public class CreateStatementEntryServiceEndpoint {
                 statementEntries.add(statementEntry);
             }
         }
-
+        //Handle Rental Agreements with tenant changes
         List<StatementEntry> createdStatementEntries = createStatementEntryService.divideInvoiceCategorySumMidYear(rentalAgreementsWithChanges, dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
         for (StatementEntry statementEntry : createdStatementEntries) {
             statementEntries.add(statementEntry);
