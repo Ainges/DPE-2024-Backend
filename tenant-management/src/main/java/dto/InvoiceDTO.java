@@ -2,7 +2,7 @@ package dto;
 
 import java.util.Date;
 
-public class InvoiceCreateDto {
+public class InvoiceDTO {
 
     private Date invoiceDate;
     private float invoiceAmount;
@@ -17,11 +17,11 @@ public class InvoiceCreateDto {
     private String currency; // New attribute
     private String relevantForAnnualStatement;
 
-    public InvoiceCreateDto() {
+    public InvoiceDTO() {
         // no Args
     }
 
-    public InvoiceCreateDto(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String invoiceCategoryId, String housingObjectId, String currency, String relevantForAnnualStatement) {
+    public InvoiceDTO(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String invoiceCategoryId, String housingObjectId, String currency, String relevantForAnnualStatement) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
         this.description = description;
