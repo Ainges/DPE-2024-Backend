@@ -83,7 +83,7 @@ public class InvoiceEndpoint {
     /**
      * Retrieves invoices by their housing object ID.
      *
-     * @param housingObjectId the ID of the housing object
+     * @param housingObjectId            the ID of the housing object
      * @param relevantForAnnualStatement optional query parameter to filter invoices relevant for the annual statement
      * @return a response containing the list of invoices for the specified housing object
      */
@@ -125,51 +125,59 @@ public class InvoiceEndpoint {
      * Updates an existing invoice.
      *
      * @param id      the ID of the invoice to update
-     * @param invoice the updated invoice data
+     * @param invoiceCreateDto the updated invoice data
      * @return a response containing the updated invoice
      */
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response updateInvoice(@PathParam("id") long id, Invoice invoice) {
+    public Response updateInvoice(@PathParam("id") long id, InvoiceCreateDto invoiceCreateDto) {
         Invoice existingInvoice = invoiceRepository.findById(id);
         if (existingInvoice == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        if (invoice.getInvoiceDate() != null) {
-            existingInvoice.setInvoiceDate(invoice.getInvoiceDate());
+        if (invoiceCreateDto.getInvoiceDate() != null) {
+            existingInvoice.setInvoiceDate(invoiceCreateDto.getInvoiceDate());
         }
-        if (invoice.getInvoiceAmount() != 0.0) {
-            existingInvoice.setInvoiceAmount(invoice.getInvoiceAmount());
+        if (invoiceCreateDto.getInvoiceAmount() != 0.0) {
+            existingInvoice.setInvoiceAmount(invoiceCreateDto.getInvoiceAmount());
         }
-        if (invoice.getInvoiceCategory() != null) {
-            existingInvoice.setInvoiceCategory(invoice.getInvoiceCategory());
+        if (invoiceCreateDto.getInvoiceCategoryId() != null) {
+            InvoiceCategory invoiceCategory = invoiceCategoryRepository.findById(Long.parseLong(invoiceCreateDto.getInvoiceCategoryId()));
+            if (invoiceCategory != null) {
+                existingInvoice.setInvoiceCategory(invoiceCategory);
+            }
         }
-        if (invoice.getHousingObject() != null) {
-            existingInvoice.setHousingObject(invoice.getHousingObject());
+        if (invoiceCreateDto.getHousingObjectId() != null) {
+            HousingObject housingObject = housingObjectRepository.findById(Long.parseLong(invoiceCreateDto.getHousingObjectId()));
+            if (housingObject != null) {
+                existingInvoice.setHousingObject(housingObject);
+            }
         }
-        if (invoice.getDescription() != null) {
-            existingInvoice.setDescription(invoice.getDescription());
+        if (invoiceCreateDto.getDescription() != null) {
+            existingInvoice.setDescription(invoiceCreateDto.getDescription());
         }
-        if (invoice.getStatus() != null) {
-            existingInvoice.setStatus(invoice.getStatus());
+        if (invoiceCreateDto.getStatus() != null) {
+            existingInvoice.setStatus(invoiceCreateDto.getStatus());
         }
-        if (invoice.getReceiver() != null) {
-            existingInvoice.setReceiver(invoice.getReceiver());
+        if (invoiceCreateDto.getReceiver() != null) {
+            existingInvoice.setReceiver(invoiceCreateDto.getReceiver());
         }
-        if (invoice.getReceiverIban() != null) {
-            existingInvoice.setReceiverIban(invoice.getReceiverIban());
+        if (invoiceCreateDto.getReceiverIban() != null) {
+            existingInvoice.setReceiverIban(invoiceCreateDto.getReceiverIban());
         }
-        if (invoice.getReceiverBic() != null) {
-            existingInvoice.setReceiverBic(invoice.getReceiverBic());
+        if (invoiceCreateDto.getReceiverBic() != null) {
+            existingInvoice.setReceiverBic(invoiceCreateDto.getReceiverBic());
         }
-        if (invoice.getExternalInvoiceNumber() != null) {
-            existingInvoice.setExternalInvoiceNumber(invoice.getExternalInvoiceNumber());
+        if (invoiceCreateDto.getExternalInvoiceNumber() != null) {
+            existingInvoice.setExternalInvoiceNumber(invoiceCreateDto.getExternalInvoiceNumber());
         }
-        if (invoice.getCurrency() != null) {
-            existingInvoice.setCurrency(invoice.getCurrency());
+        if (invoiceCreateDto.getCurrency() != null) {
+            existingInvoice.setCurrency(invoiceCreateDto.getCurrency());
         }
-        existingInvoice.setRelevantForAnnualStatement(invoice.isRelevantForAnnualStatement());
+        if (invoiceCreateDto.getRelevantForAnnualStatement() != null) {
+            existingInvoice.setRelevantForAnnualStatement(Boolean.parseBoolean(invoiceCreateDto.getRelevantForAnnualStatement()));
+        }
         invoiceRepository.persist(existingInvoice);
         return Response.ok(existingInvoice).build();
     }
@@ -194,6 +202,7 @@ public class InvoiceEndpoint {
 }
 /**
  * End
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
