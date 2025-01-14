@@ -3798,6 +3798,44 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Start Housing Object Lifesycle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Spiffworkflow-Api-Key",
+								"value": "{{Spiffworkflow-Api-Key}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"housingObjectId\": 1,\r\n    \"name\": \"Sunset Apartments\",\r\n    \"street\": \"123 Main St\",\r\n    \"city\": \"Springfield\",\r\n    \"state\": \"IL\",\r\n    \"zipCode\": \"62704\",\r\n    \"numberOfApartments\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SpiffBaseUrl}}/messages/housing-object-master-data",
+							"host": [
+								"{{SpiffBaseUrl}}"
+							],
+							"path": [
+								"messages",
+								"housing-object-master-data"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
