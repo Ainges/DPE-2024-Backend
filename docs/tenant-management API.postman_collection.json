@@ -2099,7 +2099,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"externalInvoiceNumber\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"relevantForAnnualStatement\": \"<boolean>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+									"raw": "{\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"externalInvoiceNumber\": \"<string>\",\n  \"invoiceCategoryId\": \"<string>\",\n  \"housingObjectId\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"relevantForAnnualStatement\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -2139,7 +2139,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"invoiceId\": \"<long>\",\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"externalInvoiceNumber\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"relevantForAnnualStatement\": \"<boolean>\",\n  \"invoiceCategory\": {\n    \"invoiceCategoryId\": \"<long>\",\n    \"name\": \"<string>\"\n  },\n  \"housingObject\": {\n    \"housingObjectId\": \"<long>\",\n    \"name\": \"<string>\",\n    \"street\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"numberOfApartments\": \"<integer>\"\n  }\n}",
+											"raw": "{\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"externalInvoiceNumber\": \"<string>\",\n  \"invoiceCategoryId\": \"<string>\",\n  \"housingObjectId\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"relevantForAnnualStatement\": \"<string>\"\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -2297,7 +2297,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"externalInvoiceNumber\": \"<string>\",\n  \"invoiceCategoryId\": \"<string>\",\n  \"housingObjectId\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"relevantForAnnualStatement\": \"<boolean>\"\n}",
+							"raw": "{\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"externalInvoiceNumber\": \"<string>\",\n  \"invoiceCategoryId\": \"<string>\",\n  \"housingObjectId\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"relevantForAnnualStatement\": \"<string>\"\n}",
 							"options": {
 								"raw": {
 									"headerFamily": "json",
@@ -2329,7 +2329,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"externalInvoiceNumber\": \"<string>\",\n  \"invoiceCategoryId\": \"<string>\",\n  \"housingObjectId\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"relevantForAnnualStatement\": \"<boolean>\"\n}",
+									"raw": "{\n  \"invoiceDate\": \"<date>\",\n  \"invoiceAmount\": \"<float>\",\n  \"description\": \"<string>\",\n  \"status\": \"<string>\",\n  \"receiver\": \"<string>\",\n  \"receiverIban\": \"<string>\",\n  \"receiverBic\": \"<string>\",\n  \"externalInvoiceNumber\": \"<string>\",\n  \"invoiceCategoryId\": \"<string>\",\n  \"housingObjectId\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"relevantForAnnualStatement\": \"<string>\"\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
