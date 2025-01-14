@@ -21,6 +21,8 @@ import repository.InvoiceRepository;
 import repository.InvoiceCategoryRepository;
 import service.InvoiceService;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @ApplicationScoped
@@ -104,6 +106,42 @@ public class InvoiceEndpoint {
     }
 
     /**
+     * Retrieves invoices by housing object ID and year.
+     *
+     * @param housingObjectId            the ID of the housing object
+     * @param year                       the year to filter invoices
+     * @param relevantForAnnualStatement optional query parameter to filter invoices relevant for the annual statement
+     * @return a response containing the list of invoices for the specified housing object and year
+     */
+    @GET
+    @Path("/housing-object/{housingObjectId}/year/{year}")
+    public Response getInvoicesByHousingObjectAndYear(@PathParam("housingObjectId") long housingObjectId, @PathParam("year") int year, @QueryParam("relevantForAnnualStatement") Boolean relevantForAnnualStatement) {
+        HousingObject housingObject = housingObjectRepository.findById(housingObjectId);
+        if (housingObject == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, Calendar.JANUARY, 1, 0, 0, 0);
+        Date startDate = calendar.getTime();
+        calendar.set(year, Calendar.DECEMBER, 31, 23, 59, 59);
+        Date endDate = calendar.getTime();
+
+        List<Invoice> invoices;
+        if (relevantForAnnualStatement != null) {
+            invoices = invoiceRepository.find(
+                    "housingObject = ?1 and invoiceDate >= ?2 and invoiceDate <= ?3 and relevantForAnnualStatement = ?4",
+                    housingObject, startDate, endDate, relevantForAnnualStatement).list();
+        } else {
+            invoices = invoiceRepository.find(
+                    "housingObject = ?1 and invoiceDate >= ?2 and invoiceDate <= ?3",
+                    housingObject, startDate, endDate).list();
+        }
+
+        return Response.ok(invoices).build();
+    }
+
+    /**
      * Creates a new invoice.
      *
      * @param invoiceDTO the data for the new invoice
@@ -124,7 +162,7 @@ public class InvoiceEndpoint {
     /**
      * Updates an existing invoice.
      *
-     * @param id      the ID of the invoice to update
+     * @param id         the ID of the invoice to update
      * @param invoiceDTO the updated invoice data
      * @return a response containing the updated invoice
      */
