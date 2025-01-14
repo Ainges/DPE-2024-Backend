@@ -1942,6 +1942,97 @@
 							"name": "{housingObjectId}",
 							"item": [
 								{
+									"name": "year",
+									"item": [
+										{
+											"name": "{year}",
+											"item": [
+												{
+													"name": "Get Invoices By Housing Object And Year",
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/invoices/housing-object/:housingObjectId/year/:year?relevantForAnnualStatement=<boolean>",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"invoices",
+																"housing-object",
+																":housingObjectId",
+																"year",
+																":year"
+															],
+															"query": [
+																{
+																	"key": "relevantForAnnualStatement",
+																	"value": "<boolean>"
+																}
+															],
+															"variable": [
+																{
+																	"key": "housingObjectId",
+																	"value": "<long>",
+																	"description": "(Required) "
+																},
+																{
+																	"key": "year",
+																	"value": "<integer>",
+																	"description": "(Required) "
+																}
+															]
+														},
+														"description": "Get Invoices By Housing Object And Year"
+													},
+													"response": [
+														{
+															"name": "OK",
+															"originalRequest": {
+																"method": "GET",
+																"header": [],
+																"url": {
+																	"raw": "{{baseUrl}}/invoices/housing-object/:housingObjectId/year/:year?relevantForAnnualStatement=<boolean>",
+																	"host": [
+																		"{{baseUrl}}"
+																	],
+																	"path": [
+																		"invoices",
+																		"housing-object",
+																		":housingObjectId",
+																		"year",
+																		":year"
+																	],
+																	"query": [
+																		{
+																			"key": "relevantForAnnualStatement",
+																			"value": "<boolean>"
+																		}
+																	],
+																	"variable": [
+																		{
+																			"key": "housingObjectId"
+																		},
+																		{
+																			"key": "year"
+																		}
+																	]
+																}
+															},
+															"status": "OK",
+															"code": 200,
+															"_postman_previewlanguage": "text",
+															"header": [],
+															"cookie": [],
+															"body": ""
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
 									"name": "Get Invoices By Housing Object",
 									"request": {
 										"method": "GET",
