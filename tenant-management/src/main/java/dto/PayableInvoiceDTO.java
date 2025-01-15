@@ -19,6 +19,8 @@ public class PayableInvoiceDTO {
     private String bic; // Optional
 
     // Getters and setters for all attributes
+    // contains the getter and setter methods for the PayableInvoiceDTO class attributes.
+    // These methods allow for accessing and modifying the private fields of the class.
 
     public String getReceiver() {
         return receiver;

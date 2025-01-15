@@ -14,6 +14,8 @@ import java.util.List;
 
 /**
  * Data Transfer Object for CreateStatementEntryService.
+ * defines the CreateStatementEntryServiceDTO class and its member variables
+ * This class is a Data Transfer Object (DTO) used to transfer data related to creating a statement entry
  */
 public class CreateStatementEntryServiceDTO {
     private String distributionKey;

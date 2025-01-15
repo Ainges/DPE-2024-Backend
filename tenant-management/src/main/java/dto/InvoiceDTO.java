@@ -1,7 +1,12 @@
 package dto;
+//The line import java.util.Date;
+// imports the Date class from the java.util package.
+// This allows the InvoiceDTO class to use the Date class for its invoiceDate attribute.
+// The Date class represents a specific instant in time, with millisecond precision.
 
 import java.util.Date;
-
+//defines the InvoiceDTO class with several private fields and a no-argument constructor
+//The no-argument constructor initializes an instance of the InvoiceDTO class without setting any field values.
 public class InvoiceDTO {
 
     private Date invoiceDate;
@@ -20,7 +25,11 @@ public class InvoiceDTO {
     public InvoiceDTO() {
         // no Args
     }
-
+//defines a constructor for the InvoiceDTO class.
+// This constructor takes several parameters and initializes the corresponding fields of the InvoiceDTO object with the provided values
+    //Parameters: The constructor accepts parameters for each field in the InvoiceDTO class, including invoiceDate, invoiceAmount, description, status, receiver, receiverIban, receiverBic, externalInvoiceNumber, invoiceCategoryId, housingObjectId, currency, and relevantForAnnualStatement.
+//Initialization: Each parameter is assigned to the corresponding private field of the class using the this keyword.
+    //The constructor allows creating an InvoiceDTO object with all its fields initialized to specific values at the time of creation.
     public InvoiceDTO(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic, String externalInvoiceNumber, String invoiceCategoryId, String housingObjectId, String currency, String relevantForAnnualStatement) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;
@@ -37,6 +46,8 @@ public class InvoiceDTO {
     }
 
     // Getters and Setters
+    //The selected code defines the getter and setter methods for each private field in the InvoiceDTO class.
+    // These methods allow for accessing and modifying the values of the private fields from outside the class
     public Date getInvoiceDate() {
         return invoiceDate;
     }
