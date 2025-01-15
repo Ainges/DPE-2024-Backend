@@ -35,10 +35,10 @@ public class DelayedAnnualStatementReminderProcessor implements Processor {
 
         String htmlTemplate = templateInstance.render();
 
-        // create mail
-        //TODO: Make Subject dynamic
         exchange.getIn().setBody(htmlTemplate);
 
+        exchange.getIn().setHeader("Subject", "Verzögerung bei Erstellung der Jahresabrechnung");
+        exchange.getIn().setHeader("To", "landlord@dpe-2024.de");
 
     }
 

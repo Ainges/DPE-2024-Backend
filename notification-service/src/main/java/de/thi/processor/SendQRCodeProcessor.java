@@ -1,8 +1,7 @@
 package de.thi.processor;
 
 
-import de.thi.dto.QRCodePaymentDTO;
-import de.thi.dto.SendPaymentReminderDto;
+import de.thi.dto.QRCodePaymentDto;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.runtime.TemplateProducer;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -19,7 +18,7 @@ public class SendQRCodeProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
 
-        QRCodePaymentDTO qrCodePaymentDTO = exchange.getMessage().getBody(QRCodePaymentDTO.class);
+        QRCodePaymentDto qrCodePaymentDTO = exchange.getMessage().getBody(QRCodePaymentDto.class);
 
         String mailTemplate = "send-qrcode.html";
 

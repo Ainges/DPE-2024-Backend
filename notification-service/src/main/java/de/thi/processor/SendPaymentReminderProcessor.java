@@ -36,8 +36,8 @@ public class SendPaymentReminderProcessor implements Processor {
 
         exchange.getIn().setBody(htmlTemplate);
 
-
-
+        exchange.getIn().setHeader("Subject", "Ausstehende Zahlung");
+        exchange.getIn().setHeader("To", "landlord@dpe-2024.de");
 
     }
 }

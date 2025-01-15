@@ -8,7 +8,6 @@
 package endpoint;
 
 import dto.AnnualStatementDTO;
-import dto.CreateStatementEntryServiceDTO;
 import entity.AnnualStatement;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -16,11 +15,8 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.hibernate.service.spi.InjectService;
 import repository.AnnualStatementRepository;
-import repository.InvoiceCategoryRepository;
 import service.AnnualStatementService;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;

@@ -1,10 +1,7 @@
 package de.thi;
 
 import de.thi.dto.*;
-import de.thi.processor.AnnualStatementPreparationReminderProcessor;
-import de.thi.processor.DelayedAnnualStatementReminderProcessor;
-import de.thi.processor.SendPaymentReminderProcessor;
-import de.thi.processor.SendQRCodeProcessor;
+import de.thi.processor.*;
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
 import jakarta.activation.FileDataSource;
@@ -71,6 +68,9 @@ public class Route extends RouteBuilder {
 
     @Inject
     SendQRCodeProcessor sendQRCodeProcessor;
+
+    @Inject
+    AnnualStatementProcessor annualStatementProcessor;
 
 
     @Override
@@ -165,63 +165,40 @@ public class Route extends RouteBuilder {
                 .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(exchangeProperty("receivedBody"))
-                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
+                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDto.class)
                 .process(sendQRCodeProcessor)
                 .to("direct:sendMail");
 
 
-        //TODO: Implement the annualStatementPaymentInformationRequest route
         from("direct:annualStatementPaymentInformationRequest")
                 .routeId("annualStatementPaymentInformationRequest-Route")
                 .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(exchangeProperty("receivedBody"))
-                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
-                .process(sendQRCodeProcessor)
+                .unmarshal().json(JsonLibrary.Jackson, AnnualStatementNotificationDto.class)
+                .process(annualStatementProcessor)
                 .to("direct:sendMail");
 
 
-        //TODO: implement the annualStatementPaymentInformation route
         from("direct:annualStatementPaymentInformation")
                 .routeId("annualStatementPaymentInformation-Route")
                 .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(exchangeProperty("receivedBody"))
-                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
-                .process(sendQRCodeProcessor)
+                .unmarshal().json(JsonLibrary.Jackson, AnnualStatementNotificationDto.class)
+                .process(annualStatementProcessor)
                 .to("direct:sendMail");
 
-        //TODO: Implement the annualStatement route
         from("direct:annualStatement")
                 .routeId("annualStatement-Route")
                 .log("sendQRCode")
                 .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(exchangeProperty("receivedBody"))
-                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
-                .process(sendQRCodeProcessor)
+                .unmarshal().json(JsonLibrary.Jackson, AnnualStatementNotificationDto.class)
+                .process(annualStatementProcessor)
                 .to("direct:sendMail");
 
-
-
-        from("direct:anhangTest")
-                .routeId("route5-de.thi.Route")
-                .setBody(simple("route5 received"))
-                .process(exchange -> {
-                    // Datei als Anhang hinzufügen
-                    String filePath = "/Users/hubertus/Developer/DPE-2024/DPE-2024-Backend/tenant-management/AnnualStatement_1.pdf"; // Der Pfad zur Datei
-                    File file = new File(filePath);
-                    DataSource dataSource = new FileDataSource(file);
-
-                    AttachmentMessage attMsg = exchange.getIn(AttachmentMessage.class);
-                    attMsg.addAttachment("AnnualStatement.pdf", new DataHandler(dataSource));
-
-                    exchange.getIn().setHeader("Subject", "Anhang Test");
-                    exchange.getIn().setHeader("To", "example@example.org");
-
-                })
-                .log("route5")
-                .to("direct:sendMail");
 
 
         from("direct:print-raw-notification-to-xml")
@@ -250,8 +227,10 @@ public class Route extends RouteBuilder {
                     }
 
                     // Set the remaining mail headers to static values for this demo
-                    exchange.getIn().setHeader("To", "info@test.de");
-                    exchange.getIn().setHeader("From", "info.dpe2024@gmail.com");
+                    if(exchange.getIn().getHeader("From") == null) {
+                        exchange.getIn().setHeader("From", "info.dpe2024@gmail.com");
+
+                    }
                     exchange.getIn().setHeader("Content-Type", "text/html");
                 })
                 .choice()

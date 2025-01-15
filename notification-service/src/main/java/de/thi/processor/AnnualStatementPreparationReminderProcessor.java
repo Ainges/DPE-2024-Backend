@@ -35,8 +35,10 @@ public class AnnualStatementPreparationReminderProcessor implements Processor {
         String htmlTemplate = templateInstance.render();
 
         // create mail
-        //TODO: Make Subject dynamic
         exchange.getIn().setBody(htmlTemplate);
+
+        exchange.getIn().setHeader("Subject", "Erinnerung: Vorbereitung Jahresabrechnung");
+        exchange.getIn().setHeader("To", "landlord@dpe-2024.de");
 
 
     }
