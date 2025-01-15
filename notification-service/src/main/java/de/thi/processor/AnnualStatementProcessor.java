@@ -41,6 +41,7 @@ public class AnnualStatementProcessor implements Processor {
     /**
      * Injects the AnnualStatementService to retrieve annual statement data.
      */
+    @Inject
     @RestClient
     AnnualStatementService annualStatementService;
 
@@ -76,27 +77,19 @@ public class AnnualStatementProcessor implements Processor {
             throw new NotificationRouteException("Could not get Annual Statement with ID: " + annualStatementNotificationDto.getData().getAnnualStatementId());
         }
 
-        /**
-         * Convert base64 encoded annual statement to PDF file
-         */
+        // convert base64 to file
         String filePath = base64Service.convertBase64ToAnnualStatement(base64EncodedAnnualStatementWithPrefix, annualStatementNotificationDto);
-
-        /**
-         * Get filename from filePath
-         */
+        // reconstruct filename
         String filename = filePath.substring(filePath.lastIndexOf("/") + 1);
 
-        /**
-         * Attach Annual Statement to Mail
-          */
+        // Attach Annual Statement to Mail
         File file = new File(filePath);
         DataSource dataSource = new FileDataSource(file);
         AttachmentMessage attMsg = exchange.getIn(AttachmentMessage.class);
         attMsg.addAttachment(filename, new DataHandler(dataSource));
 
-        /**
-         * tenant paid exactly
-         */
+
+        // tenant paid exactly
         switch (annualStatementNotificationDto.getMailType()) {
             case "annualStatement" -> {
 
@@ -107,16 +100,12 @@ public class AnnualStatementProcessor implements Processor {
 
                 String htmlTemplate = templateInstance.render();
 
-                /**
-                 * Create mail
-                 */
+                // create mail
                 exchange.getIn().setBody(htmlTemplate);
             }
 
 
-            /**
-             * Tenant paid too much
-             */
+            // Tenant paid too much
             case "annualStatementPaymentInformationRequest" -> {
 
                 String mailTemplate = "AS-tenant-payed-to-much";
@@ -129,17 +118,13 @@ public class AnnualStatementProcessor implements Processor {
 
                 String htmlTemplate = templateInstance.render();
 
-                /**
-                 * Create mail
-                 */
+                // create mail
                 exchange.getIn().setBody(htmlTemplate);
 
             }
 
 
-            /**
-             * Tenant paid less
-             */
+            // Tenant paid less
             case "annualStatementPaymentInformation" -> {
 
                 String mailTemplate = "AS-tenant-payed-less";
@@ -151,9 +136,7 @@ public class AnnualStatementProcessor implements Processor {
 
                 String htmlTemplate = templateInstance.render();
 
-                /**
-                 * Create mail
-                 */
+                // create mail
                 exchange.getIn().setBody(htmlTemplate);
 
             }
@@ -161,9 +144,7 @@ public class AnnualStatementProcessor implements Processor {
                     throw new NotificationRouteException("MailType not supported: " + annualStatementNotificationDto.getMailType());
         }
 
-        /**
-         * Set mail headers
-         */
+        // set mail headers
         exchange.getIn().setHeader("Subject", "Ihre Jahresabrechnung");
         exchange.getIn().setHeader("To", "tenant@dpe-2024.de");
         exchange.getIn().setHeader("From", "Hausverwaltung <info.dpe2024>");

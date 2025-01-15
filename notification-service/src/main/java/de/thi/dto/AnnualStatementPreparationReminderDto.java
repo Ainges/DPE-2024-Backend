@@ -45,6 +45,7 @@ public class AnnualStatementPreparationReminderDto {
      */
     public static class DataDTO {
 
+        private String housingObjectId;
         private String name;
         private String street;
         private String city;
@@ -53,6 +54,14 @@ public class AnnualStatementPreparationReminderDto {
         private int numberOfApartments;
 
         public DataDTO() {
+        }
+
+        public String getHousingObjectId() {
+            return housingObjectId;
+        }
+
+        public void setHousingObjectId(String housingObjectId) {
+            this.housingObjectId = housingObjectId;
         }
 
         // Getters and Setters

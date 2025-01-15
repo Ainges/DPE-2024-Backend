@@ -1,6 +1,7 @@
 package de.thi.processor;
 
 import de.thi.dto.AnnualStatementPreparationReminderDto;
+import de.thi.dto.DelayedAnnualStatementReminderDto;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.runtime.TemplateProducer;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -41,18 +42,18 @@ public class DelayedAnnualStatementReminderProcessor implements Processor {
         /**
          * Indeed Duplicate to AnnualStatementPreparationReminderProcessor. But it remains here to be flexible for future changes.
           */
-        AnnualStatementPreparationReminderDto annualStatementPreparationReminderDto = exchange.getMessage().getBody(AnnualStatementPreparationReminderDto.class);
+        DelayedAnnualStatementReminderDto delayedAnnualStatementReminderDto = exchange.getMessage().getBody(DelayedAnnualStatementReminderDto.class);
 
         String mailTemplate = "delayed-annual-statement-reminder.html";
 
         TemplateInstance templateInstance = templateProducer.getInjectableTemplate(mailTemplate)
                 .data("receiver_name", "Max Mustermann")
-                .data("name", annualStatementPreparationReminderDto.getData().getName())
-                .data("street", annualStatementPreparationReminderDto.getData().getStreet())
-                .data("city", annualStatementPreparationReminderDto.getData().getCity())
-                .data("state", annualStatementPreparationReminderDto.getData().getState())
-                .data("zipCode", annualStatementPreparationReminderDto.getData().getZipCode())
-                .data("numberOfApartments", annualStatementPreparationReminderDto.getData().getNumberOfApartments())
+                .data("name", delayedAnnualStatementReminderDto.getData().getName())
+                .data("street", delayedAnnualStatementReminderDto.getData().getStreet())
+                .data("city", delayedAnnualStatementReminderDto.getData().getCity())
+                .data("state", delayedAnnualStatementReminderDto.getData().getState())
+                .data("zipCode", delayedAnnualStatementReminderDto.getData().getZipCode())
+                .data("numberOfApartments", delayedAnnualStatementReminderDto.getData().getNumberOfApartments())
                 ;
 
         String htmlTemplate = templateInstance.render();
