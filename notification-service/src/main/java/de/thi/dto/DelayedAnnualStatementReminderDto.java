@@ -1,8 +1,5 @@
 package de.thi.dto;
-/**
- * The code defines a class DelayedAnnualStatementReminderDto with several private fields representing delayed annual statement reminder details
- * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
- */
+
 public class DelayedAnnualStatementReminderDto {
     /**
      * The code defines a class DelayedAnnualStatementReminderDto with several private fields representing delayed annual statement reminder details
@@ -44,6 +41,7 @@ public class DelayedAnnualStatementReminderDto {
      */
     public static class DataDTO {
 
+        private String housingObjectId;
         private String name;
         private String street;
         private String city;
@@ -51,8 +49,6 @@ public class DelayedAnnualStatementReminderDto {
         private String zipCode;
         private int numberOfApartments;
 
-        public DataDTO() {
-        }
 
         /**
          * Defines a constructor that initializes all fields of the class
@@ -60,6 +56,21 @@ public class DelayedAnnualStatementReminderDto {
          * This constructor initializes the private fields of the class with the provided parameters.
          * Each parameter corresponds to a field in the class, and the constructor assigns the parameter values to the respective fields.
          */
+        public DataDTO() {
+        }
+
+        // Getters and Setters
+
+
+        public String getHousingObjectId() {
+            return housingObjectId;
+        }
+
+        public void setHousingObjectId(String housingObjectId) {
+            this.housingObjectId = housingObjectId;
+        }
+
+
         public String getName() {
             return name;
         }

@@ -18,6 +18,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,7 +64,7 @@ public class CreateStatementEntryServiceEndpoint {
     @POST
     @Path("/tenant-change")
     @Transactional
-    public Response createStatementEntryChange(CreateStatementEntryServiceDTO dto) {
+    public Response createStatementEntryChange(CreateStatementEntryServiceDTO dto) throws ParseException {
 
         List<RentalAgreement> rentalAgreementsWithoutChanges = dto.getRentalAgreements();
         List<RentalAgreement> rentalAgreementsWithChanges = new ArrayList<>();

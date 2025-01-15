@@ -2,17 +2,11 @@ package de.thi;
 
 import de.thi.dto.*;
 import de.thi.processor.*;
-import jakarta.activation.DataHandler;
-import jakarta.activation.DataSource;
-import jakarta.activation.FileDataSource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import java.io.File;
 
 /**
  * This class defines the routes for the notification service.
@@ -141,7 +135,6 @@ public class Route extends RouteBuilder {
                 .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(exchangeProperty("receivedBody"))
-                // Set the mail subject
                 .setHeader("Subject", simple("Verzögerung bei der Erstellung der Jahresabrechnung"))
                 .setHeader("To", simple("landlord@dpe2024.de"))
                 .unmarshal().json(JsonLibrary.Jackson, DelayedAnnualStatementReminderDto.class)
@@ -153,7 +146,6 @@ public class Route extends RouteBuilder {
                 .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(exchangeProperty("receivedBody"))
-                // Set the mail subject
                 .setHeader("Subject", simple("Erinnerung an ausstehende Zahlung"))
                 .unmarshal().json(JsonLibrary.Jackson, SendPaymentReminderDto.class)
                 .process(sendPaymentReminderProcessor)
@@ -179,7 +171,6 @@ public class Route extends RouteBuilder {
                 .process(annualStatementProcessor)
                 .to("direct:sendMail");
 
-
         from("direct:annualStatementPaymentInformation")
                 .routeId("annualStatementPaymentInformation-Route")
                 .setProperty("receivedBody", body())
@@ -198,8 +189,6 @@ public class Route extends RouteBuilder {
                 .unmarshal().json(JsonLibrary.Jackson, AnnualStatementNotificationDto.class)
                 .process(annualStatementProcessor)
                 .to("direct:sendMail");
-
-
 
         from("direct:print-raw-notification-to-xml")
                 .routeId("toxml-de.thi.Route")

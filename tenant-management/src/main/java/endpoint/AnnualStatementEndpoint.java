@@ -113,7 +113,7 @@ public class AnnualStatementEndpoint {
      * @param id the ID of the annual statement
      * @return a Response containing the Base64 string of the generated PDF
      */
-    @POST
+    @GET
     @Path("/{id}/pdf")
     @Produces(MediaType.TEXT_PLAIN)
     public Response createPDF(@PathParam("id") long id) {
