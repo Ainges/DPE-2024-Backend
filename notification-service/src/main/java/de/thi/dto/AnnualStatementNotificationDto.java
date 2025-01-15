@@ -3,12 +3,26 @@ package de.thi.dto;
 
 import java.util.List;
 
+/**
+ * The code defines a class AnnualStatementNotificationDto with several private fields representing annual statement details
+ * The class contains nested classes to represent the structure of the data in the notification
+ * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
+ */
 public class AnnualStatementNotificationDto {
 
+    /**
+     * Defines a private field mailType of type String
+     * The field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
+     */
     private String mailType;
     private AnnualStatementDTO data;
 
-    // Getters and Setters
+    /**
+     * Defines a constructor that initializes all fields of the class
+     * The constructor is called when creating a new instance of the class and sets the values of the fields based on the provided parameters.
+     * This constructor initializes the private fields of the class with the provided parameters.
+     * Each parameter corresponds to a field in the class, and the constructor assigns the parameter values to the respective fields.
+     */
     public String getMailType() {
         return mailType;
     }
@@ -25,6 +39,11 @@ public class AnnualStatementNotificationDto {
         this.data = data;
     }
 
+    /**
+     * Nested AnnualStatementDTO class
+     * The class contains private fields representing annual statement details
+     * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
+     */
     public static class AnnualStatementDTO {
 
         private long annualStatementId;
@@ -35,7 +54,12 @@ public class AnnualStatementNotificationDto {
         private double totalPrepayments;
         private double difference;
 
-        // Getters and Setters
+        /**
+         * Defines a constructor that initializes all fields of the class
+         * The constructor is called when creating a new instance of the class and sets the values of the fields based on the provided parameters.
+         * This constructor initializes the private fields of the class with the provided parameters.
+         * Each parameter corresponds to a field in the class, and the constructor assigns the parameter values to the respective fields.
+         */
         public long getAnnualStatementId() {
             return annualStatementId;
         }
@@ -92,6 +116,11 @@ public class AnnualStatementNotificationDto {
             this.difference = difference;
         }
 
+        /**
+         * Nested RentalAgreementDTO class
+         * The class contains private fields representing rental agreement details
+         * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
+         */
         public static class RentalAgreementDTO {
 
             private long rentalAgreementId;
@@ -100,7 +129,12 @@ public class AnnualStatementNotificationDto {
             private String startDate;
             private String endDate;
 
-            // Getters and Setters
+            /**
+             * Defines a constructor that initializes all fields of the class
+             * The constructor is called when creating a new instance of the class and sets the values of the fields based on the provided parameters.
+             * This constructor initializes the private fields of the class with the provided parameters.
+             * Each parameter corresponds to a field in the class, and the constructor assigns the parameter values to the respective fields.
+             */
             public long getRentalAgreementId() {
                 return rentalAgreementId;
             }
@@ -141,7 +175,11 @@ public class AnnualStatementNotificationDto {
                 this.endDate = endDate;
             }
         }
-
+        /**
+         * Nested TenantDTO class
+         * The class contains private fields representing tenant details
+         * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
+         */
         public static class TenantDTO {
 
             private long tenantId;
@@ -151,7 +189,12 @@ public class AnnualStatementNotificationDto {
             private String phoneNumber;
             private boolean active;
 
-            // Getters and Setters
+            /**
+             * Defines a constructor that initializes all fields of the class
+             * The constructor is called when creating a new instance of the class and sets the values of the fields based on the provided parameters.
+             * This constructor initializes the private fields of the class with the provided parameters.
+             * Each parameter corresponds to a field in the class, and the constructor assigns the parameter values to the respective fields.
+             */
             public long getTenantId() {
                 return tenantId;
             }
@@ -200,7 +243,11 @@ public class AnnualStatementNotificationDto {
                 this.active = active;
             }
         }
-
+        /**
+         * Nested ApartmentDTO class
+         * The class contains private fields representing apartment details
+         * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
+         */
         public static class ApartmentDTO {
 
             private long apartmentId;
@@ -211,7 +258,12 @@ public class AnnualStatementNotificationDto {
             private double heatingCostPrepayment;
             private double additionalCostPrepayment;
 
-            // Getters and Setters
+            /**
+             * Defines a constructor that initializes all fields of the class
+             * The constructor is called when creating a new instance of the class and sets the values of the fields based on the provided parameters.
+             * This constructor initializes the private fields of the class with the provided parameters.
+             * Each parameter corresponds to a field in the class, and the constructor assigns the parameter values to the respective fields.
+             */
             public long getApartmentId() {
                 return apartmentId;
             }
@@ -268,7 +320,11 @@ public class AnnualStatementNotificationDto {
                 this.additionalCostPrepayment = additionalCostPrepayment;
             }
         }
-
+        /**
+         * Nested HousingObjectDTO class
+         * The class contains private fields representing housing object details
+         * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
+         */
         public static class HousingObjectDTO {
 
             private long housingObjectId;
@@ -279,7 +335,12 @@ public class AnnualStatementNotificationDto {
             private String zipCode;
             private int numberOfApartments;
 
-            // Getters and Setters
+            /**
+             * Defines a constructor that initializes all fields of the class
+             * The constructor is called when creating a new instance of the class and sets the values of the fields based on the provided parameters.
+             * This constructor initializes the private fields of the class with the provided parameters.
+             * Each parameter corresponds to a field in the class, and the constructor assigns the parameter values to the respective fields.
+             */
             public long getHousingObjectId() {
                 return housingObjectId;
             }

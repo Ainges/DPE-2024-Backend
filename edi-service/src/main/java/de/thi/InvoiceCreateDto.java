@@ -4,9 +4,11 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import jakarta.xml.bind.annotation.XmlAttribute;
 
 import java.util.Date;
-//The code defines a class InvoiceCreateDto with several private fields representing invoice details
-//Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
 
+/**
+ * The code defines a class InvoiceCreateDto with several private fields representing invoice details
+ * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
+ */
 public class InvoiceCreateDto {
 
     @JacksonXmlProperty(localName = "InvoiceDate")
@@ -24,10 +26,12 @@ public class InvoiceCreateDto {
     @JacksonXmlProperty(localName = "ReceiverBIC")
     private String receiverBic;
 
-    //Defines a constructor that initializes all fields of the class
-    //The constructor is called when creating a new instance of the class and sets the values of the fields based on the provided parameters.
-    //This constructor initializes the private fields of the class with the provided parameters.
-    // Each parameter corresponds to a field in the class, and the constructor assigns the parameter values to the respective fields.
+    /**
+     * Defines a constructor that initializes all fields of the class
+     * The constructor is called when creating a new instance of the class and sets the values of the fields based on the provided parameters.
+     * This constructor initializes the private fields of the class with the provided parameters.
+     * Each parameter corresponds to a field in the class, and the constructor assigns the parameter values to the respective fields.
+     */
     public InvoiceCreateDto(Date invoiceDate, float invoiceAmount, String description, String status, String receiver, String receiverIban, String receiverBic) {
         this.invoiceDate = invoiceDate;
         this.invoiceAmount = invoiceAmount;

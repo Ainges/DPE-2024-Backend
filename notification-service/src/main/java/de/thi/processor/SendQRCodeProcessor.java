@@ -9,12 +9,32 @@ import jakarta.inject.Inject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
+/**
+ * Processor that sends a QR code for payment via email.
+ * <p>
+ * This processor is responsible for processing a QRCodePaymentDto object and sending the QR code for payment via email.
+ * It uses a template to generate the email content and sets the necessary headers for the email.
+ */
 @ApplicationScoped
 public class SendQRCodeProcessor implements Processor {
 
+    /**
+     * Injects the TemplateProducer to access the email template.
+     */
     @Inject
     TemplateProducer templateProducer;
 
+    /**
+     * Processes the exchange by sending the QR code for payment via email.
+     * <p>
+     * This method processes the exchange by extracting the QRCodePaymentDto object from the message body.
+     * It then generates the email content using a template and sets the necessary headers for the email.
+     * The email content includes the receiver's name, receiver, amount, IBAN, currency, description, and the QR code image.
+     * The email is sent to the landlord's email address.
+     *
+     * @param exchange the exchange containing the QRCodePaymentDto object
+     * @throws Exception if an error occurs during processing
+     */
     @Override
     public void process(Exchange exchange) throws Exception {
 

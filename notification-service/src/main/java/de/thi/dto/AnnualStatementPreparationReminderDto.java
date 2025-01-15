@@ -1,14 +1,26 @@
 package de.thi.dto;
 
+/**
+ * The code defines a class AnnualStatementPreparationReminderDto with several private fields representing annual statement preparation reminder details
+ * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
+ */
 public class AnnualStatementPreparationReminderDto {
-
+    /**
+     * The code defines a class AnnualStatementPreparationReminderDto with several private fields representing annual statement preparation reminder details
+     * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
+     */
     private String mailType;
     private DataDTO data;
 
     public AnnualStatementPreparationReminderDto() {
     }
 
-    // Getters and Setters
+    /**
+     * Defines a constructor that initializes all fields of the class
+     * The constructor is called when creating a new instance of the class and sets the values of the fields based on the provided parameters.
+     * This constructor initializes the private fields of the class with the provided parameters.
+     * Each parameter corresponds to a field in the class, and the constructor assigns the parameter values to the respective fields.
+     */
     public String getMailType() {
         return mailType;
     }
@@ -25,7 +37,12 @@ public class AnnualStatementPreparationReminderDto {
         this.data = data;
     }
 
-    // Nested DataDTO class
+    /**
+     * Defines inner static class DataDTO with different properties.
+     * Each Property is displayed in the XML file as specified in the @JacksonXmlProperty
+     * The properties include name, street, city, state, zipCode, and numberOfApartments.
+     * These annotations ensure that when an instance of DataDTO is serialized to XML, the properties will be displayed with the specified local names
+     */
     public static class DataDTO {
 
         private String name;
