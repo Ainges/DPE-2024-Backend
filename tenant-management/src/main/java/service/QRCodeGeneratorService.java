@@ -32,24 +32,24 @@ public class QRCodeGeneratorService {
      *
      * @param payableInvoiceDTO the invoice data transfer object containing the necessary information
      * @return a Base64 string of the generated EPC-QR code
+     * StringBuilder and Formatter Initialization:
+     * A StringBuilder object sb is created to build the EPC-QR code data string.
+     * A Formatter object formatter is created using the StringBuilder to format the data.
+     * EPC-QR Code Format:
+     * formatter formats and appends various pieces of information to the StringBuilder according to the EPC-QR code specification:
+     * "BCD\n": EPC-QR code identifier.
+     * "001\n": Version of the EPC-QR code.
+     * "1\n": Character set (UTF-8).
+     * "SCT\n": Service code for SEPA Credit Transfer.
+     * payableInvoiceDTO.getBic(): BIC (Bank Identifier Code) of the receiver's bank.
+     * payableInvoiceDTO.getReceiver(): Name of the receiver.
+     * payableInvoiceDTO.getReceiverIban(): IBAN (International Bank Account Number) of the receiver.
+     * payableInvoiceDTO.getCurrency() + payableInvoiceDTO.getInvoiceAmount(): Currency and amount of the invoice.
+     * payableInvoiceDTO.getDescription(): Description of the payment (optional).
+     * "Tenant-Management-System\n": Additional information (optional).
+     * EPC-QR Code Data String:
+     * The formatted data is converted to a string and stored in epcQrCodeData.
      */
-    //StringBuilder and Formatter Initialization:
-    //A StringBuilder object sb is created to build the EPC-QR code data string.
-    //A Formatter object formatter is created using the StringBuilder to format the data.
-    //EPC-QR Code Format:
-    //The formatter formats and appends various pieces of information to the StringBuilder according to the EPC-QR code specification:
-    //"BCD\n": EPC-QR code identifier.
-    //"001\n": Version of the EPC-QR code.
-    //"1\n": Character set (UTF-8).
-    //"SCT\n": Service code for SEPA Credit Transfer.
-    //payableInvoiceDTO.getBic(): BIC (Bank Identifier Code) of the receiver's bank.
-    //payableInvoiceDTO.getReceiver(): Name of the receiver.
-    //payableInvoiceDTO.getReceiverIban(): IBAN (International Bank Account Number) of the receiver.
-    //payableInvoiceDTO.getCurrency() + payableInvoiceDTO.getInvoiceAmount(): Currency and amount of the invoice.
-    //payableInvoiceDTO.getDescription(): Description of the payment (optional).
-    //"Tenant-Management-System\n": Additional information (optional).
-    //EPC-QR Code Data String:
-    //The formatted data is converted to a string and stored in epcQrCodeData.
     public String generateEpcQrCode(PayableInvoiceDTO payableInvoiceDTO) {
         StringBuilder sb = new StringBuilder();
         Formatter formatter = new Formatter(sb);
@@ -70,7 +70,9 @@ public class QRCodeGeneratorService {
 
         String epcQrCodeData = sb.toString();
 
-        // Generate QR code image
+        /**
+         * Generate QR code image
+         */
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         com.google.zxing.common.BitMatrix bitMatrix;
         try {
@@ -79,7 +81,9 @@ public class QRCodeGeneratorService {
             throw new RuntimeException("Error generating QR code: " + e.getMessage(), e);
         }
 
-        // Write the QR code to a ByteArrayOutputStream
+        /**
+         *  Write the QR code to a ByteArrayOutputStream
+         */
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
         try {
             MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
@@ -87,7 +91,9 @@ public class QRCodeGeneratorService {
             throw new RuntimeException("Error writing QR code to output stream: " + e.getMessage(), e);
         }
 
-        // Save the QR code to the file system
+        /**
+         * Save the QR code to the file system
+         */
         Path qrCodePath = Paths.get("QRCode_" + payableInvoiceDTO.getReceiverIban() +"_"+payableInvoiceDTO.getInvoiceAmount() + ".png");
         try (FileOutputStream fos = new FileOutputStream(qrCodePath.toFile())) {
             fos.write(pngOutputStream.toByteArray());
@@ -95,7 +101,9 @@ public class QRCodeGeneratorService {
             throw new RuntimeException("Error saving QR code to file system: " + e.getMessage(), e);
         }
 
-        // Convert the ByteArrayOutputStream to a Base64 string
+        /**
+         * Convert the ByteArrayOutputStream to a Base64 string
+         */
         byte[] pngData = pngOutputStream.toByteArray();
         return "data:image/png;base64," + Base64.getEncoder().encodeToString(pngData);
     }

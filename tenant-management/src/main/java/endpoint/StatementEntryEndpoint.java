@@ -17,21 +17,27 @@ import jakarta.ws.rs.core.Response;
 import repository.StatementEntryRepository;
 
 import java.util.List;
-//defines a JAX-RS REST endpoint in a Spring Boot application.
 
-//@ApplicationScoped: Indicates that the class is a CDI (Contexts and Dependency Injection) bean with application scope, meaning it will be instantiated once and shared across the application.
-//@Path("/statement-entries"): Specifies the base URI path for the REST endpoint.
-//@Produces(MediaType.APPLICATION_JSON): Indicates that the endpoint will produce responses in JSON format.
-//@Consumes(MediaType.APPLICATION_JSON): Indicates that the endpoint will consume requests in JSON format.
-
-
+/**
+ * defines a JAX-RS REST endpoint
+ * @ApplicationScoped: Indicates that the class is a CDI (Contexts and Dependency Injection) bean with application scope, meaning it will be instantiated once and shared across the application.
+ * @Path("/statement-entries"): Specifies the base URI path for the REST endpoint.
+ * @Produces(MediaType.APPLICATION_JSON): Indicates that the endpoint will produce responses in JSON format.
+ * @Consumes(MediaType.APPLICATION_JSON): Indicates that the endpoint will consume requests in JSON format.
+ */
 @ApplicationScoped
 @Path("/statement-entries")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-//public class StatementEntryEndpoint: Declares the class as a public class named StatementEntryEndpoint.
+
+/**
+ * public class StatementEntryEndpoint: Declares the class as a public class named StatementEntryEndpoint.
+ */
 public class StatementEntryEndpoint {
-    //@Inject StatementEntryRepository statementEntryRepository: Injects an instance of StatementEntryRepository into the endpoint, allowing it to interact with the data repository for StatementEntry entities.
+
+    /**
+     * @Inject StatementEntryRepository statementEntryRepository: Injects an instance of StatementEntryRepository into the endpoint, allowing it to interact with the data repository for StatementEntry entities.
+     */
     @Inject
     StatementEntryRepository statementEntryRepository;
 

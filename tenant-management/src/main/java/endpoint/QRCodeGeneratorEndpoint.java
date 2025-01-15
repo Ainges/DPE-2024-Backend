@@ -24,13 +24,18 @@ import service.QRCodeGeneratorService;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 
-//This declares the QRCodeGeneratorEndpoint class, which is a REST endpoint.
-
+/**
+ * This declares the QRCodeGeneratorEndpoint class, which is a REST endpoint.
+ */
 public class QRCodeGeneratorEndpoint {
 
-    //This initializes a logger for the class using SLF4J, which will be used to log messages
+    /**
+     * This initializes a logger for the class using SLF4J, which will be used to log messages
+     */
     private static final Logger logger = LoggerFactory.getLogger(QRCodeGeneratorEndpoint.class);
-    //This uses dependency injection to inject an instance of QRCodeGeneratorService into the endpoint. The QRCodeGeneratorService is likely responsible for generating QR codes.
+    /**
+     * This uses dependency injection to inject an instance of QRCodeGeneratorService into the endpoint. The QRCodeGeneratorService is likely responsible for generating QR codes.
+     */
     @Inject
     QRCodeGeneratorService qrCodeGeneratorService;
 

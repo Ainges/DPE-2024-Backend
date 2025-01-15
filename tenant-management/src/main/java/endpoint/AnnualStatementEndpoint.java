@@ -20,16 +20,22 @@ import service.AnnualStatementService;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-//defines a JAX-RS REST endpoint class AnnualStatementEndpoint in a Spring Boot application.
-// The class is annotated with @ApplicationScoped, @Path, @Produces, and @Consumes to specify its scope, base path, and media types for request and response bodies
+
+/**
+ * defines a JAX-RS REST endpoint class AnnualStatementEndpoint
+ * The class is annotated with @ApplicationScoped, @Path, @Produces, and @Consumes to specify its scope, base path, and media types for request and response bodies
+ */
 @ApplicationScoped
 @Path("/annual-statements")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AnnualStatementEndpoint {
-//the AnnualStatementRepository and AnnualStatementService are being injected into the AnnualStatementEndpoint class.
-// This means that instances of these classes will be provided by the dependency injection framework (in this case, Jakarta EE) when an instance of AnnualStatementEndpoint is created. T
-// his allows the AnnualStatementEndpoint to use these services without having to instantiate them directly, promoting loose coupling and easier testing
+
+    /**
+     * the AnnualStatementRepository and AnnualStatementService are being injected into the AnnualStatementEndpoint class.
+     * This means that instances of these classes will be provided by the dependency injection framework (in this case, Jakarta EE) when an instance of AnnualStatementEndpoint is created. T
+     * this allows the AnnualStatementEndpoint to use these services without having to instantiate them directly, promoting loose coupling and easier testing
+     */
     @Inject
     AnnualStatementRepository annualStatementRepository;
     @Inject

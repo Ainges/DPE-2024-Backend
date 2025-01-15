@@ -5,21 +5,14 @@
  */
 
 package endpoint;
-//Imports:
-    // entity.Apartment: Represents the Apartment entity.
-    //jakarta.enterprise.context.ApplicationScoped: Specifies that the bean is application-scoped.
-    //jakarta.inject.Inject: Used for dependency injection.
-    //jakarta.transaction.Transactional: Marks methods as transactional.
-    //jakarta.ws.rs.*: Provides JAX-RS annotations for RESTful web services.
-    //jakarta.ws.rs.core.MediaType and jakarta.ws.rs.core.Response: Used for specifying media types and creating HTTP responses.
-    //repository.ApartmentRepository: Represents the repository for Apartment entities.
-    //java.util.List: Used for handling lists of apartments.
-//Class Definition:
-    //@ApplicationScoped: Indicates that the ApartmentEndpoint bean is application-scoped.
-    //@Path("/apartments"): Specifies the base URI path for the endpoint.
-    //@Produces(MediaType.APPLICATION_JSON) and @Consumes(MediaType.APPLICATION_JSON): Specifies that the endpoint produces and consumes JSON.
-//Dependency Injection:
-    //@Inject ApartmentReposit
+/**
+ * @ApplicationScoped: Defines the scope of the bean.
+ * @Path("/apartments"): Sets the base URI path for the endpoint.
+ * @Produces(MediaType.APPLICATION_JSON): Specifies that the endpoint produces JSON responses.
+ * @Consumes(MediaType.APPLICATION_JSON): Specifies that the endpoint consumes JSON requests.
+ * Class Definition:
+ * ApartmentEndpoint: The class that defines the REST endpoint.
+ */
 import entity.Apartment;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -37,6 +30,10 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ApartmentEndpoint {
 
+    /**
+     * Dependency Injection:
+     * @Inject ApartmentRepository apartmentRepository;: Injects the ApartmentRepository to interact with the database.
+     */
     @Inject
     ApartmentRepository apartmentRepository;
 

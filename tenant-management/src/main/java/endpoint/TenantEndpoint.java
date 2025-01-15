@@ -20,14 +20,15 @@ import repository.RentalAgreementRepository;
 
 import java.util.List;
 import java.util.Set;
-//defines a JAX-RS REST endpoint in a Spring Boot application.
-//@ApplicationScoped: Indicates that the bean is application-scoped, meaning it will be created once and shared across the entire application.
-//@Path("/tenants"): Specifies the base URI path for the REST endpoint. In this case, it maps to /tenants.
-//@Produces(MediaType.APPLICATION_JSON): Specifies that the endpoint will produce responses in JSON format.
-//@Consumes(MediaType.APPLICATION_JSON): Specifies that the endpoint will consume requests in JSON format.
-//public class TenantEndpoint: Declares the class as a public class named TenantEndpoint, which contains the RESTful methods for handling tenant-related operations.
 
-
+/**
+ * defines a JAX-RS REST endpoint
+ * @ApplicationScoped: Indicates that the bean is application-scoped, meaning it will be created once and shared across the entire application.
+ * @Path("/tenants"): Specifies the base URI path for the REST endpoint. In this case, it maps to /tenants.
+ * @Produces(MediaType.APPLICATION_JSON): Specifies that the endpoint will produce responses in JSON format.
+ * @Consumes(MediaType.APPLICATION_JSON): Specifies that the endpoint will consume requests in JSON format.
+ * /public class TenantEndpoint: Declares the class as a public class named TenantEndpoint, which contains the RESTful methods for handling tenant-related operations.
+ */
 @ApplicationScoped
 @Path("/tenants")
 @Produces(MediaType.APPLICATION_JSON)
