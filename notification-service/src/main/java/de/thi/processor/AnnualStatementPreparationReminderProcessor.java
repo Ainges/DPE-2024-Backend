@@ -37,6 +37,9 @@ public class AnnualStatementPreparationReminderProcessor implements Processor {
         // create mail
         exchange.getIn().setBody(htmlTemplate);
 
+        exchange.getIn().setHeader("Subject", "Erinnerung: Vorbereitung Jahresabrechnung");
+        exchange.getIn().setHeader("To", "landlord@dpe-2024.de");
+
 
     }
 

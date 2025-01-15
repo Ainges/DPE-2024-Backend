@@ -19,25 +19,3 @@ Authorization: Basic YWRtaW46YWRtaW4=
   }
 }
 ###
-
-POST http://localhost:8161/api/message/notification?type=queue
-Content-Type: application/json
-Authorization: Basic YWRtaW46YWRtaW4=
-
-{
-"mailType": "anhangTest",
-"data": {
-"objPaymentDetails": {
-"receiver": "John Doe",
-"receiverIban": "DE89370400440532013000",
-"invoiceAmount": 1234.56,
-"description": "Payment for services rendered",
-"country": "DE",
-"currency": "EUR",
-"bic": "COBADEFFXXX"
-},
-"base64QR": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIAQAAAACFI5MzAAACCklEQVR4Xu2WW2rsMBAFBdqWQFsXaFsNvlXt8SQ3kL8WJBDNhNiqAfXjnLbb9d1qXzfe64/8eLJa63uv0WOufm0u2ThANt8YgL7ahOTGCbK6h46+5o42Y7pxiox5xSRp0t0HifmZ7Rpt/B9BIfG7o19GMv2+K1pKboV8Wl+0U0XutQngMoDR34qvJeiPgnLszNLSxKeiteRGq40xWpYVOb5iKyVrBq5Ch2KViMXmAYLwound6NYTtQjqyep8KCPm4joUYry0U0r4F/jJ1tk/roQnCKUkirBxXuLlJ4JKwp1/Ct66UtBmCOUkDcv+ZvaFg9bSHiCX41u176CYJh6Ps0pJ+hYd5qZS/PBCKSFDj88nhu1TIXcEtUSNkOlL8g2bmWg9sYQjNYja1UdzbNQTBgOHa1rPJsmcG/XENqV9qa3X6asTpGFfsrSQOfTs3gGSXaN301oiSK6ezpUSJLg83NPVfErxACFTMeoIteEot431hCHUcig5/HgA+tZ1gESmaR1T8wyLobXKiUf2/MFy24Tn3blakvVbKYxwjFvQO4JaEqbovYFsTfY4uJa48s0kfCoJ/dQT5cHm5j4s7XYqHSDb5jkocBYZs20cB8hyPmx1wY8cTsZxhuBi53fkJiPqI4Ja4jTyUavF7OERIuTRNPM1SHM9k6KWWEHriExmDltcdoJ8s/7IbyX/AEcOdlDlxxXhAAAAAElFTkSuQmCC"
-}
-}
-
-###

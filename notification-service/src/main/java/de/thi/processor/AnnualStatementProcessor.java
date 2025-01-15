@@ -2,6 +2,7 @@ package de.thi.processor;
 
 import de.thi.NotificationRouteException;
 import de.thi.dto.AnnualStatementNotificationDto;
+import de.thi.service.AnnualStatementService;
 import de.thi.service.Base64Service;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.runtime.TemplateProducer;
@@ -13,6 +14,7 @@ import jakarta.inject.Inject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.attachment.AttachmentMessage;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.io.File;
 
@@ -26,6 +28,9 @@ public class AnnualStatementProcessor implements Processor {
     @Inject
     Base64Service base64Service;
 
+    @RestClient
+    AnnualStatementService annualStatementService;
+
     @Override
     public void process(Exchange exchange) throws Exception {
 
@@ -37,6 +42,18 @@ public class AnnualStatementProcessor implements Processor {
         //TODO: get real base64 encoded annual statement with http client from annual statement service
         String base64EncodedAnnualStatementWithPrefix = "data:application/pdf;base64,JVBERi0xLjQKJfbk/N8KMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovVmVyc2lvbiAvMS40Ci9QYWdlcyAyIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovVHlwZSAvUGFnZXMKL0tpZHMgWzMgMCBSXQovQ291bnQgMQo+PgplbmRvYmoKMyAwIG9iago8PAovVHlwZSAvUGFnZQovTWVkaWFCb3ggWzAuMCAwLjAgNjEyLjAgNzkyLjBdCi9QYXJlbnQgMiAwIFIKL0NvbnRlbnRzIDQgMCBSCi9SZXNvdXJjZXMgNSAwIFIKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0xlbmd0aCAxNTcKL0ZpbHRlciAvRmxhdGVEZWNvZGUKPj4Kc3RyZWFtDQp4nHMK4dJ3M1QwNFMISeMyNVAwB+KQFC4Nx7y80sQcheCSxJLU3NS8Ek2FkCwuAwVdI7C0vpuRgqERSIuGS2ZxSVFmUmlJZn6egndqpZUCiJ+XDtNgaAo2LyC1KDM/BWReUQl+Ja55KTgUhOSXAJ3knF8MNMFAzwCrbEBRakFiJcjFxdgUuWSmpaUWpeYlp6LIGoN95RrCBQAywkroDQplbmRzdHJlYW0KZW5kb2JqCjUgMCBvYmoKPDwKL0ZvbnQgNiAwIFIKPj4KZW5kb2JqCjYgMCBvYmoKPDwKL0YxIDcgMCBSCi9GMiA4IDAgUgo+PgplbmRvYmoKNyAwIG9iago8PAovVHlwZSAvRm9udAovU3VidHlwZSAvVHlwZTEKL0Jhc2VGb250IC9IZWx2ZXRpY2EtQm9sZAovRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZwo+PgplbmRvYmoKOCAwIG9iago8PAovVHlwZSAvRm9udAovU3VidHlwZSAvVHlwZTEKL0Jhc2VGb250IC9IZWx2ZXRpY2EKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKPj4KZW5kb2JqCnhyZWYKMCA5CjAwMDAwMDAwMDAgNjU1MzUgZg0KMDAwMDAwMDAxNSAwMDAwMCBuDQowMDAwMDAwMDc4IDAwMDAwIG4NCjAwMDAwMDAxMzUgMDAwMDAgbg0KMDAwMDAwMDI0NyAwMDAwMCBuDQowMDAwMDAwNDc4IDAwMDAwIG4NCjAwMDAwMDA1MTEgMDAwMDAgbg0KMDAwMDAwMDU1MiAwMDAwMCBuDQowMDAwMDAwNjU0IDAwMDAwIG4NCnRyYWlsZXIKPDwKL1Jvb3QgMSAwIFIKL0lEIFs8NTUwMTFEREFENTE5QkFDNTUzOTU2MjkxOTgzNkZGOUY+IDw1NTAxMUREQUQ1MTlCQUM1NTM5NTYyOTE5ODM2RkY5Rj5dCi9TaXplIDkKPj4Kc3RhcnR4cmVmCjc1MQolJUVPRgo=";
 
+        try {
+
+            base64EncodedAnnualStatementWithPrefix = annualStatementService.getBase64String(annualStatementNotificationDto.getData().getAnnualStatementId());
+
+            if (base64EncodedAnnualStatementWithPrefix.startsWith("AnnualStatement with ID 1 not found.")) {
+                throw new NotificationRouteException("Could not get Annual Statement with ID: " + annualStatementNotificationDto.getData().getAnnualStatementId());
+            }
+
+        } catch (Exception e) {
+            throw new NotificationRouteException("Could not get Annual Statement with ID: " + annualStatementNotificationDto.getData().getAnnualStatementId());
+        }
+
         // convert base64 to file
         String filePath = base64Service.convertBase64ToAnnualStatement(base64EncodedAnnualStatementWithPrefix, annualStatementNotificationDto);
         // reconstruct filename
@@ -47,7 +64,6 @@ public class AnnualStatementProcessor implements Processor {
         DataSource dataSource = new FileDataSource(file);
         AttachmentMessage attMsg = exchange.getIn(AttachmentMessage.class);
         attMsg.addAttachment(filename, new DataHandler(dataSource));
-
 
 
         // tenant paid exactly

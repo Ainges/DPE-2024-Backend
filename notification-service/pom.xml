@@ -120,6 +120,14 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-attachments</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client-jackson</artifactId>
+        </dependency>
 
     </dependencies>
 

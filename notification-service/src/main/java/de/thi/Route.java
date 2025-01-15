@@ -170,7 +170,6 @@ public class Route extends RouteBuilder {
                 .to("direct:sendMail");
 
 
-        //TODO: Implement the annualStatementPaymentInformationRequest route
         from("direct:annualStatementPaymentInformationRequest")
                 .routeId("annualStatementPaymentInformationRequest-Route")
                 .setProperty("receivedBody", body())
@@ -181,7 +180,6 @@ public class Route extends RouteBuilder {
                 .to("direct:sendMail");
 
 
-        //TODO: implement the annualStatementPaymentInformation route
         from("direct:annualStatementPaymentInformation")
                 .routeId("annualStatementPaymentInformation-Route")
                 .setProperty("receivedBody", body())
@@ -191,7 +189,6 @@ public class Route extends RouteBuilder {
                 .process(annualStatementProcessor)
                 .to("direct:sendMail");
 
-        //TODO: Implement the annualStatement route
         from("direct:annualStatement")
                 .routeId("annualStatement-Route")
                 .log("sendQRCode")
@@ -202,26 +199,6 @@ public class Route extends RouteBuilder {
                 .process(annualStatementProcessor)
                 .to("direct:sendMail");
 
-
-
-        from("direct:anhangTest")
-                .routeId("route5-de.thi.Route")
-                .setBody(simple("route5 received"))
-                .process(exchange -> {
-                    // Datei als Anhang hinzufügen
-                    String filePath = "/Users/hubertus/Developer/DPE-2024/DPE-2024-Backend/tenant-management/AnnualStatement_1.pdf"; // Der Pfad zur Datei
-                    File file = new File(filePath);
-                    DataSource dataSource = new FileDataSource(file);
-
-                    AttachmentMessage attMsg = exchange.getIn(AttachmentMessage.class);
-                    attMsg.addAttachment("AnnualStatement.pdf", new DataHandler(dataSource));
-
-                    exchange.getIn().setHeader("Subject", "Anhang Test");
-                    exchange.getIn().setHeader("To", "example@example.org");
-
-                })
-                .log("route5")
-                .to("direct:sendMail");
 
 
         from("direct:print-raw-notification-to-xml")
@@ -250,8 +227,10 @@ public class Route extends RouteBuilder {
                     }
 
                     // Set the remaining mail headers to static values for this demo
-                    exchange.getIn().setHeader("To", "info@test.de");
-                    exchange.getIn().setHeader("From", "info.dpe2024@gmail.com");
+                    if(exchange.getIn().getHeader("From") == null) {
+                        exchange.getIn().setHeader("From", "info.dpe2024@gmail.com");
+
+                    }
                     exchange.getIn().setHeader("Content-Type", "text/html");
                 })
                 .choice()
