@@ -90,15 +90,23 @@ public class CreateStatementEntryService {
 
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
+        float amountPayable = 0.0f;
         List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
         List<StatementEntry> statementEntries = new ArrayList<>();
+        Apartment apartmentWithTenantChange = rentalAgreements.get(0).getApartment();
+
 
         switch (distributionKey) {
             case "Area":
                 for (Apartment apartment : apartments) {
                     divisor += apartment.getAreaInM2();
                 }
+
+                //Amount per m²
                 amountPerUnit = invoiceCategorySum / divisor;
+
+                //Amount for apartment with tenant change per day, round for two decimal places
+                amountPayable = Math.round((amountPerUnit * apartmentWithTenantChange.getAreaInM2()) / 365 * 100.0) / 100.0f;
 
                 for (RentalAgreement ra : rentalAgreements) {
 
@@ -110,8 +118,7 @@ public class CreateStatementEntryService {
                             (ra.getEndDate() != null && ra.getEndDate().getYear() == Integer.parseInt(annualStatementPeriod) ? ra.getEndDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 12, 31).atStartOfDay(ZoneId.systemDefault()).toInstant())
                     ).toDays();
 
-                    //Round for two decimal places
-                    float amountPayable = Math.round((amountPerUnit * ra.getApartment().getAreaInM2()) / 365 * 100.0) / 100.0f;
+                    // amountPayable = amount per day * area * number of days
                     statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 }
                 break;
@@ -119,7 +126,12 @@ public class CreateStatementEntryService {
                 for (RentalAgreement ra : rentalAgreements) {
                     divisor += ra.getTenants().size();
                 }
+
+                //Amount per tenant
                 amountPerUnit = invoiceCategorySum / divisor;
+
+                //Amount for apartment with tenant change per day, round for two decimal places
+                amountPayable = Math.round(amountPerUnit / 365 * 100.0) / 100.0f;
 
                 for (RentalAgreement ra : rentalAgreements) {
 
@@ -131,15 +143,19 @@ public class CreateStatementEntryService {
                             (ra.getEndDate() != null && ra.getEndDate().getYear() == Integer.parseInt(annualStatementPeriod) ? ra.getEndDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 12, 31).atStartOfDay(ZoneId.systemDefault()).toInstant())
                     ).toDays();
 
-                    //Round for two decimal places
-                    float amountPayable = Math.round((amountPerUnit * ra.getTenants().size()) / 365 * 100.0) / 100.0f;
-                    statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
+                    // amountPayable = amount per day * number of tenants * number of days
+                    statementEntries.add(createStatementEntry(amountPayable * ra.getTenants().size() * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 }
 
                 break;
             case "Apartments":
                 divisor = apartments.size();
+
+                //Amount per apartment
                 amountPerUnit = invoiceCategorySum / divisor;
+
+                //Amount for apartment with tenant change per day, round for two decimal places
+                amountPayable = Math.round(amountPerUnit / 365 * 100.0) / 100.0f;
 
                 for (RentalAgreement ra : rentalAgreements) {
 
@@ -151,8 +167,7 @@ public class CreateStatementEntryService {
                             (ra.getEndDate() != null && ra.getEndDate().getYear() == Integer.parseInt(annualStatementPeriod) ? ra.getEndDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 12, 31).atStartOfDay(ZoneId.systemDefault()).toInstant())
                     ).toDays();
 
-                    //Round for two decimal places
-                    float amountPayable = Math.round(amountPerUnit / 365 * 100.0) / 100.0f;
+                    // amountPayable = amount per day * number of days
                     statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 }
 
