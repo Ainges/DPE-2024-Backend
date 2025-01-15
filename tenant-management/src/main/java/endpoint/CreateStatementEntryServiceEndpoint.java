@@ -92,7 +92,9 @@ public class CreateStatementEntryServiceEndpoint {
         for (StatementEntry statementEntry : createdStatementEntries) {
             statementEntries.add(statementEntry);
         }
-
+//Response.status(Response.Status.CREATED): Sets the HTTP status code to 201 Created.
+//.entity(statementEntries): Sets the response body to the statementEntries list, which will be serialized to JSON.
+//.build(): Builds the Response object with the specified status and entity.
         return Response.status(Response.Status.CREATED).entity(statementEntries).build();
     }
 }

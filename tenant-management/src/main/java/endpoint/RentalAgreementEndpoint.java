@@ -7,6 +7,9 @@
 
 package endpoint;
 
+//imports necessary classes and defines the RentalAgreementEndpoint class, which is a RESTful endpoint for managing rental agreements
+//Imports: Imports various classes and packages required for the functionality.
+
 import entity.RentalAgreement;
 import entity.Tenant;
 import io.quarkus.panache.common.Parameters;
@@ -24,12 +27,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+
+//Annotations:
+//@ApplicationScoped: Defines the scope of the bean.
+//@Path("/rental-agreements"): Sets the base path for the endpoint.
+//@Produces(MediaType.APPLICATION_JSON): Specifies that the endpoint produces JSON responses.
+//@Consumes(MediaType.APPLICATION_JSON): Specifies that the endpoint consumes JSON requests.
+
 @ApplicationScoped
 @Path("/rental-agreements")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+//Class Definition: Defines the RentalAgreementEndpoint class.
 public class RentalAgreementEndpoint {
 
+    //Dependency Injection: Injects RentalAgreementRepository and TenantRepository to manage rental agreements and tenants, respectively.
     @Inject
     RentalAgreementRepository rentalAgreementRepository;
 

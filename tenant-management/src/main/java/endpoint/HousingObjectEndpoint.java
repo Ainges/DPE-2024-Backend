@@ -16,11 +16,23 @@ import jakarta.ws.rs.core.Response;
 import service.HousingObjectService;
 
 import java.util.List;
-
+//define a JAX-RS RESTful web service endpoint class in a Spring Boot application
+//@ApplicationScoped: Indicates that the class is a CDI (Contexts and Dependency Injection) bean with application scope.
+//@Path("/housing-objects"): Specifies the base URI path for the RESTful web service.
+//@Produces(MediaType.APPLICATION_JSON): Specifies that the methods in this class produce JSON responses.
+//@Consumes(MediaType.APPLICATION_JSON): Specifies that the methods in this class consume JSON requests
 @ApplicationScoped
 @Path("/housing-objects")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+
+//The HousingObjectEndpoint class defines a JAX-RS RESTful web service endpoint in a Spring Boot application.
+// It provides CRUD operations for HousingObject entities.
+//getAllHousingObjects(): Handles HTTP GET requests to retrieve all HousingObject entities.
+//getHousingObject(long id): Handles HTTP GET requests to retrieve a specific HousingObject by its ID.
+//createHousingObject(HousingObject housingObject): Handles HTTP POST requests to create a new HousingObject.
+//updateHousingObject(long id, HousingObject housingObject): Handles HTTP PUT requests to update an existing HousingObject by its ID.
+//deleteHousingObject(long id): Handles HTTP DELETE requests to delete a specific HousingObject by its ID.
 public class HousingObjectEndpoint {
 
     @Inject

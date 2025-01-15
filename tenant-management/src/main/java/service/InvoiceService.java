@@ -25,6 +25,18 @@ public class InvoiceService {
     @Inject
     InvoiceCategoryRepository invoiceCategoryRepository;
 
+    //Check for Existing Invoice:
+    //It queries the InvoiceRepository to check if an invoice with the same externalInvoiceNumber and receiver already exists.
+    //If such an invoice exists, it throws an InvoiceServiceException.
+    //Retrieve Related Entities:
+    //It retrieves the InvoiceCategory and HousingObject entities using their respective repositories and IDs from the InvoiceDTO.
+    //If either entity is not found, it throws an InvoiceServiceException.
+    //Create and Persist Invoice:
+    //It creates a new Invoice object using the data from the InvoiceDTO and the retrieved entities.
+    //It persists the new Invoice object using the InvoiceRepository.
+    //Return the Created Invoice:
+    //It returns the newly created Invoice object.
+
     public Invoice createInvoice(InvoiceDTO invoiceDTO) {
 
         // Check if an invoice with the same externalInvoiceNumber and receiver already exists

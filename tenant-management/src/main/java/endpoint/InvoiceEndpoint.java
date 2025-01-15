@@ -24,12 +24,22 @@ import service.InvoiceService;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
+//defines a JAX-RS REST endpoint for managing invoices in a Spring Boot application
+//The @ApplicationScoped annotation indicates that the InvoiceEndpoint class is a CDI (Contexts and Dependency Injection) bean with application scope.
+//The @Path("/invoices") annotation specifies the base URI path for all the endpoints in this class.
+//The @Produces(MediaType.APPLICATION_JSON) and @Consumes(MediaType.APPLICATION_JSON) annotations indicate that the endpoint produces and consumes JSON media type.
+//The InvoiceEndpoint class is defined as a public class.
 @ApplicationScoped
 @Path("/invoices")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class InvoiceEndpoint {
+
+//The @Inject annotations are used to inject dependencies into the InvoiceEndpoint class. These dependencies include:
+    //InvoiceRepository: Repository for managing Invoice entities.
+    //InvoiceCategoryRepository: Repository for managing InvoiceCategory entities.
+    //HousingObjectRepository: Repository for managing HousingObject entities.
+    //InvoiceService: Service for handling business logic related to invoices.
 
     @Inject
     InvoiceRepository invoiceRepository;
