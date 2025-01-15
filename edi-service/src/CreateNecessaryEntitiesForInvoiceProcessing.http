@@ -1,3 +1,4 @@
+# Author: Hubertus Seitz
 ### Create Invoice Category
 POST http://localhost:8080/invoice-categories
 Accept: */*

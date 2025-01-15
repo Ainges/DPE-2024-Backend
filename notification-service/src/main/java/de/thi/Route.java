@@ -8,6 +8,8 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+// Author: Hubertus Seitz & ChatGPT
+
 /**
  * This class defines the routes for the notification service.
  * It extends the RouteBuilder class to configure the routes.

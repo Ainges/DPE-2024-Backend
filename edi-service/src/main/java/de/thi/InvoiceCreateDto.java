@@ -9,6 +9,7 @@ import java.util.Date;
  * The code defines a class InvoiceCreateDto with several private fields representing invoice details
  * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
  */
+// Author: Hubertus Seitz & ChatGPT
 public class InvoiceCreateDto {
 
     @JacksonXmlProperty(localName = "InvoiceDate")

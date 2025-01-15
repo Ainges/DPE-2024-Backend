@@ -1,5 +1,7 @@
 package de.thi.dto;
 
+// Author: Hubertus Seitz & ChatGPT
+
 /**
  * The code defines a class QRCodePaymentDto with several private fields representing QR code payment details
  * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.

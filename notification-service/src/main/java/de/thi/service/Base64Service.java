@@ -9,6 +9,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+// Author: Hubertus Seitz & ChatGPT
+
+
 /**
  * Service class for converting Base64 encoded data to an annual statement PDF file.
  */

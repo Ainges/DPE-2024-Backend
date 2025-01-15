@@ -1,4 +1,4 @@
-
+# Author: Hubertus Seitz
 ### Inform ProcessEngine about new Invoice | manual
 POST http://localhost:8161/api/message/external-invoice-received?type=queue
 Content-Type: application/xml

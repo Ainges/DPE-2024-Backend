@@ -1,5 +1,7 @@
 package de.thi;
 
+// Author: Hubertus Seitz & ChatGPT
+
 /**
  * The class NotificationRouteException extends the RuntimeException class.
  * It defines a constructor that takes a string (String) as a message and passes this message to the constructor of the superclass (RuntimeException).

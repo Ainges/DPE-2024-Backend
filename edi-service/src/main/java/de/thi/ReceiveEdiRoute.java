@@ -1,9 +1,11 @@
 package de.thi;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
  * defines a REST endpoint using Apache Camel.
@@ -15,9 +17,13 @@ import org.apache.camel.model.dataformat.JsonLibrary;
  * It consumes and produces text/plain content type.
  * The request is routed to the direct:payment-received endpoint for further processing
  */
+
+
 @ApplicationScoped
 public class ReceiveEdiRoute extends RouteBuilder {
 
+    @ConfigProperty(name = "spiffworkflow.api.key")
+    private String spiffworkflowApiKey;
 
     @Override
     public void configure() throws Exception {
@@ -32,7 +38,7 @@ public class ReceiveEdiRoute extends RouteBuilder {
             .to("direct:payment-received");
 
 
-        // Currently not used, but could be used to used to convert EDI messages to JSON and XML
+//        Currently not used, but could be used to used to convert EDI messages to JSON and XML
 //        from("activemq:queue:ediJsonToXML")
 //            .log("Received EDI message from ActiveMQ: ${body}")
 //            .unmarshal().json()
@@ -74,7 +80,7 @@ public class ReceiveEdiRoute extends RouteBuilder {
                 .removeHeaders("*")
             .setHeader(Exchange.HTTP_METHOD, constant("POST"))
             .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
-            .setHeader("Spiffworkflow-Api-Key", simple("ee48a2bd-6825-4baf-ac70-536a11ba0022"))
+            .setHeader("Spiffworkflow-Api-Key", simple(spiffworkflowApiKey))
             //TODO: Change back to external-invoice-received | only done to not have to deal with the absurdly long delay of the ProcessEngine
             .to("http://localhost:8000/v1.0/messages/external-monthly-rent-received")
             .log("Successfully informed ProcessEngine!");
@@ -112,7 +118,7 @@ public class ReceiveEdiRoute extends RouteBuilder {
                 .marshal().json(JsonLibrary.Jackson)
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))
                 .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
-                .setHeader("Spiffworkflow-Api-Key", simple("ee48a2bd-6825-4baf-ac70-536a11ba0022"))
+                .setHeader("Spiffworkflow-Api-Key", simple(spiffworkflowApiKey))
                 //TODO: Change back to external-invoice-received | only done to not have to deal with the absurdly long delay of the ProcessEngine
                 .to("http://localhost:8000/v1.0/messages/invoice-received")
                 .log("Sent invoice to ProcessEngine!");

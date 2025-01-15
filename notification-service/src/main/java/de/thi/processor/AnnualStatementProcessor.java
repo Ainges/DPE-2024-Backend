@@ -18,6 +18,8 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.io.File;
 
+// Author: Hubertus Seitz & ChatGPT
+
 /**
  * Processor for sending annual statements to tenants.
  * <p>

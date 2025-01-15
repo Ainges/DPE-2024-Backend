@@ -1,3 +1,4 @@
+# Author: Hubertus Seitz & ChatGPT
 ### Send Example QR Code Notification
 POST http://localhost:8161/api/message/notification?type=queue
 Content-Type: application/json

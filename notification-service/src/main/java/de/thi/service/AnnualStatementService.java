@@ -7,6 +7,9 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
+// Author: Hubertus Seitz & ChatGPT
+
+
 @RegisterRestClient(baseUri="http://localhost:8080")
 public interface AnnualStatementService {
 

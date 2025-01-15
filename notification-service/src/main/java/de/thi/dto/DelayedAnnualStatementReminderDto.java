@@ -1,5 +1,8 @@
 package de.thi.dto;
 
+
+// Author: Hubertus Seitz & ChatGPT
+
 public class DelayedAnnualStatementReminderDto {
     /**
      * The code defines a class DelayedAnnualStatementReminderDto with several private fields representing delayed annual statement reminder details

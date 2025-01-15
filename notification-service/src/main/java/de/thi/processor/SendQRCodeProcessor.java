@@ -9,6 +9,8 @@ import jakarta.inject.Inject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
+// Author: Hubertus Seitz & ChatGPT
+
 /**
  * Processor that sends a QR code for payment via email.
  * <p>

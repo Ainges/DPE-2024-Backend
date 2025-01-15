@@ -1,6 +1,5 @@
 package de.thi.processor;
 
-import de.thi.dto.AnnualStatementPreparationReminderDto;
 import de.thi.dto.DelayedAnnualStatementReminderDto;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.runtime.TemplateProducer;
@@ -8,6 +7,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+
+// Author: Hubertus Seitz & ChatGPT
 
 /**
  * Processor for sending a delayed annual statement reminder to the landlord.

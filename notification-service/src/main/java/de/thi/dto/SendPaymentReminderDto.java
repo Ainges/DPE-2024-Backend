@@ -1,4 +1,7 @@
 package de.thi.dto;
+
+// Author: Hubertus Seitz & ChatGPT
+
 /**
  * The code defines a class SendPaymentReminderDto with several private fields representing payment reminder details
  * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.

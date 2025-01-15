@@ -1,8 +1,7 @@
 package de.thi.dto;
-
-
 import java.util.List;
 
+// Author: Hubertus Seitz & ChatGPT
 /**
  * The code defines a class AnnualStatementNotificationDto with several private fields representing annual statement details
  * The class contains nested classes to represent the structure of the data in the notification

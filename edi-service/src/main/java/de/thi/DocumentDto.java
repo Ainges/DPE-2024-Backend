@@ -2,9 +2,8 @@ package de.thi;
 
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-/**
-* Defines the Java class DocumentDto
- */
+
+// Author: Hubertus Seitz & ChatGPT
 public class DocumentDto {
 
     /**
