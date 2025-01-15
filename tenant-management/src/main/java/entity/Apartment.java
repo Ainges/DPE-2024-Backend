@@ -10,6 +10,14 @@ import jakarta.persistence.*;
 
 /**
  * Represents an apartment entity.
+ * Represents an annual statement for a rental agreement.
+ *  * @Entity: Marks the class as a JPA entity.
+ *  * @Id: Specifies the primary key of the entity.
+ *  * @GeneratedValue(strategy = GenerationType.IDENTITY): Indicates that the primary key value is automatically generated.
+ *  * private long apartmentId: The primary key field.
+ *  * @ManyToOne: Specifies a many-to-one relationship with another entity.
+ *  * @JoinColumn(name = "housingObjectId"): Specifies the foreign key column.
+ *  *
  */
 @Entity
 public class Apartment {
