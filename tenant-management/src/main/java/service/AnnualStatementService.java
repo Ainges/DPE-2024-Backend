@@ -154,7 +154,7 @@ public class AnnualStatementService {
             periodStart = rentalStartDate;
         }
 
-        if (rentalEndDate.after(periodStart) && rentalEndDate.before(periodEnd)) {
+        if ((rentalEndDate != null) && rentalEndDate.after(periodStart) && rentalEndDate.before(periodEnd)) {
             periodEnd = rentalEndDate;
         }
 
