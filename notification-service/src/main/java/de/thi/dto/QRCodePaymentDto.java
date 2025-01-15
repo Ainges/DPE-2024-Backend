@@ -1,14 +1,14 @@
 package de.thi.dto;
 
-public class QRCodePaymentDTO {
+public class QRCodePaymentDto {
 
     private String mailType;
     private Data data;
 
-    public QRCodePaymentDTO() {
+    public QRCodePaymentDto() {
     }
 
-    public QRCodePaymentDTO(String mailType, Data data) {
+    public QRCodePaymentDto(String mailType, Data data) {
         this.mailType = mailType;
         this.data = data;
     }

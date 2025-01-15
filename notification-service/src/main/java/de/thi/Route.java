@@ -1,10 +1,7 @@
 package de.thi;
 
 import de.thi.dto.*;
-import de.thi.processor.AnnualStatementPreparationReminderProcessor;
-import de.thi.processor.DelayedAnnualStatementReminderProcessor;
-import de.thi.processor.SendPaymentReminderProcessor;
-import de.thi.processor.SendQRCodeProcessor;
+import de.thi.processor.*;
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
 import jakarta.activation.FileDataSource;
@@ -71,6 +68,9 @@ public class Route extends RouteBuilder {
 
     @Inject
     SendQRCodeProcessor sendQRCodeProcessor;
+
+    @Inject
+    AnnualStatementProcessor annualStatementProcessor;
 
 
     @Override
@@ -165,7 +165,7 @@ public class Route extends RouteBuilder {
                 .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(exchangeProperty("receivedBody"))
-                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
+                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDto.class)
                 .process(sendQRCodeProcessor)
                 .to("direct:sendMail");
 
@@ -176,8 +176,8 @@ public class Route extends RouteBuilder {
                 .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(exchangeProperty("receivedBody"))
-                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
-                .process(sendQRCodeProcessor)
+                .unmarshal().json(JsonLibrary.Jackson, AnnualStatementNotificationDto.class)
+                .process(annualStatementProcessor)
                 .to("direct:sendMail");
 
 
@@ -187,8 +187,8 @@ public class Route extends RouteBuilder {
                 .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(exchangeProperty("receivedBody"))
-                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
-                .process(sendQRCodeProcessor)
+                .unmarshal().json(JsonLibrary.Jackson, AnnualStatementNotificationDto.class)
+                .process(annualStatementProcessor)
                 .to("direct:sendMail");
 
         //TODO: Implement the annualStatement route
@@ -198,8 +198,8 @@ public class Route extends RouteBuilder {
                 .setProperty("receivedBody", body())
                 .to("direct:print-raw-notification-to-xml")
                 .setBody(exchangeProperty("receivedBody"))
-                .unmarshal().json(JsonLibrary.Jackson, QRCodePaymentDTO.class)
-                .process(sendQRCodeProcessor)
+                .unmarshal().json(JsonLibrary.Jackson, AnnualStatementNotificationDto.class)
+                .process(annualStatementProcessor)
                 .to("direct:sendMail");
 
 

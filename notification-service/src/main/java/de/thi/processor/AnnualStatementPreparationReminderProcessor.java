@@ -35,7 +35,6 @@ public class AnnualStatementPreparationReminderProcessor implements Processor {
         String htmlTemplate = templateInstance.render();
 
         // create mail
-        //TODO: Make Subject dynamic
         exchange.getIn().setBody(htmlTemplate);
 
 
