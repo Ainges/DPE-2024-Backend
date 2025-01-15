@@ -66,13 +66,12 @@ public class CreateStatementEntryServiceEndpoint {
     @Transactional
     public Response createStatementEntryChange(CreateStatementEntryServiceDTO dto) throws ParseException {
 
+        List<RentalAgreement> allRentalAgreements = new ArrayList<>(dto.getRentalAgreements());
         List<RentalAgreement> rentalAgreementsWithoutChanges = dto.getRentalAgreements();
         List<RentalAgreement> rentalAgreementsWithChanges = new ArrayList<>();
         List<StatementEntry> statementEntries = new ArrayList<>();
 
-        /**
-         * Get all rental agreements with the same apartment id
-         */
+        //Get all rental agreements with the same apartment id
         for (RentalAgreement rentalAgreement : rentalAgreementsWithoutChanges) {
             long apartmentId = rentalAgreement.getApartment().getApartmentId();
             rentalAgreementsWithChanges = rentalAgreementsWithoutChanges.stream()
@@ -80,32 +79,24 @@ public class CreateStatementEntryServiceEndpoint {
                     .collect(Collectors.toList());
         }
 
-        /**
-         * Remove from rental agreements without changes
-         */
+        //Remove from rental agreements without changes
         rentalAgreementsWithoutChanges.removeAll(rentalAgreementsWithChanges);
 
-        /**
-         * Handle Rental Agreements without tenant changes
-         */
+        //Handle Rental Agreements without tenant changes
         for (RentalAgreement rentalAgreement : rentalAgreementsWithoutChanges) {
-            List<StatementEntry> createdStatementEntries = createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement, dto.getRentalAgreements(), dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
+            List<StatementEntry> createdStatementEntries = createStatementEntryService.divideInvoiceCategorySumWholeYear(rentalAgreement, allRentalAgreements, dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
             for (StatementEntry statementEntry : createdStatementEntries) {
                 statementEntries.add(statementEntry);
             }
         }
-        /**
-         * //Handle Rental Agreements without tenant changes
-         */
-        List<StatementEntry> createdStatementEntries = createStatementEntryService.divideInvoiceCategorySumMidYear(rentalAgreementsWithChanges, dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
+        //Handle Rental Agreements with tenant changes
+        List<StatementEntry> createdStatementEntries = createStatementEntryService.divideInvoiceCategorySumMidYear(rentalAgreementsWithChanges,allRentalAgreements ,dto.getHousingObject(), dto.getDistributionKey(), dto.getInvoiceCategorySum(), dto.getInvoiceCategoryName(), dto.getAnnualStatementPeriod());
         for (StatementEntry statementEntry : createdStatementEntries) {
             statementEntries.add(statementEntry);
         }
-        /**
-         * //Response.status(Response.Status.CREATED): Sets the HTTP status code to 201 Created.
-         * //.entity(statementEntries): Sets the response body to the statementEntries list, which will be serialized to JSON.
-         * //.build(): Builds the Response object with the specified status and entity.
-         */
+//Response.status(Response.Status.CREATED): Sets the HTTP status code to 201 Created.
+//.entity(statementEntries): Sets the response body to the statementEntries list, which will be serialized to JSON.
+//.build(): Builds the Response object with the specified status and entity.
         return Response.status(Response.Status.CREATED).entity(statementEntries).build();
     }
 }

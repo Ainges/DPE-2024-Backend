@@ -93,7 +93,7 @@ public class CreateStatementEntryService {
      *
      * @param rentalAgreements the list of rental agreements to process
      */
-    public List<StatementEntry> divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) throws ParseException {
+    public List<StatementEntry> divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements,List<RentalAgreement> allRentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) throws ParseException {
 
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
@@ -153,7 +153,7 @@ public class CreateStatementEntryService {
                 }
                 break;
             case "Tenants":
-                for (RentalAgreement ra : rentalAgreements) {
+                for (RentalAgreement ra : allRentalAgreements) {
                     divisor += ra.getTenants().size();
                 }
 
