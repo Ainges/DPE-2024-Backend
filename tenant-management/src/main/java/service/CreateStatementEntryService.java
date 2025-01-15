@@ -124,11 +124,11 @@ public class CreateStatementEntryService {
 
                 for (RentalAgreement ra : rentalAgreements) {
 
-<<<<<<< HEAD
+
                     /**
                      * Calculate the number of days payable for the rental agreement within the annual statement period
                      */
-=======
+
                     Date rentalStartDate = ra.getStartDate();
                     Date rentalEndDate = ra.getEndDate();
 
@@ -140,7 +140,7 @@ public class CreateStatementEntryService {
                         periodEnd = rentalEndDate;
                     }
                     // Calculate the number of days payable for the rental agreement within the annual statement period
->>>>>>> 066cbe6b9c3ebe56238df67d13f576d007a9e13f
+
                     float daysPayable = Duration.between(
                             periodStart.toInstant(),
                             periodEnd.toInstant()
@@ -169,11 +169,10 @@ public class CreateStatementEntryService {
 
                 for (RentalAgreement ra : rentalAgreements) {
 
-<<<<<<< HEAD
                     /**
                      * Calculate the number of days payable for the rental agreement within the annual statement period
                      */
-=======
+
                     Date rentalStartDate = ra.getStartDate();
                     Date rentalEndDate = ra.getEndDate();
 
@@ -185,7 +184,7 @@ public class CreateStatementEntryService {
                         periodEnd = rentalEndDate;
                     }
                     // Calculate the number of days payable for the rental agreement within the annual statement period
->>>>>>> 066cbe6b9c3ebe56238df67d13f576d007a9e13f
+
                     float daysPayable = Duration.between(
                             periodStart.toInstant(),
                             periodEnd.toInstant()
@@ -213,11 +212,11 @@ public class CreateStatementEntryService {
 
                 for (RentalAgreement ra : rentalAgreements) {
 
-<<<<<<< HEAD
+
                     /**
                      * Calculate the number of days payable for the rental agreement within the annual statement period
                      */
-=======
+
                     Date rentalStartDate = ra.getStartDate();
                     Date rentalEndDate = ra.getEndDate();
 
@@ -229,7 +228,6 @@ public class CreateStatementEntryService {
                         periodEnd = rentalEndDate;
                     }
                     // Calculate the number of days payable for the rental agreement within the annual statement period
->>>>>>> 066cbe6b9c3ebe56238df67d13f576d007a9e13f
                     float daysPayable = Duration.between(
                             periodStart.toInstant(),
                             periodEnd.toInstant()
