@@ -17,6 +17,12 @@ import jakarta.ws.rs.core.Response;
 import repository.InvoiceCategoryRepository;
 
 import java.util.List;
+//selected code defines a JAX-RS REST endpoint for managing invoice categories.
+//@ApplicationScoped: This annotation indicates that the InvoiceCategoryEndpoint class is a CDI (Contexts and Dependency Injection) bean with application scope, meaning it will be instantiated once and shared across the application.
+//@Path("/invoice-categories"): This annotation specifies the base URI path for the REST endpoint. All methods in this class will be relative to /invoice-categories.
+//@Produces(MediaType.APPLICATION_JSON): This annotation indicates that the methods in this class will produce responses in JSON format.
+//@Consumes(MediaType.APPLICATION_JSON): This annotation indicates that the methods in this class will consume requests in JSON format.
+//public class InvoiceCategoryEndpoint: This is the class declaration for the REST endpoint.
 
 @ApplicationScoped
 @Path("/invoice-categories")
@@ -24,6 +30,7 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class InvoiceCategoryEndpoint {
 
+    //@Inject InvoiceCategoryRepository invoiceCategoryRepository;: This line injects an instance of InvoiceCategoryRepository into the endpoint, allowing it to interact with the data repository for invoice categories.
     @Inject
     InvoiceCategoryRepository invoiceCategoryRepository;
 

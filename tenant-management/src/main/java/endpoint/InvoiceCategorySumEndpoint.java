@@ -12,6 +12,11 @@
  * - GitHub Copilot
  */
 package endpoint;
+//imports necessary classes, defines a REST endpoint class, and injects a service
+//InvoiceCategorySumService: A service class for handling business logic.
+//jakarta.inject.Inject: For dependency injection.
+//jakarta.ws.rs.*: For JAX-RS annotations.
+//jakarta.ws.rs.core.MediaType and jakarta.ws.rs.core.Response: For handling media types and HTTP responses.
 
 import service.InvoiceCategorySumService;
 import jakarta.inject.Inject;
@@ -19,11 +24,22 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+
+
+//Class Definition:
+//@Path("/invoice-category-sum"): Defines the base URI for the endpoint.
+//@Produces(MediaType.APPLICATION_JSON): Specifies that the endpoint produces JSON responses.
+//@Consumes(MediaType.APPLICATION_JSON): Specifies that the endpoint consumes JSON requests.
+
+
+
 @Path("/invoice-category-sum")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class InvoiceCategorySumEndpoint {
 
+// Dependency Injection:
+//@Inject InvoiceCategorySumService invoiceCategorySumService;: Injects an instance of InvoiceCategorySumService into the endpoint class.
     @Inject
     InvoiceCategorySumService invoiceCategorySumService;
 
