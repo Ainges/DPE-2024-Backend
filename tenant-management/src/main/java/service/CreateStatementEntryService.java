@@ -8,9 +8,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -90,15 +93,20 @@ public class CreateStatementEntryService {
      *
      * @param rentalAgreements the list of rental agreements to process
      */
-    public List<StatementEntry> divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) {
+    public List<StatementEntry> divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) throws ParseException {
 
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
         float amountPayable = 0.0f;
-        List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
-        List<StatementEntry> statementEntries = new ArrayList<>();
-        Apartment apartmentWithTenantChange = rentalAgreements.get(0).getApartment();
 
+        Date periodStart = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-01-01");
+        Date periodEnd = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-12-31");
+
+        //List all apartments of the housing object
+        List<Apartment> apartments = apartmentRepository.find("housingObject.housingObjectId", housingObject.getHousingObjectId()).list();
+        //Get the apartment with tenant change for this calculation
+        Apartment apartmentWithTenantChange = rentalAgreements.get(0).getApartment();
+        List<StatementEntry> statementEntries = new ArrayList<>();
 
         switch (distributionKey) {
             case "Area":
@@ -116,14 +124,26 @@ public class CreateStatementEntryService {
 
                 for (RentalAgreement ra : rentalAgreements) {
 
+<<<<<<< HEAD
                     /**
                      * Calculate the number of days payable for the rental agreement within the annual statement period
                      */
+=======
+                    Date rentalStartDate = ra.getStartDate();
+                    Date rentalEndDate = ra.getEndDate();
+
+                    if (rentalStartDate.after(periodStart) && rentalStartDate.before(periodEnd)) {
+                        periodStart = rentalStartDate;
+                    }
+
+                    if ((rentalEndDate != null) && rentalEndDate.after(periodStart) && rentalEndDate.before(periodEnd)) {
+                        periodEnd = rentalEndDate;
+                    }
+                    // Calculate the number of days payable for the rental agreement within the annual statement period
+>>>>>>> 066cbe6b9c3ebe56238df67d13f576d007a9e13f
                     float daysPayable = Duration.between(
-                            // If the rental agreement starts within the annual statement period, use the start date; otherwise, use the start of the year
-                            ra.getStartDate().getYear() == Integer.parseInt(annualStatementPeriod) ? ra.getStartDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant(),
-                            // If the rental agreement ends within the annual statement period, use the end date; otherwise, use the end of the year
-                            (ra.getEndDate() != null && ra.getEndDate().getYear() == Integer.parseInt(annualStatementPeriod) ? ra.getEndDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 12, 31).atStartOfDay(ZoneId.systemDefault()).toInstant())
+                            periodStart.toInstant(),
+                            periodEnd.toInstant()
                     ).toDays();
 
                     /**
@@ -149,14 +169,26 @@ public class CreateStatementEntryService {
 
                 for (RentalAgreement ra : rentalAgreements) {
 
+<<<<<<< HEAD
                     /**
                      * Calculate the number of days payable for the rental agreement within the annual statement period
                      */
+=======
+                    Date rentalStartDate = ra.getStartDate();
+                    Date rentalEndDate = ra.getEndDate();
+
+                    if (rentalStartDate.after(periodStart) && rentalStartDate.before(periodEnd)) {
+                        periodStart = rentalStartDate;
+                    }
+
+                    if ((rentalEndDate != null) && rentalEndDate.after(periodStart) && rentalEndDate.before(periodEnd)) {
+                        periodEnd = rentalEndDate;
+                    }
+                    // Calculate the number of days payable for the rental agreement within the annual statement period
+>>>>>>> 066cbe6b9c3ebe56238df67d13f576d007a9e13f
                     float daysPayable = Duration.between(
-                            // If the rental agreement starts within the annual statement period, use the start date; otherwise, use the start of the year
-                            ra.getStartDate().getYear() == Integer.parseInt(annualStatementPeriod) ? ra.getStartDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant(),
-                            // If the rental agreement ends within the annual statement period, use the end date; otherwise, use the end of the year
-                            (ra.getEndDate() != null && ra.getEndDate().getYear() == Integer.parseInt(annualStatementPeriod) ? ra.getEndDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 12, 31).atStartOfDay(ZoneId.systemDefault()).toInstant())
+                            periodStart.toInstant(),
+                            periodEnd.toInstant()
                     ).toDays();
 
                     /**
@@ -181,14 +213,26 @@ public class CreateStatementEntryService {
 
                 for (RentalAgreement ra : rentalAgreements) {
 
+<<<<<<< HEAD
                     /**
                      * Calculate the number of days payable for the rental agreement within the annual statement period
                      */
+=======
+                    Date rentalStartDate = ra.getStartDate();
+                    Date rentalEndDate = ra.getEndDate();
+
+                    if (rentalStartDate.after(periodStart) && rentalStartDate.before(periodEnd)) {
+                        periodStart = rentalStartDate;
+                    }
+
+                    if ((rentalEndDate != null) && rentalEndDate.after(periodStart) && rentalEndDate.before(periodEnd)) {
+                        periodEnd = rentalEndDate;
+                    }
+                    // Calculate the number of days payable for the rental agreement within the annual statement period
+>>>>>>> 066cbe6b9c3ebe56238df67d13f576d007a9e13f
                     float daysPayable = Duration.between(
-                            // If the rental agreement starts within the annual statement period, use the start date; otherwise, use the start of the year
-                            ra.getStartDate().getYear() == Integer.parseInt(annualStatementPeriod) ? ra.getStartDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 1, 1).atStartOfDay(ZoneId.systemDefault()).toInstant(),
-                            // If the rental agreement ends within the annual statement period, use the end date; otherwise, use the end of the year
-                            (ra.getEndDate() != null && ra.getEndDate().getYear() == Integer.parseInt(annualStatementPeriod) ? ra.getEndDate().toInstant() : LocalDate.of(Integer.parseInt(annualStatementPeriod), 12, 31).atStartOfDay(ZoneId.systemDefault()).toInstant())
+                            periodStart.toInstant(),
+                            periodEnd.toInstant()
                     ).toDays();
 
                     /**
