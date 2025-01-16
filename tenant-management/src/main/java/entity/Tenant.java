@@ -3,7 +3,7 @@
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
-
+/** * @author 1 Leonie Krauß, Moritz Baur * @author 2 GitHub Copilot */
 package entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -205,8 +205,3 @@ public class Tenant {
     }
 }
 
-/**
- * End
- * @author 1 Leonie Krauß
- * @author 2 GitHub Copilot
- */

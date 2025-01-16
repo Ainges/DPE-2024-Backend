@@ -4,6 +4,7 @@
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
+/** * @author 1 Leonie Krauß, Moritz Baur * @author 2 GitHub Copilot */
 package entity;
 
 import jakarta.persistence.*;
@@ -310,9 +311,3 @@ public class Invoice {
         this.relevantForAnnualStatement = relevantForAnnualStatement;
     }
 }
-/**
- * End
- *
- * @author 1 Leonie Krauß
- * @author 2 GitHub Copilot
- */
