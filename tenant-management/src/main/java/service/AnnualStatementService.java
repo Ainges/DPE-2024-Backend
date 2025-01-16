@@ -36,21 +36,6 @@ import java.util.List;
 public class AnnualStatementService {
     @Inject
     StatementEntryRepository statementEntryRepository;
-    @Inject
-    TenantRepository tenantRepository;
-
-
-    @Inject
-    RentalAgreementRepository rentalAgreementRepository;
-
-    @Inject
-    ApartmentRepository apartmentRepository;
-
-    @Inject
-    CreateStatementEntryService statementEntryService;
-
-    @Inject
-    InvoiceCategorySumService calculateInvoiceCategorySumService;
 
     @Inject
     AnnualStatementRepository annualStatementRepository;
