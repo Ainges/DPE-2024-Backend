@@ -1,20 +1,17 @@
+/**
+ * @author 1 Hubertus Seitz, Moritz Baur
+ * @author 2 GitHub Copilot
+ */
 package dto;
 
-/**
- * The code defines a class InvoiceDTO with several private fields representing invoice details
- * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
- * The line import java.util.Date
- * Imports the Date class from the java.util package.
- * This allows the InvoiceDTO class to use the Date class for its invoiceDate attribute.
- * The Date class represents a specific instant in time, with millisecond precision.
- */
 import java.util.Date;
 
 /**
  * The code defines a class InvoiceDTO with several private fields representing invoice details
- * Each field is annotated with @JacksonXmlProperty to specify the XML element name when the object is serialized to XML.
- * defines the InvoiceDTO class with several private fields and a no-argument constructor
- * The no-argument constructor initializes an instance of the InvoiceDTO class without setting any field values.
+ * The line import java.util.Date
+ * Imports the Date class from the java.util package.
+ * This allows the InvoiceDTO class to use the Date class for its invoiceDate attribute.
+ * The Date class represents a specific instant in time, with millisecond precision.
  */
 public class InvoiceDTO {
 
@@ -34,6 +31,7 @@ public class InvoiceDTO {
     public InvoiceDTO() {
         // no Args
     }
+
     /**
      * Defines a constructor for the InvoiceDTO class.
      * This constructor takes several parameters and initializes the corresponding fields of the InvoiceDTO object with the provided values

@@ -1,6 +1,4 @@
 /**
- * Start
- *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -23,6 +21,7 @@ import java.util.Set;
 
 /**
  * defines a JAX-RS REST endpoint
+ *
  * @ApplicationScoped: Indicates that the bean is application-scoped, meaning it will be created once and shared across the entire application.
  * @Path("/tenants"): Specifies the base URI path for the REST endpoint. In this case, it maps to /tenants.
  * @Produces(MediaType.APPLICATION_JSON): Specifies that the endpoint will produce responses in JSON format.
@@ -142,9 +141,3 @@ public class TenantEndpoint {
         return Response.noContent().build();
     }
 }
-
-/**
- * End
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
- */

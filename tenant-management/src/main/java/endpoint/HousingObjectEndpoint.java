@@ -1,8 +1,6 @@
 /**
- * Start
- *
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
  */
 
 package endpoint;
@@ -18,7 +16,8 @@ import service.HousingObjectService;
 import java.util.List;
 
 /**
- * define a JAX-RS RESTful web service endpoint
+ * Define a JAX-RS RESTful web service endpoint
+ *
  * @ApplicationScoped: Indicates that the class is a CDI (Contexts and Dependency Injection) bean with application scope.
  * @Path("/housing-objects"): Specifies the base URI path for the RESTful web service.
  * @Produces(MediaType.APPLICATION_JSON): Specifies that the methods in this class produce JSON responses.
@@ -43,11 +42,22 @@ public class HousingObjectEndpoint {
     @Inject
     HousingObjectService housingObjectService;
 
+    /**
+     * Retrieves all housing objects.
+     *
+     * @return a list of all housing objects
+     */
     @GET
     public List<HousingObject> getAllHousingObjects() {
         return housingObjectService.getAllHousingObjects();
     }
 
+    /**
+     * Retrieves a housing object by its ID.
+     *
+     * @param id the ID of the housing object
+     * @return a response containing the housing object with the specified ID
+     */
     @GET
     @Path("/{id}")
     public Response getHousingObject(@PathParam("id") long id) {
@@ -58,12 +68,25 @@ public class HousingObjectEndpoint {
         return Response.ok(housingObject).build();
     }
 
+    /**
+     * Creates a new housing object.
+     *
+     * @param housingObject the housing object to create
+     * @return a response containing the created housing object
+     */
     @POST
     public Response createHousingObject(HousingObject housingObject) {
         HousingObject createdHousingObject = housingObjectService.createHousingObject(housingObject);
         return Response.status(Response.Status.CREATED).entity(createdHousingObject).build();
     }
 
+    /**
+     * Updates an existing housing object.
+     *
+     * @param id            the ID of the housing object to update
+     * @param housingObject the updated housing object data
+     * @return a response containing the updated housing object
+     */
     @PUT
     @Path("/{id}")
     public Response updateHousingObject(@PathParam("id") long id, HousingObject housingObject) {
@@ -74,6 +97,12 @@ public class HousingObjectEndpoint {
         return Response.ok(updatedHousingObject).build();
     }
 
+    /**
+     * Deletes a housing object by its ID.
+     *
+     * @param id the ID of the housing object to delete
+     * @return a response indicating the result of the deletion
+     */
     @DELETE
     @Path("/{id}")
     public Response deleteHousingObject(@PathParam("id") long id) {
@@ -84,8 +113,3 @@ public class HousingObjectEndpoint {
         return Response.noContent().build();
     }
 }
-/**
- * End
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
- */

@@ -1,8 +1,7 @@
 /**
  * Start
- *
- * @author 1 GitHub Copilot
- * @author 2 Zohal Mohammadi
+ * @author 1 Zohal Mohammadi
+ * @author 2 GitHub Copilot
  */
 package endpoint;
 
@@ -61,9 +60,3 @@ public class QRCodeGeneratorEndpoint {
         }
     }
 }
-/**
- * End
- *
- * @author 1 GitHub Copilot
- * @author 2 Zohal Mohammadi
- */

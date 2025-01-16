@@ -1,8 +1,6 @@
 /**
- * Start
- *
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
  */
 
 package endpoint;
@@ -19,7 +17,8 @@ import repository.InvoiceCategoryRepository;
 import java.util.List;
 
 /**
- * selected code defines a JAX-RS REST endpoint for managing invoice categories.
+ * Selected code defines a JAX-RS REST endpoint for managing invoice categories.
+ *
  * @ApplicationScoped: This annotation indicates that the InvoiceCategoryEndpoint class is a CDI (Contexts and Dependency Injection) bean with application scope, meaning it will be instantiated once and shared across the application.
  * @Path("/invoice-categories"): This annotation specifies the base URI path for the REST endpoint. All methods in this class will be relative to /invoice-categories.
  * @Produces(MediaType.APPLICATION_JSON): This annotation indicates that the methods in this class will produce responses in JSON format.
@@ -33,7 +32,7 @@ import java.util.List;
 public class InvoiceCategoryEndpoint {
 
     /**
-     *  @Inject InvoiceCategoryRepository invoiceCategoryRepository;: This line injects an instance of InvoiceCategoryRepository into the endpoint, allowing it to interact with the data repository for invoice categories.
+     * @Inject InvoiceCategoryRepository invoiceCategoryRepository;: This line injects an instance of InvoiceCategoryRepository into the endpoint, allowing it to interact with the data repository for invoice categories.
      */
     @Inject
     InvoiceCategoryRepository invoiceCategoryRepository;
@@ -76,10 +75,10 @@ public class InvoiceCategoryEndpoint {
     /**
      * Updates an existing invoice category.
      *
-     * @param id the ID of the invoice category to update
+     * @param id              the ID of the invoice category to update
      * @param invoiceCategory the updated invoice category data
      * @return a Response containing the updated invoice category,
-     *         or a 404 Not Found status if the invoice category does not exist
+     * or a 404 Not Found status if the invoice category does not exist
      */
     @PUT
     @Path("/{id}")
@@ -101,7 +100,7 @@ public class InvoiceCategoryEndpoint {
      *
      * @param id the ID of the invoice category to delete
      * @return a Response with no content if the deletion was successful,
-     *         or a 404 Not Found status if the invoice category does not exist
+     * or a 404 Not Found status if the invoice category does not exist
      */
     @DELETE
     @Path("/{id}")
@@ -115,8 +114,3 @@ public class InvoiceCategoryEndpoint {
         return Response.noContent().build();
     }
 }
-/**
- * End
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
- */

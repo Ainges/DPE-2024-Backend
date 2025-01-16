@@ -1,3 +1,7 @@
+/**
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
+ */
 package service;
 
 import dto.InvoiceDTO;
@@ -51,14 +55,14 @@ public class InvoiceService {
         InvoiceCategory invoiceCategory = invoiceCategoryRepository.findById(Long.parseLong(invoiceDTO.getInvoiceCategoryId()));
         HousingObject housingObject = housingObjectRepository.findById(Long.parseLong(invoiceDTO.getHousingObjectId()));
 
-        if(invoiceCategory == null) {
+        if (invoiceCategory == null) {
             throw new InvoiceServiceException("The invoice category with the ID " + invoiceDTO.getInvoiceCategoryId() + " does not exist.");
         }
-        if(housingObject == null) {
+        if (housingObject == null) {
             throw new InvoiceServiceException("The housing object with the ID " + invoiceDTO.getHousingObjectId() + " does not exist.");
         }
 
-        Invoice invoice = new Invoice(invoiceDTO.getInvoiceDate(), invoiceDTO.getInvoiceAmount(), invoiceDTO.getDescription(), invoiceDTO.getStatus(), invoiceDTO.getReceiver(), invoiceDTO.getReceiverIban(), invoiceDTO.getReceiverBic(), invoiceDTO.getExternalInvoiceNumber(), invoiceDTO.getCurrency(),Boolean.parseBoolean(invoiceDTO.getRelevantForAnnualStatement()), invoiceCategory, housingObject);
+        Invoice invoice = new Invoice(invoiceDTO.getInvoiceDate(), invoiceDTO.getInvoiceAmount(), invoiceDTO.getDescription(), invoiceDTO.getStatus(), invoiceDTO.getReceiver(), invoiceDTO.getReceiverIban(), invoiceDTO.getReceiverBic(), invoiceDTO.getExternalInvoiceNumber(), invoiceDTO.getCurrency(), Boolean.parseBoolean(invoiceDTO.getRelevantForAnnualStatement()), invoiceCategory, housingObject);
         invoiceRepository.persist(invoice);
 
         return invoice;

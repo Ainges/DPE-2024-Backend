@@ -1,8 +1,6 @@
 /**
- * Start
- *
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
  */
 
 package endpoint;
@@ -19,7 +17,8 @@ import repository.StatementEntryRepository;
 import java.util.List;
 
 /**
- * defines a JAX-RS REST endpoint
+ * Defines a JAX-RS REST endpoint
+ *
  * @ApplicationScoped: Indicates that the class is a CDI (Contexts and Dependency Injection) bean with application scope, meaning it will be instantiated once and shared across the application.
  * @Path("/statement-entries"): Specifies the base URI path for the REST endpoint.
  * @Produces(MediaType.APPLICATION_JSON): Indicates that the endpoint will produce responses in JSON format.
@@ -134,9 +133,3 @@ public class StatementEntryEndpoint {
         return Response.noContent().build();
     }
 }
-/**
- * End
- *
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
- */

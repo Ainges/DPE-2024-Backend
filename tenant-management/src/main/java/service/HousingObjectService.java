@@ -1,3 +1,7 @@
+/**
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
+ */
 package service;
 
 import entity.HousingObject;
@@ -74,15 +78,15 @@ public class HousingObjectService {
         return existingHousingObject;
     }
 
-   /**
-    * The deleteHousingObject method is responsible for deleting a HousingObject entity from the repository
-    * The method is annotated with @Transactional, indicating that it should be executed within a transactional context.
-    * The method takes a single parameter, id, which is the ID of the HousingObject to be deleted.
-    * It retrieves the HousingObject from the repository using the provided id.
-    * If the HousingObject with the given id does not exist, the method returns false.
-    * If the HousingObject exists, it deletes the HousingObject from the repository.
-    * Finally, the method returns true to indicate that the deletion was successful.
-    */
+    /**
+     * The deleteHousingObject method is responsible for deleting a HousingObject entity from the repository
+     * The method is annotated with @Transactional, indicating that it should be executed within a transactional context.
+     * The method takes a single parameter, id, which is the ID of the HousingObject to be deleted.
+     * It retrieves the HousingObject from the repository using the provided id.
+     * If the HousingObject with the given id does not exist, the method returns false.
+     * If the HousingObject exists, it deletes the HousingObject from the repository.
+     * Finally, the method returns true to indicate that the deletion was successful.
+     */
     @Transactional
     public boolean deleteHousingObject(long id) {
         HousingObject housingObject = housingObjectRepository.findById(id);
@@ -93,8 +97,3 @@ public class HousingObjectService {
         return true;
     }
 }
-/**
- * End
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur & Zohal Mohammadi
- */

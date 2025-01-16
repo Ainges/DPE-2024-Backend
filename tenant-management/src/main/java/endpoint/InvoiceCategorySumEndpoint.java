@@ -19,6 +19,7 @@ package endpoint;
  * jakarta.ws.rs.*: For JAX-RS annotations.
  * jakarta.ws.rs.core.MediaType and jakarta.ws.rs.core.Response: For handling media types and HTTP responses.
  */
+
 import service.InvoiceCategorySumService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -27,6 +28,7 @@ import jakarta.ws.rs.core.Response;
 
 /**
  * Class Definition:
+ *
  * @Path("/invoice-category-sum"): Defines the base URI for the endpoint.
  * @Produces(MediaType.APPLICATION_JSON): Specifies that the endpoint produces JSON responses.
  * @Consumes(MediaType.APPLICATION_JSON): Specifies that the endpoint consumes JSON requests.
@@ -38,6 +40,7 @@ public class InvoiceCategorySumEndpoint {
 
     /**
      * Dependency Injection:
+     *
      * @Inject InvoiceCategorySumService invoiceCategorySumService;: Injects an instance of InvoiceCategorySumService into the endpoint class.
      */
     @Inject
@@ -47,9 +50,9 @@ public class InvoiceCategorySumEndpoint {
      * Retrieves the total sum of invoices for a specific housing object, invoice category, year,
      * and relevance for the annual statement.
      *
-     * @param housingObjectId the ID of the housing object
-     * @param categoryId the ID of the invoice category
-     * @param year the year for which the total sum is calculated
+     * @param housingObjectId            the ID of the housing object
+     * @param categoryId                 the ID of the invoice category
+     * @param year                       the year for which the total sum is calculated
      * @param relevantForAnnualStatement indicates if the invoice is relevant for the annual statement (mandatory)
      * @return the total sum of invoices rounded to two decimal places
      */

@@ -1,8 +1,6 @@
 /**
- * Start
- *
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
  */
 package endpoint;
 
@@ -24,8 +22,9 @@ import service.InvoiceService;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 /**
- * defines a JAX-RS REST endpoint
+ * Defines a JAX-RS REST endpoint
  * The @ApplicationScoped annotation indicates that the InvoiceEndpoint class is a CDI (Contexts and Dependency Injection) bean with application scope.
  * The @Path("/invoices") annotation specifies the base URI path for all the endpoints in this class.
  * The @Produces(MediaType.APPLICATION_JSON) and @Consumes(MediaType.APPLICATION_JSON) annotations indicate that the endpoint produces and consumes JSON media type.
@@ -251,9 +250,3 @@ public class InvoiceEndpoint {
         return Response.noContent().build();
     }
 }
-/**
- * End
- *
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
- */

@@ -1,3 +1,7 @@
+/**
+ * @author 1 Hubertus Seitz
+ * @author 2 GitHub Copilot
+ */
 package exception;
 
 /**
