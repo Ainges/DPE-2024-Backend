@@ -1,8 +1,6 @@
 /**
- * Start
- *
- * @author 1 GitHub Copilot
- * @author 2 Zohal Mohammadi, Moritz Baur
+ * @author 1 Zohal Mohammadi, Moritz Baur
+ * @author 2 GitHub Copilot
  */
 
 package endpoint;
@@ -17,12 +15,13 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import repository.AnnualStatementRepository;
 import service.AnnualStatementService;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
 /**
- * defines a JAX-RS REST endpoint class AnnualStatementEndpoint
+ * Defines a JAX-RS REST endpoint class AnnualStatementEndpoint
  * The class is annotated with @ApplicationScoped, @Path, @Produces, and @Consumes to specify its scope, base path, and media types for request and response bodies
  */
 @ApplicationScoped
@@ -32,7 +31,7 @@ import java.util.List;
 public class AnnualStatementEndpoint {
 
     /**
-     * the AnnualStatementRepository and AnnualStatementService are being injected into the AnnualStatementEndpoint class.
+     * The AnnualStatementRepository and AnnualStatementService are being injected into the AnnualStatementEndpoint class.
      * This means that instances of these classes will be provided by the dependency injection framework (in this case, Jakarta EE) when an instance of AnnualStatementEndpoint is created. T
      * this allows the AnnualStatementEndpoint to use these services without having to instantiate them directly, promoting loose coupling and easier testing
      */
@@ -186,9 +185,3 @@ public class AnnualStatementEndpoint {
         return Response.noContent().build();
     }
 }
-/**
- * End
- *
- * @author 1 GitHub Copilot
- * @author 2 Zohal Mohammadi, Moritz Baur
- */

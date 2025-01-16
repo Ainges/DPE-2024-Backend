@@ -1,5 +1,6 @@
 /**
  * Start
+ *
  * @author 1 GitHub Copilot
  * @author 2 Moritz Baur
  */
@@ -17,9 +18,3 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class AnnualStatementRepository implements PanacheRepository<AnnualStatement> {
 }
-
-/**
- * End
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
- */

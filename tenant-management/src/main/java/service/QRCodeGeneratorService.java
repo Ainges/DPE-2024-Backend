@@ -1,9 +1,8 @@
 /**
- * Start
- *
- * @author 1 GitHub Copilot
- * @author 2 Zohal Mohammadi, Moritz Baur
+ * @author 1 Zohal Mohammadi, Moritz Baur
+ * @author 2 GitHub Copilot
  */
+
 package service;
 
 import com.google.zxing.BarcodeFormat;
@@ -70,9 +69,7 @@ public class QRCodeGeneratorService {
 
         String epcQrCodeData = sb.toString();
 
-        /**
-         * Generate QR code image
-         */
+        //Generate QR code image
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         com.google.zxing.common.BitMatrix bitMatrix;
         try {
@@ -81,9 +78,7 @@ public class QRCodeGeneratorService {
             throw new RuntimeException("Error generating QR code: " + e.getMessage(), e);
         }
 
-        /**
-         *  Write the QR code to a ByteArrayOutputStream
-         */
+        // Write the QR code to a ByteArrayOutputStream
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
         try {
             MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
@@ -91,26 +86,16 @@ public class QRCodeGeneratorService {
             throw new RuntimeException("Error writing QR code to output stream: " + e.getMessage(), e);
         }
 
-        /**
-         * Save the QR code to the file system
-         */
-        Path qrCodePath = Paths.get("QRCode_" + payableInvoiceDTO.getReceiverIban() +"_"+payableInvoiceDTO.getInvoiceAmount() + ".png");
+        //Save the QR code to the file system
+        Path qrCodePath = Paths.get("QRCode_" + payableInvoiceDTO.getReceiverIban() + "_" + payableInvoiceDTO.getInvoiceAmount() + ".png");
         try (FileOutputStream fos = new FileOutputStream(qrCodePath.toFile())) {
             fos.write(pngOutputStream.toByteArray());
         } catch (IOException e) {
             throw new RuntimeException("Error saving QR code to file system: " + e.getMessage(), e);
         }
 
-        /**
-         * Convert the ByteArrayOutputStream to a Base64 string
-         */
+        //Convert the ByteArrayOutputStream to a Base64 string
         byte[] pngData = pngOutputStream.toByteArray();
         return "data:image/png;base64," + Base64.getEncoder().encodeToString(pngData);
     }
 }
-/**
- * End
- *
- * @author 1 GitHub Copilot
- * @author 2 Zohal Mohammadi, Moritz Baur
- */

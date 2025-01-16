@@ -1,9 +1,14 @@
+/**
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
+ */
 package dto;
 
 /**
  * define the import statement for the RentalAgreement class and the beginning of the AnnualStatementDTO class, including its fields
  * imports the RentalAgreement class from the entity packag
  */
+
 import entity.RentalAgreement;
 
 /**
@@ -24,7 +29,8 @@ public class AnnualStatementDTO {
      * setAnnualStatementPeriod(String annualStatementPeriod): Sets the value of the annualStatementPeriod field.
      */
     public RentalAgreement getRentalAgreement() {
-        return rentalAgreement;}
+        return rentalAgreement;
+    }
 
     public void setRentalAgreement(RentalAgreement rentalAgreement) {
         this.rentalAgreement = rentalAgreement;

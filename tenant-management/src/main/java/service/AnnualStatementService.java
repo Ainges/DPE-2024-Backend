@@ -1,8 +1,6 @@
 /**
- * Start
- *
- * @author 1 GitHub Copilot
- * @author 2 Zohal Mohammadi, Moritz Baur
+ * @author 1 Zohal Mohammadi, Moritz Baur
+ * @author 2 GitHub Copilot
  */
 package service;
 
@@ -66,13 +64,10 @@ public class AnnualStatementService {
     @Transactional
     public AnnualStatement createAnnualStatement(AnnualStatement annualStatement) {
 
-        /**
-         * Save the AnnualStatement
-         */
+        //Save the AnnualStatement
         annualStatementRepository.persist(annualStatement);
-        /**
-         * Return success response
-         */
+
+        //Return success response
         return annualStatement;
     }
 
@@ -89,23 +84,18 @@ public class AnnualStatementService {
             throw new IllegalArgumentException("annualStatementPeriod must not be null or empty");
         }
 
-        /**
-         * 1. Create Annual Statement
-         */
+        // 1. Create Annual Statement
         Date periodStart = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-01-01");
         Date periodEnd = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-12-31");
 
-        /**
-         * Parsing und Zuweisung
-         */
+        //Parsing und Zuweisung
         AnnualStatement annualStatement = new AnnualStatement();
         annualStatement.setRentalAgreement(rentalAgreement);
         annualStatement.setPeriodStart(periodStart);
         annualStatement.setPeriodEnd(periodEnd);
 
-        /**
-         * Save the Annual Statement initially
-         */
+        //Save the Annual Statement initially
+
         annualStatementRepository.persist(annualStatement);
 
         List<StatementEntry> statementEntries = statementEntryRepository
@@ -114,16 +104,12 @@ public class AnnualStatementService {
                         annualStatementPeriod)
                 .list();
 
-        /**
-         * Calculate prepayments
-         */
+        //Calculate prepayments
         float heatingCostPrepayment = rentalAgreement.getApartment().getHeatingCostPrepayment();
         float additionalCostPrepayment = rentalAgreement.getApartment().getAdditionalCostPrepayment();
         float totalPrepayments = (heatingCostPrepayment + additionalCostPrepayment) * 12;
 
-        /**
-         * 3. Sum the costs from the StatementEntries
-         */
+        //3. Sum the costs from the StatementEntries
         float totalCost = 0.0f;
         for (StatementEntry statementEntry : statementEntries) {
             totalCost += statementEntry.getAmountPayable();
@@ -131,21 +117,15 @@ public class AnnualStatementService {
             statementEntryRepository.persist(statementEntry);   // Update StatementEntry
         }
 
-        /**
-         * 4. Calculate the difference (overallAmountPayable)
-         */
+        //4. Calculate the difference (overallAmountPayable)
         float difference = totalCost - totalPrepayments;
 
-        /**
-         * 5. Update Annual Statement
-         */
+        //5. Update Annual Statement
         annualStatement.setTotalCost(totalCost);
         annualStatement.setTotalPrepayments(totalPrepayments);
         annualStatement.setDifference(difference);
 
-        /**
-         *  Save the Updated Annual Statement
-         */
+        //Save the Updated Annual Statement
         annualStatementRepository.persist(annualStatement);
         return annualStatement;
     }
@@ -159,10 +139,9 @@ public class AnnualStatementService {
      * @throws ParseException if the date parsing fails
      */
     public AnnualStatement generateAnnualStatementMidYear(RentalAgreement rentalAgreement, String annualStatementPeriod) throws ParseException {
-        /**
-         *  1. Create MidYearAnnual Statement
-         *  Entfernen des Zeitstempels, falls vorhanden
-         */
+
+        // 1. Create MidYearAnnual Statement
+        // Entfernen des Zeitstempels, falls vorhanden
         AnnualStatement annualStatement = new AnnualStatement();
         annualStatement.setRentalAgreement(rentalAgreement);
 
@@ -183,9 +162,7 @@ public class AnnualStatementService {
         annualStatement.setPeriodStart(periodStart);
         annualStatement.setPeriodEnd(periodEnd);
 
-        /**
-         * Save the Annual Statement initially
-         */
+        //Save the Annual Statement initially
         annualStatementRepository.persist(annualStatement);
 
         List<StatementEntry> statementEntries = statementEntryRepository
@@ -194,18 +171,15 @@ public class AnnualStatementService {
                         annualStatementPeriod)
                 .list();
 
-        /**
-         * Berechnung der Gesamtkosten
-         */
+        // Berechnung der Gesamtkosten
         float totalCost = 0.0f;
         for (StatementEntry statementEntry : statementEntries) {
             totalCost += statementEntry.getAmountPayable();
             statementEntry.setAnnualStatement(annualStatement); // Verknüpfung mit Annual Statement
             statementEntryRepository.persist(statementEntry);   // Aktualisierung des StatementEntry
         }
-        /**
-         * Vorauszahlungen berechnen (proportional zur Mietdauer)
-         */
+
+        // Vorauszahlungen berechnen (proportional zur Mietdauer)
         long months = ChronoUnit.MONTHS.between(
                 periodStart.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
                 periodEnd.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
@@ -215,18 +189,14 @@ public class AnnualStatementService {
         float additionalCostPrepayment = rentalAgreement.getApartment().getAdditionalCostPrepayment();
         float totalPrepayments = (heatingCostPrepayment + additionalCostPrepayment) * months;
 
-        /**
-         * Differenz berechnen
-         */
+        //Differenz berechnen
         float difference = totalCost - totalPrepayments;
         // 5. Update Annual Statement
         annualStatement.setTotalCost(totalCost);
         annualStatement.setTotalPrepayments(totalPrepayments);
         annualStatement.setDifference(difference);
 
-        /**
-         * Save the Updated Annual Statement
-         */
+        //Save the Updated Annual Statement
         annualStatementRepository.persist(annualStatement);
         return annualStatement;
     }
@@ -262,9 +232,7 @@ public class AnnualStatementService {
                 float rowHeight = 15; // Reduce row height to fit more rows
                 float[] columnWidths = {tableWidth * 0.5f, tableWidth * 0.25f, tableWidth * 0.25f}; // Column proportions
 
-                /**
-                 * Header text
-                 */
+                // Header text
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
                 contentStream.newLineAtOffset(margin, yPosition);
@@ -272,9 +240,7 @@ public class AnnualStatementService {
                 contentStream.endText();
                 yPosition -= 30; // Space after the header
 
-                /**
-                 * Rental Agreement details
-                 */
+                //Rental Agreement details
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 contentStream.newLineAtOffset(margin, yPosition);
@@ -290,21 +256,15 @@ public class AnnualStatementService {
                 contentStream.endText();
                 yPosition -= 75; // Space after the details
 
-                /**
-                 * Draw the table
-                 */
+                //Draw the table
                 drawTableHeaders(contentStream, new String[]{"Statement Entry", "Overall Amount", "Amount Payable"}, columnWidths, margin, yPosition);
                 yPosition -= rowHeight;
 
-                /**
-                 * Draw horizontal line below headers
-                 */
+                //Draw horizontal line below headers
                 drawHorizontalLine(contentStream, margin, yPosition + rowHeight - 5, tableWidth);
                 yPosition -= 5;
 
-                /**
-                 * Draw table rows
-                 */
+                //Draw table rows
                 for (StatementEntry entry : statementEntries) {
                     // Draw the current row
                     drawTableRow(contentStream, new String[]{
@@ -313,31 +273,23 @@ public class AnnualStatementService {
                             String.format("%.2f", entry.getAmountPayable())
                     }, columnWidths, margin, yPosition);
 
-                    /**
-                     * Draw horizontal line for each row
-                     */
+                    //Draw horizontal line for each row
                     yPosition -= rowHeight;
                     drawHorizontalLine(contentStream, margin, yPosition, tableWidth);
 
                 }
 
-                /**
-                 * Space before totals
-                 */
+                //Space before totals
                 yPosition -= rowHeight;
 
-                /**
-                 * Draw the totals
-                 */
+                //Draw the totals
                 drawTableRow(contentStream, new String[]{"Total Cost", "", String.format("%.2f", annualStatement.getTotalCost())}, columnWidths, margin, yPosition);
                 yPosition -= rowHeight;
                 drawTableRow(contentStream, new String[]{"Total Prepayments", "", String.format("%.2f", annualStatement.getTotalPrepayments())}, columnWidths, margin, yPosition);
                 yPosition -= rowHeight;
                 drawTableRow(contentStream, new String[]{"Difference", "", String.format("%.2f", annualStatement.getDifference())}, columnWidths, margin, yPosition);
 
-                /**
-                 * Draw horizontal line below totals
-                 */
+                //Draw horizontal line below totals
                 drawHorizontalLine(contentStream, margin, yPosition - 5, tableWidth);
 
                 contentStream.close(); // Close the final content stream
@@ -346,15 +298,11 @@ public class AnnualStatementService {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             document.save(out);
 
-            /**
-             * Save the PDF to the file system
-             */
+            //Save the PDF to the file system
             Path pdfPath = Paths.get("AnnualStatement_" + annualStatementId + ".pdf");
             Files.write(pdfPath, out.toByteArray());
 
-            /**
-             * Convert the PDF to a Base64 string with annotation
-             */
+            //Convert the PDF to a Base64 string with annotation
             return "data:application/pdf;base64," + Base64.getEncoder().encodeToString(out.toByteArray());
         }
     }
@@ -385,7 +333,7 @@ public class AnnualStatementService {
 
     /**
      * Helper method to draw a single table row
-      */
+     */
     private void drawTableRow(PDPageContentStream contentStream, String[] values, float[] columnWidths, float margin, float yPosition) throws IOException {
         contentStream.setFont(PDType1Font.HELVETICA, 12);
         float xPosition = margin;
@@ -399,9 +347,3 @@ public class AnnualStatementService {
     }
 
 }
-/**
- * End
- *
- * @author 1 GitHub Copilot
- * @author 2 Zohal Mohammadi, Moritz Baur
- */

@@ -1,7 +1,6 @@
 /**
- * Start
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
  */
 
 package endpoint;
@@ -13,6 +12,7 @@ package endpoint;
  * Class Definition:
  * ApartmentEndpoint: The class that defines the REST endpoint.
  */
+
 import entity.Apartment;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -129,9 +129,3 @@ public class ApartmentEndpoint {
         return Response.noContent().build();
     }
 }
-
-/**
- * End
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
- */

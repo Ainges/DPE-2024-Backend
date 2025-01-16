@@ -1,3 +1,7 @@
+/**
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
+ */
 package service;
 
 import entity.*;
@@ -57,9 +61,7 @@ public class CreateStatementEntryService {
                 }
                 amountPerUnit = invoiceCategorySum / divisor;
 
-                /**
-                 *    Round for two decimal places
-                 */
+                //Round for two decimal places
                 amountPayable = Math.round(amountPerUnit * currentRentalAgreement.getApartment().getAreaInM2() * 100.0) / 100.0f;
                 statementEntries.add(createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 break;
@@ -69,9 +71,7 @@ public class CreateStatementEntryService {
                 }
                 amountPerUnit = invoiceCategorySum / divisor;
 
-                /**
-                 *    Round for two decimal places
-                 */
+                //Round for two decimal places
                 amountPayable = Math.round(amountPerUnit * currentRentalAgreement.getTenants().size() * 100.0) / 100.0f;
                 statementEntries.add(createStatementEntry(amountPayable, currentRentalAgreement.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 break;
@@ -93,7 +93,7 @@ public class CreateStatementEntryService {
      *
      * @param rentalAgreements the list of rental agreements to process
      */
-    public List<StatementEntry> divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements,List<RentalAgreement> allRentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) throws ParseException {
+    public List<StatementEntry> divideInvoiceCategorySumMidYear(List<RentalAgreement> rentalAgreements, List<RentalAgreement> allRentalAgreements, HousingObject housingObject, String distributionKey, float invoiceCategorySum, String invoiceCategoryName, String annualStatementPeriod) throws ParseException {
 
         float amountPerUnit = 0.0f;
         float divisor = 0.0f;
@@ -117,18 +117,13 @@ public class CreateStatementEntryService {
                 //Amount per m²
                 amountPerUnit = invoiceCategorySum / divisor;
 
-                /**
-                 * Amount for apartment with tenant change per day, round for two decimal places
-                 */
+                //Amount for apartment with tenant change per day, round for two decimal places
                 amountPayable = Math.round((amountPerUnit * apartmentWithTenantChange.getAreaInM2()) / 365 * 100.0) / 100.0f;
 
                 for (RentalAgreement ra : rentalAgreements) {
 
 
-                    /**
-                     * Calculate the number of days payable for the rental agreement within the annual statement period
-                     */
-
+                    //Calculate the number of days payable for the rental agreement within the annual statement period
                     Date rentalStartDate = ra.getStartDate();
                     Date rentalEndDate = ra.getEndDate();
 
@@ -140,15 +135,12 @@ public class CreateStatementEntryService {
                         periodEnd = rentalEndDate;
                     }
                     // Calculate the number of days payable for the rental agreement within the annual statement period
-
                     float daysPayable = Duration.between(
                             periodStart.toInstant(),
                             periodEnd.toInstant()
                     ).toDays();
 
-                    /**
-                     * amountPayable = amount per day * area * number of days
-                     */
+                    //amountPayable = amount per day * area * number of days
                     statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 }
                 break;
@@ -157,22 +149,15 @@ public class CreateStatementEntryService {
                     divisor += ra.getTenants().size();
                 }
 
-                /**
-                 * Amount per tenant
-                 */
+                //Amount per tenant
                 amountPerUnit = invoiceCategorySum / divisor;
 
-                /**
-                 * Amount for apartment with tenant change per day, round for two decimal places
-                 */
+                //Amount for apartment with tenant change per day, round for two decimal places
                 amountPayable = Math.round(amountPerUnit / 365 * 100.0) / 100.0f;
 
                 for (RentalAgreement ra : rentalAgreements) {
 
-                    /**
-                     * Calculate the number of days payable for the rental agreement within the annual statement period
-                     */
-
+                    //Calculate the number of days payable for the rental agreement within the annual statement period
                     Date rentalStartDate = ra.getStartDate();
                     Date rentalEndDate = ra.getEndDate();
 
@@ -183,16 +168,14 @@ public class CreateStatementEntryService {
                     if ((rentalEndDate != null) && rentalEndDate.after(periodStart) && rentalEndDate.before(periodEnd)) {
                         periodEnd = rentalEndDate;
                     }
-                    // Calculate the number of days payable for the rental agreement within the annual statement period
 
+                    // Calculate the number of days payable for the rental agreement within the annual statement period
                     float daysPayable = Duration.between(
                             periodStart.toInstant(),
                             periodEnd.toInstant()
                     ).toDays();
 
-                    /**
-                     * amountPayable = amount per day * number of tenants * number of days
-                     */
+                    //amountPayable = amount per day * number of tenants * number of days
                     statementEntries.add(createStatementEntry(amountPayable * ra.getTenants().size() * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 }
 
@@ -200,23 +183,16 @@ public class CreateStatementEntryService {
             case "Apartments":
                 divisor = apartments.size();
 
-                /**
-                 * Amount per apartment
-                 */
+                //Amount per apartment
                 amountPerUnit = invoiceCategorySum / divisor;
 
-                /**
-                 * Amount for apartment with tenant change per day, round for two decimal places
-                 */
+                //Amount for apartment with tenant change per day, round for two decimal places
                 amountPayable = Math.round(amountPerUnit / 365 * 100.0) / 100.0f;
 
                 for (RentalAgreement ra : rentalAgreements) {
 
 
-                    /**
-                     * Calculate the number of days payable for the rental agreement within the annual statement period
-                     */
-
+                    //Calculate the number of days payable for the rental agreement within the annual statement period
                     Date rentalStartDate = ra.getStartDate();
                     Date rentalEndDate = ra.getEndDate();
 
@@ -227,15 +203,14 @@ public class CreateStatementEntryService {
                     if ((rentalEndDate != null) && rentalEndDate.after(periodStart) && rentalEndDate.before(periodEnd)) {
                         periodEnd = rentalEndDate;
                     }
+
                     // Calculate the number of days payable for the rental agreement within the annual statement period
                     float daysPayable = Duration.between(
                             periodStart.toInstant(),
                             periodEnd.toInstant()
                     ).toDays();
 
-                    /**
-                     * amountPayable = amount per day * number of days
-                     */
+                    //amountPayable = amount per day * number of days
                     statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
                 }
 
@@ -260,10 +235,3 @@ public class CreateStatementEntryService {
         return statementEntry;
     }
 }
-
-/**
- * End
- *
- * @author 1 Moritz Baur
- * @author 2 GitHub Copilot
- */

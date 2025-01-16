@@ -1,10 +1,7 @@
 /**
- * Start
- *
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
+ * @author 1 Moritz Baur
+ * @author 2 GitHub Copilot
  */
-
 package dto;
 
 import entity.HousingObject;
@@ -123,8 +120,3 @@ public class CreateStatementEntryServiceDTO {
         this.annualStatementPeriod = annualStatementPeriod;
     }
 }
-/**
- * End
- * @author 1 GitHub Copilot
- * @author 2 Moritz Baur
- */
