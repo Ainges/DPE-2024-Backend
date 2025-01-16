@@ -142,6 +142,9 @@ public class CreateStatementEntryService {
 
                     //amountPayable = amount per day * area * number of days
                     statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
+
+                    periodStart = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-01-01");
+                    periodEnd = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-12-31");
                 }
                 break;
             case "Tenants":
@@ -177,6 +180,9 @@ public class CreateStatementEntryService {
 
                     //amountPayable = amount per day * number of tenants * number of days
                     statementEntries.add(createStatementEntry(amountPayable * ra.getTenants().size() * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
+
+                    periodStart = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-01-01");
+                    periodEnd = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-12-31");
                 }
 
                 break;
@@ -212,6 +218,9 @@ public class CreateStatementEntryService {
 
                     //amountPayable = amount per day * number of days
                     statementEntries.add(createStatementEntry(amountPayable * daysPayable, ra.getRentalAgreementId(), invoiceCategoryName, invoiceCategorySum, distributionKey, annualStatementPeriod));
+
+                    periodStart = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-01-01");
+                    periodEnd = new SimpleDateFormat("yyyy-MM-dd").parse(annualStatementPeriod + "-12-31");
                 }
 
                 break;
